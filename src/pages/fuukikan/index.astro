@@ -1,0 +1,574 @@
+---
+import { ClientRouter } from 'astro:transitions';
+ 
+const IMG_BASE = "https://raw.githubusercontent.com/Chasel1103/TRPG-Images/main";
+
+// 這裡之後可以換成從資料檔讀取
+const script = {
+  title: '桔梗館的某夜',
+  info: {
+    人數: '4人',
+    形式: '常規',
+    LOST率: '低',
+  },
+  tags: ['#我愛爬山.jpg', '#洋館密室探索'],
+  isBright: false,
+  summary:` 
+    某日登山的歸途，於山中迷路的探索者們闖入了一片桔梗花海，正誇耀著這片美麗絢爛的光景時，眼前出現的是一棟氣派的洋館。
+    將事情經過告訴館主人後，他爽快邀請你們留宿一宿。
+    但是，在那裡隱藏著某個恐懼的秘密。
+
+    就是探索者是否能在那祕密的暴走之下，平安歸來呢？`,
+  image: `${IMG_BASE}/scene/cover/fuukikan.jpg`, // ※圖片路徑
+  vtName: 'card-fuukikan',       // 要與index.astro裡的--vt-name一致
+  pcs: [
+    { name: '西條 遙香', color:'#749F8D', avatar: `${IMG_BASE}/Characters/Saijo/normal.png`, bio: `既靜眠山事件後再次嘗試與好友前來爬山，結果又出事了。` },
+    { name: '泉 夕希', color:'#BC2D29', avatar: `${IMG_BASE}/Characters/Izumi/normal.png`, bio: '既靜眠山事件後再次嘗試邀請好友前來爬山，結果又出事了。' },
+    { name: '伊萊亞斯．諾德海姆', color:'#7DB9DE', avatar: `${IMG_BASE}/Characters/Elias/normal.png`, bio: '神秘北歐帥哥，Sig可愛(很明顯這個人並不知道角色介紹該寫什麼好)。' },
+    { name: '?? ??', color:'#FBFBF6', avatar: `${IMG_BASE}/Characters/chiyuki/normal.png`, bio: `■■■■■■■■■■■■
+    ■■■■■■■■
+    ■■■■
+    ■■■■■■■■■■■■■■■■■■■■■` },
+  ],
+};
+---
+ 
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>{script.title}</title>
+  <ClientRouter />
+</head>
+ 
+<style>
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  @font-face {
+    font-family: 'WanMin';
+    src: url('/fonts/GenWanMin2TW-M.otf') format('opentype');
+    font-weight: 400;
+    font-display: block;
+  }
+ 
+  body {
+    background: #0a0810;
+    color: white;
+    font-family: sans-serif;
+    /* 移除 height: 100vh 和 overflow: hidden，讓頁面可以捲動 */
+    min-height: 100vh;
+    display: block; 
+  }
+
+  /* 封面區：強制佔滿一整個螢幕高度 */
+  .hero-section {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  /* 目錄區：客製化內容放置處 */
+  .custom-catalog-section {
+    min-height: 100vh; /* 也可以設為 100vh，讓每個區塊都像一頁 */
+    padding: 4rem 3rem;
+    background: #0d0b16; /* 稍微深一點的顏色做區隔 */
+  }
+
+  .catalog-title {
+    font-family: 'WanMin', serif;
+    font-size: 24px;
+    -webkit-text-stroke: 0.5px rgba(255,255,255,0.6);
+    margin-bottom: 2rem;
+    letter-spacing: 0.2em;
+    text-align: center;
+  }
+ 
+  /* ==============================
+     上方資訊列 (2)
+  ============================== */
+  .info-bar {
+    flex: 0 0 10vh;
+    display: flex;
+    align-items: center;
+    padding: 0 3rem;
+    gap: 3rem;
+    border-bottom: 0.5px solid rgba(255,255,255,0.08);
+  }
+ 
+  .info-bar__back {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    transition: color 0.2s;
+    flex-shrink: 0;
+  }
+  .info-bar__back:hover { color: rgba(255,255,255,0.7); }
+ 
+  .info-bar__divider {
+    width: 0.5px;
+    height: 1.2rem;
+    background: rgba(255,255,255,0.12);
+    flex-shrink: 0;
+  }
+ 
+  .info-bar__item {
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+ 
+  .info-bar__item span {
+    color: rgba(255,255,255,0.7);
+    margin-left: 0.5rem;
+  }
+ 
+  .info-bar__tags {
+    display: flex;
+    gap: 1rem;
+    margin-left: auto;
+  }
+ 
+  .info-bar__tag {
+    font-size: 10px;
+    color: rgba(255,255,255,0.28);
+    letter-spacing: 0.04em;
+  }
+ 
+  /* ==============================
+     下方主體 (8)
+  ============================== */
+  .main-body {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+  }
+ 
+  /* 左側：圖片區 */
+  .main-body__image {
+    position: relative;
+    overflow: hidden;
+    /* View Transition：對應首頁卡片的--vt-name */
+    view-transition-name: var(--vt-name-var);
+  }
+
+  .main-body__image.is-bright::after {
+    content: '';
+    position: absolute;
+    inset: 0; /* 佔滿整個圖片區域 */
+    
+    /* 這裡設定遮罩顏色與透明度 (0.4 代表 40% 黑) */
+    background: rgba(0, 0, 0, 0.4); 
+    
+    /* 也可以使用漸層，讓底部稍微暗一點，增加層次感 */
+    /* background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 100%); */
+    
+    z-index: 1; /* 確保在 img 上方 */
+    pointer-events: none; /* 確保滑鼠事件能穿透到圖片 */
+    transition: background 0.3s; /* 增加一點淡入淡出效果 */
+  }
+ 
+  .main-body__image img {
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+ 
+  /* 圖片佔位色塊（還沒有圖片時顯示） */
+  .main-body__image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: #100e1a;
+    border-right: 0.5px solid rgba(255,255,255,0.06);
+  }
+ 
+  /* 右側：內容區 */
+  .main-body__content {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+ 
+  /* 分頁容器 */
+  .tab-container {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+  }
+ 
+  /* 兩頁並排，用translate切換 */
+  .tab-track {
+    display: flex;
+    width: 200%;
+    height: 100%;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .tab-track.show-pc {
+    transform: translateX(-50%);
+  }
+ 
+  .tab-page {
+    width: 50%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 3rem 3rem 2rem;
+    flex-shrink: 0;
+  }
+ 
+  /* 劇本介紹頁 */
+  .summary__title {
+    font-family: 'WanMin', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 0.12em;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+ 
+  .summary__text {
+    font-size: 14px;
+    line-height: 2;
+    color: rgba(255,255,255,0.65);
+    text-align: center;
+    white-space: pre-line;
+  }
+ 
+  /* PC介紹頁 */
+  .pc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+ 
+  .pc-item {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 1rem;
+    align-items: start;
+  }
+ 
+  .pc-item__avatar {
+    width: 52px;
+    height: 52px;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    background: #1a1828;
+    border: 0.5px solid rgba(255,255,255,0.1);
+  }
+ 
+  .pc-item__avatar-placeholder {
+    width: 150px;
+    height: 150px;
+    background: #1a1828;
+    border: 0.5px solid rgba(255,255,255,0.1);
+  }
+ 
+  .pc-item__name {
+    font-size: 20px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.8);
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+  }
+ 
+  .pc-item__bio {
+    font-size: 13px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.45);
+    white-space: pre-line;
+  }
+ 
+  /* 底部切換按鈕 */
+  .tab-switcher {
+    flex-shrink: 0;
+    padding: 1rem 3rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-top: 0.5px solid rgba(255,255,255,0.06);
+  }
+ 
+  .tab-btn {
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.3);
+    background: none;
+    border: 0.5px solid rgba(255,255,255,0.12);
+    padding: 6px 16px;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .tab-btn:hover {
+    color: rgba(255,255,255,0.7);
+    border-color: rgba(255,255,255,0.3);
+  }
+  .tab-btn.active {
+    color: rgba(255,255,255,0.85);
+    border-color: rgba(255,255,255,0.4);
+  }
+
+  .menu-container {
+    text-align: center;
+    color: #ffffff;
+    padding: 20px 0;
+  }
+
+  /* 類別之間的大分段空白 */
+  .menu-group {
+      margin-bottom: 50px;
+  }
+
+  /* 較大的標題字 */
+  .menu-category {
+      font-size: 18px;
+      font-family: 'WanMin', serif;
+      margin: 0 auto 10px;
+      font-weight: bold;
+  }
+
+  /* 40% 長度的橫線裝飾 */
+  .menu-divider {
+      width: 40%;
+      height: 1px;
+      background-color: rgba(255, 255, 255, 0.5);
+      margin: 0 auto 20px; /* 置中並給予下方間距 */
+  }
+
+  /* 餐點名稱列表 */
+  .menu-items {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+  }
+
+  /* 可點擊的餐品連結 */
+  .menu-link {
+    position: relative;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.8);
+    display: inline-block;
+    padding: 5px 10px;
+    transition: color 0.3s ease;
+  }
+
+  .menu-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: 100%;
+    margin-left: -40px;
+    width: 60px;
+    height: 25px;
+    
+    /* 紅色手寫感筆跡 */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 50'%3E%3Cpath d='M10,15 L10,40 M5,22 L15,22 M20,38 Q25,25 30,30 Q33,35 37,32 Q40,30 43,35 Q46,40 50,37 Q53,35 56,38 L60,35 Q65,28 68,30 Q70,32 68,38 L72,41 Q78,41 85,38' fill='none' stroke='%23ff0000' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    
+    /* 初始狀態：寬度為 0 (隱藏) */
+    width: 0;
+    opacity: 0;
+    transition: width 0.4s ease-out, opacity 0.2s;
+    pointer-events: none;
+}
+
+  .menu-link:hover {
+      color: #ffffff;
+      text-decoration: none;
+  }
+  
+  .menu-link:hover::after {
+    width: 60px;    /* 展開筆跡寬度 */
+    opacity: 1;
+  }
+
+  /* 頁尾文字 */
+  .menu-footer {
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 12px;
+      margin-top: 40px;
+  }
+
+</style>
+ 
+<body>
+
+<section class="hero-section">
+
+        <!-- 上方資訊列 -->
+  <header class="info-bar">
+    <a class="info-bar__back" href="/">← 返回目錄</a>
+    <div class="info-bar__divider"></div>
+    {Object.entries(script.info).map(([key, val]) => (
+      <div class="info-bar__item">{key}<span>{val}</span></div>
+    ))}
+    <div class="info-bar__tags">
+      {script.tags.map(tag => (
+        <span class="info-bar__tag">{tag}</span>
+      ))}
+    </div>
+  </header>
+ 
+  <!-- 下方主體 -->
+  <div class="main-body">
+ 
+    <!-- 左側：圖片 -->
+    <div class={`main-body__image ${script.isBright ? 'is-bright' : ''}`} style={`--vt-name-var: ${script.vtName}`}>
+      {script.image ? (
+        <img src={script.image} alt={script.title} style="object-position: top;"/>
+      ) : (
+        <div class="main-body__image-placeholder"></div>
+      )}
+    </div>
+ 
+    <!-- 右側：分頁內容 -->
+    <div class="main-body__content">
+ 
+      <div class="tab-container">
+        <div class="tab-track" id="tabTrack">
+ 
+          <!-- 第一頁：劇本介紹 -->
+          <div class="tab-page">
+            <div class="summary__title">{script.title}</div>
+            <div class="summary__text">{script.summary}</div>
+          </div>
+ 
+          <!-- 第二頁：PC介紹 -->
+          <div class="tab-page">
+            <div class="pc-list">
+              {script.pcs.map(pc => (
+                <div class="pc-item">
+                  <div class="pc-item__avatar-placeholder">
+                    <img 
+                      src={pc.avatar} 
+                      alt={pc.name}
+                      style="width: 100%; height: 100%; object-fit: cover;"
+                    />
+                  </div>
+                  <div>
+                    <div 
+                      class="pc-item__name" 
+                      style={{ color: pc.color.replace(';', '') }}
+                    >
+                      {pc.name}
+                    </div>
+                    <div class="pc-item__bio">{pc.bio}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+ 
+        </div>
+      </div>
+ 
+      <!-- 切換按鈕 -->
+      <div class="tab-switcher">
+        <button class="tab-btn active" id="btnSummary">劇本介紹</button>
+        <button class="tab-btn" id="btnPc">登場PC</button>
+      </div>
+ 
+    </div>
+  </div>
+
+</section>
+
+<section class="custom-catalog-section" id="story-catalog">
+    <h2 class="catalog-title">⛾ Chef’s Selection</h2>
+    
+    <div class="menu-container">
+        <div class="menu-group">
+            <h3 class="menu-category">Aperitif 餐前酒</h3>
+            <div class="menu-divider"></div>
+            <div class="menu-items">
+                <a href="/fuukikan/ch1-1" class="menu-link">Beaujolais 博若萊</a>
+                <a href="/fuukikan/ch1-2" class="menu-link">Pinot Noir 黑皮諾</a>
+            </div>
+        </div>
+
+        <div class="menu-group">
+            <h3 class="menu-category">Appetizer 開胃菜</h3>
+            <div class="menu-divider"></div>
+            <div class="menu-items">
+                <a href="/fuukikan/ch2-1" class="menu-link">Ceviche 魚介酸橘汁醃</a>
+                <a href="/fuukikan/ch2-2" class="menu-link">Shrimp Cocktail 雞尾酒蝦</a>
+                <a href="/fuukikan/ch2-3" class="menu-link">Tuna Tartare with Avocado 酪梨鮪魚塔塔</a>
+            </div>
+        </div>
+
+        <div class="menu-group">
+            <h3 class="menu-category">Potage 湯品</h3>
+            <div class="menu-divider"></div>
+            <div class="menu-items">
+                <a href="/fuukikan/ch3" class="menu-link">Spanish Gazpacho 西班牙冷湯</a>
+            </div>
+        </div>
+
+        <div class="menu-group">
+            <h3 class="menu-category">Main Course 主菜</h3>
+            <div class="menu-divider"></div>
+            <div class="menu-items">
+                <a href="/fuukikan/ch4" class="menu-link">Lobster Tail with Garlic and Lemon Oil 蒜香檸檬龍蝦尾</a>
+            </div>
+        </div>
+
+        <div class="menu-group">
+            <h3 class="menu-category">Digestif 餐後酒</h3>
+            <div class="menu-divider"></div>
+            <div class="menu-items">
+                <a href="/fuukikan/ch5" class="menu-link">St-Germain Elderflower Liqueur 接骨木花利口酒</a>
+            </div>
+        </div>
+
+        <div class="menu-group">
+            <h3 class="menu-category">Dessert 甜品</h3>
+            <div class="menu-divider"></div>
+            <div class="menu-items">
+                <a href="/fuukikan/ch6" class="menu-link">Yuzu Panna Cotta 柚子奶凍</a>
+            </div>
+        </div>
+        
+    </div>
+</section>
+ 
+</body>
+ 
+<script>
+  // 監聽 astro:page-load 事件，確保每次切換頁面後都會重新執行
+  document.addEventListener('astro:page-load', () => {
+    const track = document.getElementById('tabTrack');
+    const btnSummary = document.getElementById('btnSummary');
+    const btnPc = document.getElementById('btnPc');
+
+    if (btnSummary && btnPc && track) {
+        // 加上安全檢查，確保這頁真的有這些按鈕才執行
+        btnSummary.addEventListener('click', () => {
+            track.classList.remove('show-pc');
+            btnSummary.classList.add('active');
+            btnPc.classList.remove('active');
+        });
+
+        btnPc.addEventListener('click', () => {
+            track.classList.add('show-pc');
+            btnPc.classList.add('active');
+            btnSummary.classList.remove('active');
+        });
+    }
+  });
+</script>
+ 
+</html>

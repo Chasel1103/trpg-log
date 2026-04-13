@@ -1,0 +1,451 @@
+---
+import { ClientRouter } from 'astro:transitions';
+ 
+const IMG_BASE = "https://raw.githubusercontent.com/Chasel1103/TRPG-Images/main";
+
+// 這裡之後可以換成從資料檔讀取
+const script = {
+  title: '刑事 I 的報告',
+  info: {
+    人數: '1人',
+    形式: 'KPless',
+    LOST率: '低',
+  },
+  tags: ['#KPless', '#一本道'],
+  isBright: true,
+  summary:` 
+    2月27日，凌晨2點。
+    警方接獲報案，當地著名的某位收藏家家中有一本書遭竊，且一名警衛被刀刺傷。
+    幸好警衛僅受輕傷。經查證發現，嫌犯男子過去曾有強盜罪的入獄判決紀錄。
+
+    2月27日，下午。
+    身為刑事警察的探索者，將對這名被指認為犯人的男子進行審訊。`,
+  image: `${IMG_BASE}/scene/cover/keiji.png`, // 之後換成你的圖片路徑
+  vtName: 'card-fuukikan',       // 要與index.astro裡的--vt-name一致
+  pcs: [
+    { name: '砂金 理來', color:'#ff5255;', avatar: '/avatars/tougi.jpg', bio: `K縣警K課 HO1
+    先打點東西` },
+  ],
+};
+---
+ 
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>{script.title}</title>
+  <ClientRouter />
+</head>
+ 
+<style>
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  @font-face {
+    font-family: 'WanMin', serif;
+    src: url('/fonts/GenWanMin2TW-M.otf') format('opentype');
+    font-weight: 400;
+    font-display: block;
+  }
+
+  @font-face {
+    font-family: 'Chen';
+    src: url('/fonts/ChenYuluoyan-2.0-Thin.ttf') format('truetype');
+    font-weight: 400;
+    font-display: block;
+  }
+ 
+  body {
+    background: #0a0810;
+    color: white;
+    font-family: sans-serif;
+    /* 移除 height: 100vh 和 overflow: hidden，讓頁面可以捲動 */
+    min-height: 100vh;
+    display: block; 
+  }
+
+  /* 封面區：強制佔滿一整個螢幕高度 */
+  .hero-section {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  /* 目錄區：客製化內容放置處 */
+  .custom-catalog-section {
+    min-height: 100vh; /* 也可以設為 100vh，讓每個區塊都像一頁 */
+    padding: 4rem 3rem;
+    background: #0d0b16; /* 稍微深一點的顏色做區隔 */
+  }
+
+  .catalog-title {
+    font-family: serif;
+    font-size: 24px;
+    -webkit-text-stroke: 0.5px rgba(255,255,255,0.6);
+    margin-bottom: 2rem;
+    letter-spacing: 0.2em;
+    text-align: center;
+  }
+ 
+  /* ==============================
+     上方資訊列 (2)
+  ============================== */
+  .info-bar {
+    flex: 0 0 10vh;
+    display: flex;
+    align-items: center;
+    padding: 0 3rem;
+    gap: 3rem;
+    border-bottom: 0.5px solid rgba(255,255,255,0.08);
+  }
+ 
+  .info-bar__back {
+    font-size: 13px;
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    transition: color 0.2s;
+    flex-shrink: 0;
+  }
+  .info-bar__back:hover { color: rgba(255,255,255,0.7); }
+ 
+  .info-bar__divider {
+    width: 0.5px;
+    height: 1.2rem;
+    background: rgba(255,255,255,0.12);
+    flex-shrink: 0;
+  }
+ 
+  .info-bar__item {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+ 
+  .info-bar__item span {
+    color: rgba(255,255,255,0.7);
+    margin-left: 0.5rem;
+  }
+ 
+  .info-bar__tags {
+    display: flex;
+    gap: 1rem;
+    margin-left: auto;
+  }
+ 
+  .info-bar__tag {
+    font-size: 13px;
+    color: rgba(255,255,255,0.28);
+    letter-spacing: 0.04em;
+  }
+ 
+  /* ==============================
+     下方主體 (8)
+  ============================== */
+  .main-body {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+  }
+ 
+  /* 左側：圖片區 */
+  .main-body__image {
+    position: relative;
+    overflow: hidden;
+    /* View Transition：對應首頁卡片的--vt-name */
+    view-transition-name: var(--vt-name-var);
+  }
+
+  .main-body__image.is-bright::after {
+    content: '';
+    position: absolute;
+    inset: 0; /* 佔滿整個圖片區域 */
+    
+    /* 這裡設定遮罩顏色與透明度 (0.4 代表 40% 黑) */
+    background: rgba(0, 0, 0, 0.4); 
+    
+    /* 也可以使用漸層，讓底部稍微暗一點，增加層次感 */
+    /* background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 100%); */
+    
+    z-index: 1; /* 確保在 img 上方 */
+    pointer-events: none; /* 確保滑鼠事件能穿透到圖片 */
+    transition: background 0.3s; /* 增加一點淡入淡出效果 */
+  }
+ 
+  .main-body__image img {
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+ 
+  .main-body__image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: #100e1a;
+    border-right: 0.5px solid rgba(255,255,255,0.06);
+  }
+ 
+  /* 右側：內容區 */
+  .main-body__content {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+ 
+  /* 分頁容器 */
+  .tab-container {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+  }
+ 
+  /* 兩頁並排，用translate切換 */
+  .tab-track {
+    display: flex;
+    width: 200%;
+    height: 100%;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .tab-track.show-pc {
+    transform: translateX(-50%);
+  }
+ 
+  .tab-page {
+    width: 50%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 3rem 3rem 2rem;
+    flex-shrink: 0;
+  }
+ 
+  /* 劇本介紹頁 */
+  .summary__title {
+    font-family: 'Chen';
+    font-size: 35px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 0.12em;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+ 
+  .summary__text {
+    font-size: 14px;
+    line-height: 2;
+    color: rgba(255,255,255,0.65);
+    text-align: center;
+    white-space: pre-line;
+  }
+ 
+  /* PC介紹頁 */
+  .pc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+ 
+  .pc-item {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 1rem;
+    align-items: start;
+  }
+ 
+  .pc-item__avatar {
+    width: 52px;
+    height: 52px;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    background: #1a1828;
+    border: 0.5px solid rgba(255,255,255,0.1);
+  }
+ 
+  .pc-item__avatar-placeholder {
+    width: 150px;
+    height: 150px;
+    background: #1a1828;
+    border: 0.5px solid rgba(255,255,255,0.1);
+  }
+ 
+  .pc-item__name {
+    font-size: 20px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.8);
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+ 
+  .pc-item__bio {
+    font-size: 13px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.45);
+  }
+ 
+  /* 底部切換按鈕 */
+  .tab-switcher {
+    flex-shrink: 0;
+    padding: 1rem 3rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-top: 0.5px solid rgba(255,255,255,0.06);
+  }
+ 
+  .tab-btn {
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.3);
+    background: none;
+    border: 0.5px solid rgba(255,255,255,0.12);
+    padding: 6px 16px;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .tab-btn:hover {
+    color: rgba(255,255,255,0.7);
+    border-color: rgba(255,255,255,0.3);
+  }
+  .tab-btn.active {
+    color: rgba(255,255,255,0.85);
+    border-color: rgba(255,255,255,0.4);
+  }
+</style>
+ 
+<body>
+
+<section class="hero-section">
+
+        <!-- 上方資訊列 -->
+  <header class="info-bar">
+    <a class="info-bar__back" href="/">← 返回目錄</a>
+    <div class="info-bar__divider"></div>
+    {Object.entries(script.info).map(([key, val]) => (
+      <div class="info-bar__item">{key}<span>{val}</span></div>
+    ))}
+    <div class="info-bar__tags">
+      {script.tags.map(tag => (
+        <span class="info-bar__tag">{tag}</span>
+      ))}
+    </div>
+  </header>
+ 
+  <!-- 下方主體 -->
+  <div class="main-body">
+ 
+    <!-- 左側：圖片 -->
+    <div class={`main-body__image ${script.isBright ? 'is-bright' : ''}`} style={`--vt-name-var: ${script.vtName}`}>
+      {script.image ? (
+        <img src={script.image} alt={script.title} />
+      ) : (
+        <div class="main-body__image-placeholder"></div>
+      )}
+    </div>
+ 
+    <!-- 右側：分頁內容 -->
+    <div class="main-body__content">
+ 
+      <div class="tab-container">
+        <div class="tab-track" id="tabTrack">
+ 
+          <!-- 第一頁：劇本介紹 -->
+          <div class="tab-page">
+            <div class="summary__title">{script.title}</div>
+            <div class="summary__text">{script.summary}</div>
+          </div>
+ 
+          <!-- 第二頁：PC介紹 -->
+          <div class="tab-page">
+            <div class="pc-list">
+              {script.pcs.map(pc => (
+                <div class="pc-item">
+                  <div class="pc-item__avatar-placeholder">
+                    <img 
+                      src={`${IMG_BASE}/Characters/Isago/normal.png`} 
+                      alt={pc.name}
+                      style="width: 100%; height: 100%; object-fit: cover;"
+                    />
+                  </div>
+                  <div>
+                    {/* 使用 .replace(';', '') 是為了預防資料裡的顏色多了分號導致失效 */}
+                    <div 
+                      class="pc-item__name" 
+                      style={{ color: pc.color.replace(';', '') }}
+                    >
+                      {pc.name}
+                    </div>
+                    <div class="pc-item__bio">{pc.bio}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+ 
+        </div>
+      </div>
+ 
+      <!-- 切換按鈕 -->
+      <div class="tab-switcher">
+        <button class="tab-btn active" id="btnSummary">劇本介紹</button>
+        <button class="tab-btn" id="btnPc">登場PC</button>
+      </div>
+ 
+    </div>
+  </div>
+
+</section>
+
+<section class="custom-catalog-section" id="story-catalog">
+    <h2 class="catalog-title">LOGS / CHAPTERS</h2>
+    
+    <div class="custom-content">
+      <p style="text-align:center; color:rgba(255,255,255,0.3); font-size: 12px;">
+        ── 此處可根據劇本章節進行客製化設計 ──
+
+        <br>
+        <a href="/keiji/ch1">第一章「Q」</a><br>
+        <a href="/keiji/ch2">第二章「E」</a><br>
+        <a href="/keiji/ch3">幕間「D」</a><br>
+        <a href="/keiji/ch4">第三章「.」</a><br>
+
+      </p>
+    </div>
+</section>
+ 
+</body>
+ 
+<script>
+  // 監聽 astro:page-load 事件，確保每次切換頁面後都會重新執行
+  document.addEventListener('astro:page-load', () => {
+    const track = document.getElementById('tabTrack');
+    const btnSummary = document.getElementById('btnSummary');
+    const btnPc = document.getElementById('btnPc');
+
+    if (btnSummary && btnPc && track) {
+        // 加上安全檢查，確保這頁真的有這些按鈕才執行
+        btnSummary.addEventListener('click', () => {
+            track.classList.remove('show-pc');
+            btnSummary.classList.add('active');
+            btnPc.classList.remove('active');
+        });
+
+        btnPc.addEventListener('click', () => {
+            track.classList.add('show-pc');
+            btnPc.classList.add('active');
+            btnSummary.classList.remove('active');
+        });
+    }
+  });
+</script>
+ 
+</html>

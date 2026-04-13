@@ -1,0 +1,743 @@
+---
+import { ClientRouter } from 'astro:transitions';
+
+const IMG_BASE = "https://raw.githubusercontent.com/Chasel1103/TRPG-Images/main";
+---
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>跑團團錄</title>
+  <ClientRouter />
+</head>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: #0a0810;
+    color: white;
+    font-family: sans-serif;
+    overflow-x: hidden;
+  }
+
+  @font-face {
+    font-family: 'WanMin';
+    src: url('/fonts/GenWanMin2TW-M.otf') format('opentype');
+    font-weight: 400;
+    font-display: block;
+  }
+
+  /* ==============================
+     封面區塊
+  ============================== */
+  #cover {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .cover__bg {
+    position: absolute;
+    inset: 0;
+    background-color: #0f0c1a;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+  }
+  .cover__bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(8, 6, 20, 0.55);
+  }
+
+  .cover__bg-deco { position: absolute; inset: 0; z-index: 1; }
+  .cover__bg-deco::before {
+    content: '';
+    position: absolute;
+    top: 20%; left: 10%;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(80,50,120,0.15) 0%, transparent 70%);
+  }
+  .cover__bg-deco::after {
+    content: '';
+    position: absolute;
+    bottom: 15%; right: 8%;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(40,60,100,0.12) 0%, transparent 70%);
+  }
+
+  .cover__title-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .cover__title-line {
+    font-family: 'WanMin', serif;
+    font-size: clamp(120px, 18vw, 220px);
+    font-weight: 400;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(255,255,255,0.85);
+    letter-spacing: 0.05em;
+    line-height: 1;
+    white-space: nowrap;
+    position: absolute;
+  }
+  .cover__title-line--top { top: -0.1em; left: -0.2em; }
+  .cover__title-line--bottom { bottom: -0.1em; right: -0.2em; }
+
+  .cover__card {
+    position: relative;
+    z-index: 3;
+    width: 580px;
+    height: 260px;
+    background: #12080b;
+    border: 0.5px solid rgba(255,255,255,0.12);
+  }
+  .cover__info { position: absolute; top: 1.4rem; left: 1.4rem; z-index: 1; }
+  .cover__info-row { font-size: 13px; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; line-height: 1.7; }
+  .cover__info-tags { margin-top: 4px; font-size: 10.5px; color: rgba(255,255,255,0.28); letter-spacing: 0.04em; line-height: 1.8; }
+  .cover__cast { position: absolute; bottom: 1.4rem; right: 1.4rem; text-align: right; z-index: 1; }
+  .cover__cast-label { font-size: 9px; letter-spacing: 0.14em; color: rgba(255,255,255,0.22); text-transform: uppercase; margin-bottom: 4px; }
+  .cover__cast-names { font-size: 12px; color: rgba(255,255,255,0.55); letter-spacing: 0.08em; line-height: 1.7; }
+
+  /* 輪播 */
+  .carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .carousel__slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    pointer-events: none;
+  }
+  .carousel__slide.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* 控制列：左箭頭 + 指示點 + 右箭頭 */
+  .carousel__controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between; /* 關鍵：讓內容靠兩邊對齊 */
+    padding: 0 2rem; /* 距離邊緣的間距 */
+    z-index: 10;
+    pointer-events: none; /* 防止透明容器擋住中間的點擊 */
+  }
+  .carousel__prev,
+  .carousel__next {
+    background: rgba(0, 0, 0, 0.2); /* 稍微加一點點半透明背景增加可見度 */
+    border: none;
+    color: rgba(255,255,255,0.35);
+    font-size: 24px; /* 調大一點點方便點擊 */
+    cursor: pointer;
+    padding: 20px 10px;
+    transition: all 0.2s;
+    line-height: 1;
+    pointer-events: auto; /* 恢復按鈕可點擊 */
+  }
+
+  .carousel__prev:hover,
+  .carousel__next:hover {
+    color: rgba(255,255,255,1);
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  /* 移除原本指示點的 CSS (可直接刪除或隱藏) */
+  .carousel__dots {
+    display: none;
+  }
+  .carousel__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .carousel__dot.active {
+    background: rgba(255,255,255,0.8);
+  }
+
+  .cover__scroll-btn {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    opacity: 0.4; cursor: pointer; text-decoration: none; transition: opacity 0.2s; z-index: 10;
+  }
+  .cover__scroll-btn:hover { opacity: 0.75; }
+  .cover__scroll-label { font-size: 9px; letter-spacing: 0.14em; color: white; text-transform: uppercase; }
+  .cover__scroll-arrow { display: block; width: 14px; height: 14px; border-right: 1px solid white; border-bottom: 1px solid white; transform: rotate(45deg); }
+
+  /* ==============================
+     目錄區塊
+  ============================== */
+  #catalog {
+    position: relative;
+    width: 100%;
+    padding: 5rem 0 8rem;
+  }
+
+  .entry { margin-bottom: 5rem; }
+
+  .tl-wrap {
+    position: relative;
+    height: 90px;
+    margin-bottom: 0.8rem;
+  }
+  .tl-svg { position: absolute; }
+  .tl-time {
+    font-family: 'WanMin', serif;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: rgba(255,255,255,0.32);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
+  .entry__card-wrap { position: relative; overflow: visible; }
+
+  .entry__card {
+    display: block;
+    text-decoration: none;
+    width: 600px;
+    height: 180px;
+    background: #100e1a;
+    border: 0.5px solid rgba(255,255,255,0.1);
+    position: relative;
+    cursor: pointer;
+    overflow: visible;
+    transition: border-color 0.2s;
+    view-transition-name: var(--vt-name);
+  }
+  .entry__card:hover { border-color: rgba(255,255,255,0.28); }
+
+  .entry__card-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.35;
+    transition: opacity 0.2s;
+    clip-path: inset(0);
+    z-index: 0;
+  }
+  .entry__card:hover .entry__card-bg { opacity: 0.5; }
+
+  .entry__info {
+    position: absolute;
+    top: 10px;
+    left: -180px;
+    width: 160px;
+    text-align: right;
+    z-index: 5;
+  }
+  .entry__info-row { font-size: 10px; color: rgba(255,255,255,0.35); letter-spacing: 0.05em; line-height: 1.8; }
+  .entry__info-tags { margin-top: 4px; font-size: 9.5px; color: rgba(255,255,255,0.2); letter-spacing: 0.03em; line-height: 1.8; }
+
+  .entry__cast {
+    position: absolute;
+    bottom: 10px;
+    right: -180px;
+    width: 160px;
+    text-align: left;
+    z-index: 5;
+  }
+  .entry__cast-names { font-size: 10px; color: rgba(255,255,255,0.38); letter-spacing: 0.06em; line-height: 1.8; }
+
+  .entry__title-wrap {
+    position: absolute;
+    bottom: -12px;
+    left: -10px;
+    white-space: nowrap;
+    z-index: 10;
+  }
+  .entry__title-line {
+    font-family: 'WanMin', serif;
+    font-size: 30px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.82);
+    letter-spacing: 0.08em;
+    line-height: 1.35;
+    transition: color 0.2s;
+  }
+  .entry__card:hover .entry__title-line { color: rgba(255,255,255,1); }
+</style>
+
+<body>
+
+  <section id="cover">
+    <div class="carousel">
+      <div class="carousel__slide active">
+      <!-- 沼男は誰だ -->
+      
+        <div class="cover__bg" style={`background-image: url('${IMG_BASE}/scene/cover/swampman.png')`}></div>
+        <div class="cover__bg-deco"></div>
+        <div class="cover__title-wrap">
+          <div class="cover__title-line cover__title-line--top">沼男は</div>
+          <div class="cover__title-line cover__title-line--bottom">誰だ？</div>
+        </div>
+        <div class="cover__card">
+          <div class="cover__info">
+            <div class="cover__info-row">人數　4人<br>時長　中<br>撕卡率　高</div>
+            <div class="cover__info-tags">#哲學　#半開放探索　#說啥我才不劇透啊</div>
+          </div>
+          <div class="cover__cast">
+            <div class="cover__cast-label">Cast</div>
+            <div class="cover__cast-names">西條 遙香<br>泉 夕希<br>笹島 大地<br>葛城 弘樹</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- K縣警K課 -->
+      <div class="carousel__slide">
+        <div class="cover__bg" style={`background-image: url('${IMG_BASE}/scene/cover/K.png')`}></div>
+        <div class="cover__bg-deco"></div>
+        <div class="cover__title-wrap">
+          <div class="cover__title-line cover__title-line--top">K県警</div>
+          <div class="cover__title-line cover__title-line--bottom">K課</div>
+        </div>
+        <div class="cover__card">
+          <div class="cover__info">
+            <div class="cover__info-row">人數　4人<br>時長　五部曲<br>撕卡率　??</div>
+            <div class="cover__info-tags">#4HO　#無法、外道、不道德！？</div>
+          </div>
+          <div class="cover__cast">
+            <div class="cover__cast-label">Cast</div>
+            <div class="cover__cast-names">砂金 理來<br>久世 真宵<br>龍守 蓮司<br>灰野 悠仁</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 豪華客船怪盜團 -->
+      <div class="carousel__slide">
+        <div class="cover__bg" style={`background-image: url('${IMG_BASE}/scene/cover/phantom-thief.jpg')`}></div>
+        <div class="cover__bg-deco"></div>
+        <div class="cover__title-wrap">
+          <div class="cover__title-line cover__title-line--top">豪華客船</div>
+          <div class="cover__title-line cover__title-line--bottom">怪盜團</div>
+        </div>
+        <div class="cover__card">
+          <div class="cover__info">
+            <div class="cover__info-row">人數　4人<br>時長　短<br>撕卡率　高</div>
+            <div class="cover__info-tags">#TAG下啥好　#還沒有想法捏</div>
+          </div>
+          <div class="cover__cast">
+            <div class="cover__cast-label">Cast</div>
+            <div class="cover__cast-names">冨永 宝<br>歌代 遙<br>青山 幸助<br>七夕 七星</div>
+          </div>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+
+    <!-- 左右箭頭 + 指示點 -->
+    <div class="carousel__controls">
+      <button class="carousel__prev" aria-label="上一張">&#9664;</button>
+      <div class="carousel__dots">
+        <span class="carousel__dot active"></span>
+        <span class="carousel__dot"></span>
+      </div>
+      <button class="carousel__next" aria-label="下一張">&#9654;</button>
+    </div>
+
+    <a class="cover__scroll-btn" href="#catalog" aria-label="前往目錄">
+      <span class="cover__scroll-label">Scroll</span>
+      <span class="cover__scroll-arrow"></span>
+    </a>
+  </section>
+
+  <section id="catalog">
+
+    <!-- 刑事I的報告keiji -->
+    <div class="entry">
+      <div class="tl-wrap">
+        <svg class="tl-svg" style="left: 60%; top: 0;" width="20" height="90" viewBox="0 0 20 90" xmlns="http://www.w3.org/2000/svg">
+          <line x1="10" y1="0"  x2="10" y2="12" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+          <line x1="10" y1="12" x2="10" y2="78" stroke="rgba(255,255,255,0.4)"  stroke-width="3"/>
+          <line x1="10" y1="78" x2="10" y2="90" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+        </svg>
+        <span class="tl-time" style="right: 42%;">2026/04</span>
+      </div>
+      <div class="entry__card-wrap" style="margin-left: 50%; margin-right: 8%;">
+        <a href="/keiji" class="entry__card" style="--vt-name: card-keiji">
+          <div class="entry__card-bg" style={`background-image: url('${IMG_BASE}/scene/cover/keiji.png')`}></div>
+          <div class="entry__info">
+            <div class="entry__info-row">人數　1人<br>時長　短<br>撕卡率　低</div>
+            <div class="entry__info-tags">#單人 #KPless</div>
+          </div>
+          <div class="entry__cast">
+            <div class="entry__cast-names">PC<br>砂金 理來</div>
+          </div>
+          <div class="entry__title-wrap">
+            <div class="entry__title-line">刑事Iの報告</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 在流星消失的那一夜meteor -->
+    <div class="entry">
+      <div class="tl-wrap">
+        <svg class="tl-svg" style="left: 53%; top: 0;" width="20" height="90" viewBox="0 0 20 90" xmlns="http://www.w3.org/2000/svg">
+          <line x1="10" y1="0"  x2="10" y2="12" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+          <line x1="10" y1="12" x2="10" y2="78" stroke="rgba(255,255,255,0.4)"  stroke-width="3"/>
+          <line x1="10" y1="78" x2="10" y2="90" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+        </svg>
+        <span class="tl-time" style="left: 48%;">2026/03</span>
+      </div>
+      <div class="entry__card-wrap" style="margin-left: 25%; margin-right: auto;">
+        <a href="/meteor" class="entry__card" style="--vt-name: card-meteor">
+          <div 
+            class="entry__card-bg" 
+            style={`background-image: url('${IMG_BASE}/scene/cover/meteor.jpg'); background-position: center 25%;`}
+          ></div>
+          <div class="entry__info">
+            <div class="entry__info-row">人數　1人<br>時長　短<br>撕卡率　低</div>
+            <div class="entry__info-tags">#日式恐怖解謎風　#<br>#</div>
+          </div>
+          <div class="entry__cast">
+            <div class="entry__cast-names">PC<br>南城 曉</div>
+          </div>
+          <div class="entry__title-wrap">
+            <div class="entry__title-line">在流星消失的那一夜</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 超額殺戮日overkill -->
+    <div class="entry">
+      <div class="tl-wrap">
+        <svg class="tl-svg" style="left: 44%; top: 0;" width="20" height="90" viewBox="0 0 20 90" xmlns="http://www.w3.org/2000/svg">
+          <line x1="10" y1="0"  x2="10" y2="12" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+          <line x1="10" y1="12" x2="10" y2="78" stroke="rgba(255,255,255,0.4)"  stroke-width="3"/>
+          <line x1="10" y1="78" x2="10" y2="90" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+        </svg>
+        <span class="tl-time" style="left: 39%;">2026/02</span>
+      </div>
+      <div class="entry__card-wrap" style="margin-left: 42%; margin-right: auto;">
+        <a href="/fuukikan" class="entry__card" style="--vt-name: card-fuukikan">
+          <div class="entry__card-bg" style={`background-image: url('${IMG_BASE}/scene/cover/overkill.jpg')`}></div>
+          <div class="entry__info">
+            <div class="entry__info-row">人數　4人<br>時長　短<br>撕卡率　低</div>
+            <div class="entry__info-tags">#日式恐怖解謎風　#R-15<br>#斯德哥爾摩綜合症</div>
+          </div>
+          <div class="entry__cast">
+            <div class="entry__cast-names">PC<br>木村 準和<br>七崎 央<br>鷹司 凜子<br>松原 蒼真</div>
+          </div>
+          <div class="entry__title-wrap">
+            <div class="entry__title-line">超額殺戮日</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 冬來自瘋狂from-madness-2 -->
+    <div class="entry">
+      <div class="tl-wrap">
+        <svg class="tl-svg" style="left: 44%; top: 0;" width="20" height="90" viewBox="0 0 20 90" xmlns="http://www.w3.org/2000/svg">
+          <line x1="10" y1="0"  x2="10" y2="12" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+          <line x1="10" y1="12" x2="10" y2="78" stroke="rgba(255,255,255,0.4)"  stroke-width="3"/>
+          <line x1="10" y1="78" x2="10" y2="90" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+        </svg>
+        <span class="tl-time" style="left: 39%;">2025/11</span>
+      </div>
+      <div class="entry__card-wrap" style="margin-left: 30%; margin-right: auto;">
+        <a href="/ars-magne" class="entry__card" style="--vt-name: card-ars-magne">
+          <div class="entry__card-bg" style={`background-image: url('${IMG_BASE}/covers/from-madness-2.jpg')`}></div>
+          <div class="entry__info">
+            <div class="entry__info-row">人數　1V1<br>時長　中<br>撕卡率　低～中</div>
+            <div class="entry__info-tags">#食人　#R-15<br>#斯德哥爾摩綜合症</div>
+          </div>
+          <div class="entry__cast">
+            <div class="entry__cast-names">PC<br>冬來 宵<br>KPC 諾亞</div>
+          </div>
+          <div class="entry__title-wrap">
+            <div class="entry__title-line">自瘋狂獻給親愛的怪物</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 桔梗館的某夜fuukikan -->
+    <div class="entry">
+      <div class="tl-wrap">
+        <svg class="tl-svg" style="left: 33%; top: 0;" width="20" height="90" viewBox="0 0 20 90" xmlns="http://www.w3.org/2000/svg">
+          <line x1="10" y1="0"  x2="10" y2="12" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+          <line x1="10" y1="12" x2="10" y2="78" stroke="rgba(255,255,255,0.4)"  stroke-width="3"/>
+          <line x1="10" y1="78" x2="10" y2="90" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+        </svg>
+        <span class="tl-time" style="left: 35%;">2025/09</span>
+      </div>
+      <div class="entry__card-wrap" style="margin-left: 15%; margin-right: auto;">
+        <a href="/fuukikan" class="entry__card" style="--vt-name: card-fuukikan">
+          <div class="entry__card-bg" style={`background-image: url('${IMG_BASE}/scene/cover/fuukikan.jpg')`}></div>
+          <div class="entry__info">
+            <div class="entry__info-row">人數　1V1<br>時長　中<br>撕卡率　低～中</div>
+            <div class="entry__info-tags">#食人　#R-15<br>#斯德哥爾摩綜合症</div>
+          </div>
+          <div class="entry__cast">
+            <div class="entry__cast-names">PC<br>西條 遙香<br>泉 夕希<br>伊萊亞斯．諾德海姆<br>■■■■</div>
+          </div>
+          <div class="entry__title-wrap">
+            <div class="entry__title-line">桔梗館的某夜</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 凍湖touko -->
+    <div class="entry">
+      <div class="tl-wrap">
+        <svg class="tl-svg" style="left: 44%; top: 0;" width="20" height="90" viewBox="0 0 20 90" xmlns="http://www.w3.org/2000/svg">
+          <line x1="10" y1="0"  x2="10" y2="12" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+          <line x1="10" y1="12" x2="10" y2="78" stroke="rgba(255,255,255,0.4)"  stroke-width="3"/>
+          <line x1="10" y1="78" x2="10" y2="90" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+        </svg>
+        <span class="tl-time" style="left: 39%;">2025/09</span>
+      </div>
+      <div class="entry__card-wrap" style="margin-left: 38%; margin-right: auto;">
+        <a href="/ars-magne" class="entry__card" style="--vt-name: card-ars-magne">
+          <div class="entry__card-bg" style={`background-image: url('${IMG_BASE}/covers/touko.jpg')`}></div>
+          <div class="entry__info">
+            <div class="entry__info-row">人數　1V1<br>時長　中<br>撕卡率　低～中</div>
+            <div class="entry__info-tags">#食人　#R-15<br>#斯德哥爾摩綜合症</div>
+          </div>
+          <div class="entry__cast">
+            <div class="entry__cast-names">PC<br>三門 青司<br>鯨井 咲<br>栗 良</div>
+          </div>
+          <div class="entry__title-wrap">
+            <div class="entry__title-line">凍湖で窮む呪草</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 藤原自瘋狂from-madness-1 -->
+    <div class="entry">
+      <div class="tl-wrap">
+        <svg class="tl-svg" style="left: 44%; top: 0;" width="20" height="90" viewBox="0 0 20 90" xmlns="http://www.w3.org/2000/svg">
+          <line x1="10" y1="0"  x2="10" y2="12" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+          <line x1="10" y1="12" x2="10" y2="78" stroke="rgba(255,255,255,0.4)"  stroke-width="3"/>
+          <line x1="10" y1="78" x2="10" y2="90" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+        </svg>
+        <span class="tl-time" style="left: 39%;">2025/08</span>
+      </div>
+      <div class="entry__card-wrap" style="margin-left: 42%; margin-right: auto;">
+        <a href="/ars-magne" class="entry__card" style="--vt-name: card-ars-magne">
+          <div class="entry__card-bg" style={`background-image: url('${IMG_BASE}/covers/from-madness-1.jpg')`}></div>
+          <div class="entry__info">
+            <div class="entry__info-row">人數　1V1<br>時長　中<br>撕卡率　低～中</div>
+            <div class="entry__info-tags">#食人　#R-15<br>#斯德哥爾摩綜合症</div>
+          </div>
+          <div class="entry__cast">
+            <div class="entry__cast-names">PC<br>藤原 浩二<br>KPC 諾亞</div>
+          </div>
+          <div class="entry__title-wrap">
+            <div class="entry__title-line">自瘋狂獻給親愛的怪物</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- ars-manga -->
+    <div class="entry">
+      <div class="tl-wrap">
+        <svg class="tl-svg" style="left: 44%; top: 0;" width="20" height="90" viewBox="0 0 20 90" xmlns="http://www.w3.org/2000/svg">
+          <line x1="10" y1="0"  x2="10" y2="12" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+          <line x1="10" y1="12" x2="10" y2="78" stroke="rgba(255,255,255,0.4)"  stroke-width="3"/>
+          <line x1="10" y1="78" x2="10" y2="90" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+        </svg>
+        <span class="tl-time" style="left: 39%;">2025/06</span>
+      </div>
+      <div class="entry__card-wrap" style="margin-left: 42%; margin-right: auto;">
+        <a href="/ars-magne" class="entry__card" style="--vt-name: card-ars-magne">
+          <div class="entry__card-bg" style={`background-image: url('${IMG_BASE}/covers/ars-manga.jpg')`}></div>
+          <div class="entry__info">
+            <div class="entry__info-row">人數　1人×4<br>時長　短<br>撕卡率　低</div>
+            <div class="entry__info-tags">#食人　#R-15<br>#斯德哥爾摩綜合症</div>
+          </div>
+          <div class="entry__cast">
+            <div class="entry__cast-names">PC<br>三谷 里矢  <br>凱瑟琳．伊夫林<br>神谷 秀彥<br>莉艾．夏普</div>
+          </div>
+          <div class="entry__title-wrap">
+            <div class="entry__title-line">ARS MANGA</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- u -->
+    <div class="entry">
+      <div class="tl-wrap">
+        <svg class="tl-svg" style="left: 44%; top: 0;" width="20" height="90" viewBox="0 0 20 90" xmlns="http://www.w3.org/2000/svg">
+          <line x1="10" y1="0"  x2="10" y2="12" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+          <line x1="10" y1="12" x2="10" y2="78" stroke="rgba(255,255,255,0.4)"  stroke-width="3"/>
+          <line x1="10" y1="78" x2="10" y2="90" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+        </svg>
+        <span class="tl-time" style="left: 39%;">2025/06</span>
+      </div>
+      <div class="entry__card-wrap" style="margin-left: 42%; margin-right: auto;">
+        <a href="/ars-magne" class="entry__card" style="--vt-name: card-ars-magne">
+          <div class="entry__card-bg" style={`background-image: url('${IMG_BASE}/covers/ars-manga.jpg')`}></div>
+          <div class="entry__info">
+            <div class="entry__info-row">人數　3人<br>時長　中<br>撕卡率　低</div>
+            <div class="entry__info-tags">#食人　#R-15<br>#斯德哥爾摩綜合症</div>
+          </div>
+          <div class="entry__cast">
+            <div class="entry__cast-names">PC<br>柳田 花鳥<br>紫原 真希<br>麻生 早繪</div>
+          </div>
+          <div class="entry__title-wrap">
+            <div class="entry__title-line">U、抑或是</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 不要叫醒沉睡的貓nemu-neko -->
+    <div class="entry">
+      <div class="tl-wrap">
+        <svg class="tl-svg" style="left: 44%; top: 0;" width="20" height="90" viewBox="0 0 20 90" xmlns="http://www.w3.org/2000/svg">
+          <line x1="10" y1="0"  x2="10" y2="12" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+          <line x1="10" y1="12" x2="10" y2="78" stroke="rgba(255,255,255,0.4)"  stroke-width="3"/>
+          <line x1="10" y1="78" x2="10" y2="90" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+        </svg>
+        <span class="tl-time" style="left: 39%;">2025/05</span>
+      </div>
+      <div class="entry__card-wrap" style="margin-left: 42%; margin-right: auto;">
+        <a href="/ars-magne" class="entry__card" style="--vt-name: card-ars-magne">
+          <div class="entry__card-bg" style={`background-image: url('${IMG_BASE}/covers/nemu-neko.jpg')`}></div>
+          <div class="entry__info">
+            <div class="entry__info-row">人數　4人<br>時長　短<br>撕卡率　低</div>
+            <div class="entry__info-tags">#食人　#R-15<br>#斯德哥爾摩綜合症</div>
+          </div>
+          <div class="entry__cast">
+            <div class="entry__cast-names">PC<br>三門 青司<br>西條 遙香<br>泉 夕希<br>野野瀨 萌夏</div>
+          </div>
+          <div class="entry__title-wrap">
+            <div class="entry__title-line">不要叫醒沉睡的貓</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 伊夫林的遺產evelyn -->
+    <div class="entry">
+      <div class="tl-wrap">
+        <svg class="tl-svg" style="left: 44%; top: 0;" width="20" height="90" viewBox="0 0 20 90" xmlns="http://www.w3.org/2000/svg">
+          <line x1="10" y1="0"  x2="10" y2="12" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+          <line x1="10" y1="12" x2="10" y2="78" stroke="rgba(255,255,255,0.4)"  stroke-width="3"/>
+          <line x1="10" y1="78" x2="10" y2="90" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+        </svg>
+        <span class="tl-time" style="left: 39%;">2024/10</span>
+      </div>
+      <div class="entry__card-wrap" style="margin-left: 42%; margin-right: auto;">
+        <a href="/ars-magne" class="entry__card" style="--vt-name: card-ars-magne">
+          <div class="entry__card-bg" style={`background-image: url('${IMG_BASE}/covers/nemu-neko.jpg')`}></div>
+          <div class="entry__info">
+            <div class="entry__info-row">人數　4人<br>時長　短<br>撕卡率　低</div>
+            <div class="entry__info-tags">#4HO　#R-15<br>#斯德哥爾摩綜合症</div>
+          </div>
+          <div class="entry__cast">
+            <div class="entry__cast-names">PC<br>理恩．伊夫林<br>斯司里．伊夫林<br>凱瑟琳．伊夫林<br>陶德．</div>
+          </div>
+          <div class="entry__title-wrap">
+            <div class="entry__title-line">伊夫林的遺產</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 紅薔薇之館multiflora -->
+    <div class="entry">
+      <div class="tl-wrap">
+        <svg class="tl-svg" style="left: 44%; top: 0;" width="20" height="90" viewBox="0 0 20 90" xmlns="http://www.w3.org/2000/svg">
+          <line x1="10" y1="0"  x2="10" y2="12" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+          <line x1="10" y1="12" x2="10" y2="78" stroke="rgba(255,255,255,0.4)"  stroke-width="3"/>
+          <line x1="10" y1="78" x2="10" y2="90" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+        </svg>
+        <span class="tl-time" style="left: 39%;">2024/07</span>
+      </div>
+      <div class="entry__card-wrap" style="margin-left: 42%; margin-right: auto;">
+        <a href="/ars-magne" class="entry__card" style="--vt-name: card-ars-magne">
+          <div class="entry__card-bg" style={`background-image: url('${IMG_BASE}/covers/nemu-neko.jpg')`}></div>
+          <div class="entry__info">
+            <div class="entry__info-row">人數　4人<br>時長　短<br>撕卡率　低</div>
+            <div class="entry__info-tags">#4HO　#R-15<br>#斯德哥爾摩綜合症</div>
+          </div>
+          <div class="entry__cast">
+            <div class="entry__cast-names">PC<br>佐藤 蒼太<br>野野瀨 萌夏<br>泉 夕希<br>西條 遙香</div>
+          </div>
+          <div class="entry__title-wrap">
+            <div class="entry__title-line">紅薔薇之館</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </section>
+
+</body>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const slides = document.querySelectorAll('.carousel__slide');
+    let current = 0;
+    let timer: ReturnType<typeof setInterval>;
+    const INTERVAL_TIME = 10000; // 建議 10 秒
+
+    const goTo = (index: number) => {
+      // 移除當前 active
+      slides[current].classList.remove('active');
+      // 計算新的索引（確保循環：最後一張點下一張會回到第一張）
+      current = (index + slides.length) % slides.length;
+      // 加上新的 active
+      slides[current].classList.add('active');
+    };
+
+    const next = () => goTo(current + 1);
+    const prev = () => goTo(current - 1);
+
+    timer = setInterval(next, INTERVAL_TIME);
+
+    // 使用選取器確保抓到按鈕
+    const prevBtn = document.querySelector('.carousel__prev');
+    const nextBtn = document.querySelector('.carousel__next');
+
+    prevBtn?.addEventListener('click', () => {
+      clearInterval(timer);
+      prev();
+      timer = setInterval(next, INTERVAL_TIME);
+    });
+
+    nextBtn?.addEventListener('click', () => {
+      clearInterval(timer);
+      next();
+      timer = setInterval(next, INTERVAL_TIME);
+    });
+  });
+</script>
+
+</html>
