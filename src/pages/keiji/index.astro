@@ -330,7 +330,7 @@ const script = {
 
         <!-- 上方資訊列 -->
   <header class="info-bar">
-    <a class="info-bar__back" href="/">← 返回目錄</a>
+    <a class="info-bar__back" href={`${base}/`}>← 返回目錄</a>
     <div class="info-bar__divider"></div>
     {Object.entries(script.info).map(([key, val]) => (
       <div class="info-bar__item">{key}<span>{val}</span></div>
