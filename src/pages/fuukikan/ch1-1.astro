@@ -159,25 +159,66 @@
   .name-sage  { color: #8db8a0; }
   .name-navy  { color: #6b8cba; }
   .name-kp    { color: rgba(255,255,255,0.38); }
-  .name-isago  { color: #ff5255; }  /* 砂金 理來 */
-  .name-kp     { color: rgba(255,255,255,0.38); }
+  .name-saijo  { color: #749F8D; }  /* 西條 */
+  .name-izumi  { color: #BC2D29; }  /* 泉 */
+  .name-elias  { color: #7DB9DE; }  /* 伊萊 */
+  .name-chiyuki  { color: #FBFBF6; }  /* 鳥取 */
   .name-success  { color: #2EA9DF; }
   .name-fail     { color: #D0104C; }
+
+  .private-block {
+    width: 65%;
+    margin: 1.8rem auto;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .private-block .avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .private-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .private-block {
+    background: rgba(var(--private-color), 0.3);
+    border-color: rgba(var(--private-color), 0.4);
+  }
+  .private-block::before,
+  .private-block::after {
+    background: rgba(var(--private-color), 0.4);
+  }
+
+  .br-sm {
+    display: block;
+    margin-bottom: 0.4rem;
+  }
 
   /* ==============================
      右側：場景資訊（固定不滾動）
   ============================== */
   .scene-side {
     width: 30%;
-    height: 100vh; /* 強制等於螢幕高度 */
+    height: 100vh;
     position: relative;
-    background: #2a2535; /* 這是底色 */
+    background: #2a2535;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     padding: 1.5rem;
     flex-shrink: 0;
-    overflow: hidden; /* 確保背景不超出 */
+    overflow: hidden;
   }
 
   /* 背景圖片層 */
@@ -277,38 +318,52 @@
     <div class="dice-block">
       <div class="dice-result">クトゥルフ神話TRPG【桔梗館的某夜】<br></div>
       <br><br>
-      <div class="dice-result">第一畫</div>
+      <div class="dice-result">第一話</div>
     </div>
 
     <div class="block-gap"></div>
 
     <!-- KP -->
     <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
+      <img src={`${IMG_BASE}/KPs/goldfish.png`} alt="kp" class="avatar" />
       <div class="bubble-wrap">
         <div class="charname name-kp">KP</div>
-        <div class="rp-text">　　此時正值傍晚時分，在夕霞山待了一整天的你們正往山下的方向離開。<br><br>
-　　然而周遭不知何時開始便飄起霧氣，明明前方的山道應該只有一條而已，但不管怎麼走都遲遲未見盡頭。<br><br>
-　　這是在山林裡迷路了嗎？<br><br>
-　　霧氣始終未曾散去，在這條山路上你們也只能看到彼此，附近似乎沒有其他遊客了。<br><br></div>
+        <div class="rp-text">此時正值傍晚時分，在夕霞山待了一整天的你們正往山下的方向離開。<br><span class="br-sm"></span>
+          然而周遭不知何時開始便飄起霧氣，明明前方的山道應該只有一條而已，但不管怎麼走都遲遲未見盡頭。<br><span class="br-sm"></span>
+          這是在山林裡迷路了嗎？<br><span class="br-sm"></span>
+          霧氣始終未曾散去，在這條山路上你們也只能看到彼此，附近似乎沒有其他遊客了。<br><br>
+        </div>
       </div>
     </div>
 
     <!-- 希格爾德 -->
     <div class="row">
-      <img src={`${IMG_BASE}/Characters/Isago/normal.png`} alt="砂金 理來" class="avatar" />
+      <img src={`${IMG_BASE}/Characters/Elias/sig.png`} alt="Sig" class="avatar" />
       <div class="bubble-wrap">
-        <div class="charname name-isago">砂金 理來</div>
-        <div class="rp-text">砂金在自己的座位上坐下，深深嘆了口氣。<br>……跟以前比起來，少了工作上的活動量，體力還是下降不少啊？這樣就累了。<br>剩下的時間雖然不多，但寫個案件報告之類的對他還是綽綽有餘——雖然不知道有沒有必要，屍體也都被收走了。 但趁現在多寫些有用的調查內容說不定也不錯呢？</div>
+        <div class="charname name-isago">希格爾德</div>
+        <div class="rp-text">放慢了步伐，嗅了嗅地面。</div>
       </div>
     </div>
 
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
+    <div class="private-block" style="--private-color: 150,150,150;">
+      <img src={`${IMG_BASE}/KPs/goldfish.png`} alt="kp" class="avatar" />
       <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">噠噠噠噠噠噠、 就在你打開電腦的瞬間，外頭傳來了急促的、由遠至近的腳步聲。</div>
+        <div class="charname name-kp">KP → 希格爾德</div>
+        <div class="rp-text">儘管你已經來過夕霞山許多次了，然而這附近的氣息對你來說有些陌生。</div>
+      </div>
+    </div>
+
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.png`} alt="chiyuki" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">少年舉起手機，在山路中央又照了張相、拍下了不知第幾條街景後，開始和前面的幾張相片對比。<br>
+準備下山時，天色尚顯清亮，相片就這樣一路從艷陽高照到天幕昏黃，放眼望去，漸層色的相簿像是某種藝術性的紀錄，只有他自己知道，這大半都只是為了尋路。<br>
+<span class="br-sm"></span>
+直到被霧幕壟罩的最後一張相片已經看不出與來路的相似之處、彷彿是在為他被打亂的計畫開脫似的，手機電量就此告捷，畫面一下暗了下去。<br>
+<span class="br-sm"></span>
+鳥取沉默了半晌，轉頭朝走在附近的幾人有些不好意思地笑笑：「……那個、不好意思，請問你們的手機有地圖嗎？我好像有點迷路了。」</div>
       </div>
     </div>
 
