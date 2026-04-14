@@ -3,6 +3,8 @@ import { ClientRouter } from 'astro:transitions';
  
 const IMG_BASE = "https://raw.githubusercontent.com/Chasel1103/TRPG-Images/main";
 
+const base = import.meta.env.BASE_URL;
+
 // 這裡之後可以換成從資料檔讀取
 const script = {
   title: '桔梗館的某夜',
@@ -495,8 +497,8 @@ const script = {
             <h3 class="menu-category">Aperitif 餐前酒</h3>
             <div class="menu-divider"></div>
             <div class="menu-items">
-                <a href="/fuukikan/ch1-1" class="menu-link">Beaujolais 博若萊</a>
-                <a href="/fuukikan/ch1-2" class="menu-link">Pinot Noir 黑皮諾</a>
+                <a href={`${base}fuukikan/ch1-1`} class="menu-link">Beaujolais 博若萊</a>
+                <a href={`${base}fuukikan/ch1-2`} class="menu-link">Pinot Noir 黑皮諾</a>
             </div>
         </div>
 
@@ -504,9 +506,9 @@ const script = {
             <h3 class="menu-category">Appetizer 開胃菜</h3>
             <div class="menu-divider"></div>
             <div class="menu-items">
-                <a href="/fuukikan/ch2-1" class="menu-link">Ceviche 魚介酸橘汁醃</a>
-                <a href="/fuukikan/ch2-2" class="menu-link">Shrimp Cocktail 雞尾酒蝦</a>
-                <a href="/fuukikan/ch2-3" class="menu-link">Tuna Tartare with Avocado 酪梨鮪魚塔塔</a>
+                <a href={`${base}fuukikan/ch2-1`} class="menu-link">Ceviche 魚介酸橘汁醃</a>
+                <a href={`${base}fuukikan/ch2-2`} class="menu-link">Shrimp Cocktail 雞尾酒蝦</a>
+                <a href={`${base}fuukikan/ch2-3`} class="menu-link">Tuna Tartare with Avocado 酪梨鮪魚塔塔</a>
             </div>
         </div>
 
@@ -514,7 +516,7 @@ const script = {
             <h3 class="menu-category">Potage 湯品</h3>
             <div class="menu-divider"></div>
             <div class="menu-items">
-                <a href="/fuukikan/ch3" class="menu-link">Spanish Gazpacho 西班牙冷湯</a>
+                <a href={`${base}fuukikan/ch3`} class="menu-link">Spanish Gazpacho 西班牙冷湯</a>
             </div>
         </div>
 
@@ -522,7 +524,7 @@ const script = {
             <h3 class="menu-category">Main Course 主菜</h3>
             <div class="menu-divider"></div>
             <div class="menu-items">
-                <a href="/fuukikan/ch4" class="menu-link">Lobster Tail with Garlic and Lemon Oil 蒜香檸檬龍蝦尾</a>
+                <a href={`${base}fuukikan/ch4`} class="menu-link">Lobster Tail with Garlic and Lemon Oil 蒜香檸檬龍蝦尾</a>
             </div>
         </div>
 
@@ -530,7 +532,7 @@ const script = {
             <h3 class="menu-category">Digestif 餐後酒</h3>
             <div class="menu-divider"></div>
             <div class="menu-items">
-                <a href="/fuukikan/ch5" class="menu-link">St-Germain Elderflower Liqueur 接骨木花利口酒</a>
+                <a href={`${base}fuukikan/ch5`} class="menu-link">St-Germain Elderflower Liqueur 接骨木花利口酒</a>
             </div>
         </div>
 
@@ -538,7 +540,7 @@ const script = {
             <h3 class="menu-category">Dessert 甜品</h3>
             <div class="menu-divider"></div>
             <div class="menu-items">
-                <a href="/fuukikan/ch6" class="menu-link">Yuzu Panna Cotta 柚子奶凍</a>
+                <a href={`${base}fuukikan/ch6`} class="menu-link">Yuzu Panna Cotta 柚子奶凍</a>
             </div>
         </div>
         

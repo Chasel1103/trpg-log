@@ -2,6 +2,8 @@
 import { ClientRouter } from 'astro:transitions';
 
 const IMG_BASE = "https://raw.githubusercontent.com/Chasel1103/TRPG-Images/main";
+
+const base = import.meta.env.BASE_URL;
 ---
 <html lang="zh-Hant">
 <head>
@@ -381,7 +383,7 @@ const IMG_BASE = "https://raw.githubusercontent.com/Chasel1103/TRPG-Images/main"
         <span class="tl-time" style="right: 42%;">2026/04</span>
       </div>
       <div class="entry__card-wrap" style="margin-left: 50%; margin-right: 8%;">
-        <a href="/keiji" class="entry__card" style="--vt-name: card-keiji">
+        <a href={`${base}keiji`} class="entry__card" style="--vt-name: card-keiji">
           <div class="entry__card-bg" style={`background-image: url('${IMG_BASE}/scene/cover/keiji.png')`}></div>
           <div class="entry__info">
             <div class="entry__info-row">人數　1人<br>時長　短<br>撕卡率　低</div>
@@ -408,7 +410,7 @@ const IMG_BASE = "https://raw.githubusercontent.com/Chasel1103/TRPG-Images/main"
         <span class="tl-time" style="left: 48%;">2026/03</span>
       </div>
       <div class="entry__card-wrap" style="margin-left: 25%; margin-right: auto;">
-        <a href="/meteor" class="entry__card" style="--vt-name: card-meteor">
+        <a href={`${base}meteor`} class="entry__card" style="--vt-name: card-meteor">
           <div 
             class="entry__card-bg" 
             style={`background-image: url('${IMG_BASE}/scene/cover/meteor.jpg'); background-position: center 25%;`}
@@ -438,7 +440,7 @@ const IMG_BASE = "https://raw.githubusercontent.com/Chasel1103/TRPG-Images/main"
         <span class="tl-time" style="left: 39%;">2026/02</span>
       </div>
       <div class="entry__card-wrap" style="margin-left: 42%; margin-right: auto;">
-        <a href="/fuukikan" class="entry__card" style="--vt-name: card-fuukikan">
+        <a href={`${base}overkill`} class="entry__card" style="--vt-name: card-fuukikan">
           <div class="entry__card-bg" style={`background-image: url('${IMG_BASE}/scene/cover/overkill.jpg')`}></div>
           <div class="entry__info">
             <div class="entry__info-row">人數　4人<br>時長　短<br>撕卡率　低</div>
@@ -465,7 +467,7 @@ const IMG_BASE = "https://raw.githubusercontent.com/Chasel1103/TRPG-Images/main"
         <span class="tl-time" style="left: 39%;">2025/11</span>
       </div>
       <div class="entry__card-wrap" style="margin-left: 30%; margin-right: auto;">
-        <a href="/ars-magne" class="entry__card" style="--vt-name: card-ars-magne">
+        <a href={`${base}from-madness-2`} class="entry__card" style="--vt-name: card-ars-magne">
           <div class="entry__card-bg" style={`background-image: url('${IMG_BASE}/covers/from-madness-2.jpg')`}></div>
           <div class="entry__info">
             <div class="entry__info-row">人數　1V1<br>時長　中<br>撕卡率　低～中</div>
@@ -492,7 +494,7 @@ const IMG_BASE = "https://raw.githubusercontent.com/Chasel1103/TRPG-Images/main"
         <span class="tl-time" style="left: 35%;">2025/09</span>
       </div>
       <div class="entry__card-wrap" style="margin-left: 15%; margin-right: auto;">
-        <a href="/fuukikan" class="entry__card" style="--vt-name: card-fuukikan">
+        <a href={`${base}fuukikan`} class="entry__card" style="--vt-name: card-fuukikan">
           <div class="entry__card-bg" style={`background-image: url('${IMG_BASE}/scene/cover/fuukikan.jpg')`}></div>
           <div class="entry__info">
             <div class="entry__info-row">人數　1V1<br>時長　中<br>撕卡率　低～中</div>
@@ -519,7 +521,7 @@ const IMG_BASE = "https://raw.githubusercontent.com/Chasel1103/TRPG-Images/main"
         <span class="tl-time" style="left: 39%;">2025/09</span>
       </div>
       <div class="entry__card-wrap" style="margin-left: 38%; margin-right: auto;">
-        <a href="/ars-magne" class="entry__card" style="--vt-name: card-ars-magne">
+        <a href={`${base}touko`} class="entry__card" style="--vt-name: card-ars-magne">
           <div class="entry__card-bg" style={`background-image: url('${IMG_BASE}/covers/touko.jpg')`}></div>
           <div class="entry__info">
             <div class="entry__info-row">人數　1V1<br>時長　中<br>撕卡率　低～中</div>
@@ -546,7 +548,7 @@ const IMG_BASE = "https://raw.githubusercontent.com/Chasel1103/TRPG-Images/main"
         <span class="tl-time" style="left: 39%;">2025/08</span>
       </div>
       <div class="entry__card-wrap" style="margin-left: 42%; margin-right: auto;">
-        <a href="/ars-magne" class="entry__card" style="--vt-name: card-ars-magne">
+        <a href={`${base}from-madness-1`} class="entry__card" style="--vt-name: card-ars-magne">
           <div class="entry__card-bg" style={`background-image: url('${IMG_BASE}/covers/from-madness-1.jpg')`}></div>
           <div class="entry__info">
             <div class="entry__info-row">人數　1V1<br>時長　中<br>撕卡率　低～中</div>
@@ -573,7 +575,7 @@ const IMG_BASE = "https://raw.githubusercontent.com/Chasel1103/TRPG-Images/main"
         <span class="tl-time" style="left: 39%;">2025/06</span>
       </div>
       <div class="entry__card-wrap" style="margin-left: 42%; margin-right: auto;">
-        <a href="/ars-magne" class="entry__card" style="--vt-name: card-ars-magne">
+        <a href={`${base}ars-manga`} class="entry__card" style="--vt-name: card-ars-magne">
           <div class="entry__card-bg" style={`background-image: url('${IMG_BASE}/covers/ars-manga.jpg')`}></div>
           <div class="entry__info">
             <div class="entry__info-row">人數　1人×4<br>時長　短<br>撕卡率　低</div>
@@ -600,7 +602,7 @@ const IMG_BASE = "https://raw.githubusercontent.com/Chasel1103/TRPG-Images/main"
         <span class="tl-time" style="left: 39%;">2025/06</span>
       </div>
       <div class="entry__card-wrap" style="margin-left: 42%; margin-right: auto;">
-        <a href="/ars-magne" class="entry__card" style="--vt-name: card-ars-magne">
+        <a href={`${base}u`} class="entry__card" style="--vt-name: card-ars-magne">
           <div class="entry__card-bg" style={`background-image: url('${IMG_BASE}/covers/ars-manga.jpg')`}></div>
           <div class="entry__info">
             <div class="entry__info-row">人數　3人<br>時長　中<br>撕卡率　低</div>
@@ -627,7 +629,7 @@ const IMG_BASE = "https://raw.githubusercontent.com/Chasel1103/TRPG-Images/main"
         <span class="tl-time" style="left: 39%;">2025/05</span>
       </div>
       <div class="entry__card-wrap" style="margin-left: 42%; margin-right: auto;">
-        <a href="/ars-magne" class="entry__card" style="--vt-name: card-ars-magne">
+        <a href={`${base}nemu-neko`} class="entry__card" style="--vt-name: card-ars-magne">
           <div class="entry__card-bg" style={`background-image: url('${IMG_BASE}/covers/nemu-neko.jpg')`}></div>
           <div class="entry__info">
             <div class="entry__info-row">人數　4人<br>時長　短<br>撕卡率　低</div>
@@ -654,7 +656,7 @@ const IMG_BASE = "https://raw.githubusercontent.com/Chasel1103/TRPG-Images/main"
         <span class="tl-time" style="left: 39%;">2024/10</span>
       </div>
       <div class="entry__card-wrap" style="margin-left: 42%; margin-right: auto;">
-        <a href="/ars-magne" class="entry__card" style="--vt-name: card-ars-magne">
+        <a href={`${base}evelyn`} class="entry__card" style="--vt-name: card-ars-magne">
           <div class="entry__card-bg" style={`background-image: url('${IMG_BASE}/covers/nemu-neko.jpg')`}></div>
           <div class="entry__info">
             <div class="entry__info-row">人數　4人<br>時長　短<br>撕卡率　低</div>
@@ -681,7 +683,7 @@ const IMG_BASE = "https://raw.githubusercontent.com/Chasel1103/TRPG-Images/main"
         <span class="tl-time" style="left: 39%;">2024/07</span>
       </div>
       <div class="entry__card-wrap" style="margin-left: 42%; margin-right: auto;">
-        <a href="/ars-magne" class="entry__card" style="--vt-name: card-ars-magne">
+        <a href={`${base}multiflora`} class="entry__card" style="--vt-name: card-ars-magne">
           <div class="entry__card-bg" style={`background-image: url('${IMG_BASE}/covers/nemu-neko.jpg')`}></div>
           <div class="entry__info">
             <div class="entry__info-row">人數　4人<br>時長　短<br>撕卡率　低</div>

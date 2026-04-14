@@ -3,6 +3,8 @@ import { ClientRouter } from 'astro:transitions';
  
 const IMG_BASE = "https://raw.githubusercontent.com/Chasel1103/TRPG-Images/main";
 
+const base = import.meta.env.BASE_URL;
+
 // 這裡之後可以換成從資料檔讀取
 const script = {
   title: '刑事 I 的報告',
@@ -413,10 +415,10 @@ const script = {
         ── 此處可根據劇本章節進行客製化設計 ──
 
         <br>
-        <a href="/keiji/ch1">第一章「Q」</a><br>
-        <a href="/keiji/ch2">第二章「E」</a><br>
-        <a href="/keiji/ch3">幕間「D」</a><br>
-        <a href="/keiji/ch4">第三章「.」</a><br>
+        <a href={`${base}keiji/ch1`}>第一章「Q」</a><br>
+        <a href={`${base}keiji/ch2`}>第二章「E」</a><br>
+        <a href={`${base}keiji/ch3`}>幕間「D」</a><br>
+        <a href={`${base}keiji/ch4`}>第三章「.」</a><br>
 
       </p>
     </div>
