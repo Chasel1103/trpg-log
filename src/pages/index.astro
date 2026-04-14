@@ -14,6 +14,11 @@ const base = import.meta.env.BASE_URL;
 </head>
 
 <style>
+
+  @keyframes fadein {
+    to { opacity: 1; }
+  }
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
@@ -21,6 +26,8 @@ const base = import.meta.env.BASE_URL;
     color: white;
     font-family: sans-serif;
     overflow-x: hidden;
+    opacity: 0;
+    animation: fadein 0.4s ease forwards;
   }
 
   @font-face {
@@ -390,7 +397,7 @@ const base = import.meta.env.BASE_URL;
             <div class="entry__info-tags">#單人 #KPless</div>
           </div>
           <div class="entry__cast">
-            <div class="entry__cast-names">PC<br>砂金 理來</div>
+            <div class="entry__cast-names">CAST<br>砂金 理來</div>
           </div>
           <div class="entry__title-wrap">
             <div class="entry__title-line">刑事Iの報告</div>
@@ -420,7 +427,7 @@ const base = import.meta.env.BASE_URL;
             <div class="entry__info-tags">#日式恐怖解謎風　#<br>#</div>
           </div>
           <div class="entry__cast">
-            <div class="entry__cast-names">PC<br>南城 曉</div>
+            <div class="entry__cast-names">CAST<br>南城 曉</div>
           </div>
           <div class="entry__title-wrap">
             <div class="entry__title-line">在流星消失的那一夜</div>
@@ -447,7 +454,7 @@ const base = import.meta.env.BASE_URL;
             <div class="entry__info-tags">#日式恐怖解謎風　#R-15<br>#斯德哥爾摩綜合症</div>
           </div>
           <div class="entry__cast">
-            <div class="entry__cast-names">PC<br>木村 準和<br>七崎 央<br>鷹司 凜子<br>松原 蒼真</div>
+            <div class="entry__cast-names">CAST<br>木村 準和<br>七崎 央<br>鷹司 凜子<br>松原 蒼真</div>
           </div>
           <div class="entry__title-wrap">
             <div class="entry__title-line">超額殺戮日</div>
@@ -474,7 +481,7 @@ const base = import.meta.env.BASE_URL;
             <div class="entry__info-tags">#食人　#R-15<br>#斯德哥爾摩綜合症</div>
           </div>
           <div class="entry__cast">
-            <div class="entry__cast-names">PC<br>冬來 宵<br>KPC 諾亞</div>
+            <div class="entry__cast-names">CAST<br>冬來 宵<br>KPC 諾亞</div>
           </div>
           <div class="entry__title-wrap">
             <div class="entry__title-line">自瘋狂獻給親愛的怪物</div>
@@ -501,7 +508,7 @@ const base = import.meta.env.BASE_URL;
             <div class="entry__info-tags">#食人　#R-15<br>#斯德哥爾摩綜合症</div>
           </div>
           <div class="entry__cast">
-            <div class="entry__cast-names">PC<br>西條 遙香<br>泉 夕希<br>伊萊亞斯．諾德海姆<br>■■■■</div>
+            <div class="entry__cast-names">CAST<br>西條 遙香<br>泉 夕希<br>伊萊亞斯．諾德海姆<br>■■■■</div>
           </div>
           <div class="entry__title-wrap">
             <div class="entry__title-line">桔梗館的某夜</div>
@@ -528,7 +535,7 @@ const base = import.meta.env.BASE_URL;
             <div class="entry__info-tags">#食人　#R-15<br>#斯德哥爾摩綜合症</div>
           </div>
           <div class="entry__cast">
-            <div class="entry__cast-names">PC<br>三門 青司<br>鯨井 咲<br>栗 良</div>
+            <div class="entry__cast-names">CAST<br>三門 青司<br>鯨井 咲<br>栗 良</div>
           </div>
           <div class="entry__title-wrap">
             <div class="entry__title-line">凍湖で窮む呪草</div>
@@ -555,7 +562,7 @@ const base = import.meta.env.BASE_URL;
             <div class="entry__info-tags">#食人　#R-15<br>#斯德哥爾摩綜合症</div>
           </div>
           <div class="entry__cast">
-            <div class="entry__cast-names">PC<br>藤原 浩二<br>KPC 諾亞</div>
+            <div class="entry__cast-names">CAST<br>藤原 浩二<br>KPC 諾亞</div>
           </div>
           <div class="entry__title-wrap">
             <div class="entry__title-line">自瘋狂獻給親愛的怪物</div>
@@ -582,7 +589,7 @@ const base = import.meta.env.BASE_URL;
             <div class="entry__info-tags">#食人　#R-15<br>#斯德哥爾摩綜合症</div>
           </div>
           <div class="entry__cast">
-            <div class="entry__cast-names">PC<br>三谷 里矢  <br>凱瑟琳．伊夫林<br>神谷 秀彥<br>莉艾．夏普</div>
+            <div class="entry__cast-names">CAST<br>三谷 里矢  <br>凱瑟琳．伊夫林<br>神谷 秀彥<br>莉艾．夏普</div>
           </div>
           <div class="entry__title-wrap">
             <div class="entry__title-line">ARS MANGA</div>
@@ -609,7 +616,7 @@ const base = import.meta.env.BASE_URL;
             <div class="entry__info-tags">#食人　#R-15<br>#斯德哥爾摩綜合症</div>
           </div>
           <div class="entry__cast">
-            <div class="entry__cast-names">PC<br>柳田 花鳥<br>紫原 真希<br>麻生 早繪</div>
+            <div class="entry__cast-names">CAST<br>柳田 花鳥<br>紫原 真希<br>麻生 早繪</div>
           </div>
           <div class="entry__title-wrap">
             <div class="entry__title-line">U、抑或是</div>
@@ -636,7 +643,7 @@ const base = import.meta.env.BASE_URL;
             <div class="entry__info-tags">#食人　#R-15<br>#斯德哥爾摩綜合症</div>
           </div>
           <div class="entry__cast">
-            <div class="entry__cast-names">PC<br>三門 青司<br>西條 遙香<br>泉 夕希<br>野野瀨 萌夏</div>
+            <div class="entry__cast-names">CAST<br>三門 青司<br>西條 遙香<br>泉 夕希<br>野野瀨 萌夏</div>
           </div>
           <div class="entry__title-wrap">
             <div class="entry__title-line">不要叫醒沉睡的貓</div>
@@ -663,7 +670,7 @@ const base = import.meta.env.BASE_URL;
             <div class="entry__info-tags">#4HO　#R-15<br>#斯德哥爾摩綜合症</div>
           </div>
           <div class="entry__cast">
-            <div class="entry__cast-names">PC<br>理恩．伊夫林<br>斯司里．伊夫林<br>凱瑟琳．伊夫林<br>陶德．</div>
+            <div class="entry__cast-names">CAST<br>理恩．伊夫林<br>斯司里．伊夫林<br>凱瑟琳．伊夫林<br>陶德．</div>
           </div>
           <div class="entry__title-wrap">
             <div class="entry__title-line">伊夫林的遺產</div>
@@ -690,7 +697,7 @@ const base = import.meta.env.BASE_URL;
             <div class="entry__info-tags">#4HO　#R-15<br>#斯德哥爾摩綜合症</div>
           </div>
           <div class="entry__cast">
-            <div class="entry__cast-names">PC<br>佐藤 蒼太<br>野野瀨 萌夏<br>泉 夕希<br>西條 遙香</div>
+            <div class="entry__cast-names">CAST<br>佐藤 蒼太<br>野野瀨 萌夏<br>泉 夕希<br>西條 遙香</div>
           </div>
           <div class="entry__title-wrap">
             <div class="entry__title-line">紅薔薇之館</div>

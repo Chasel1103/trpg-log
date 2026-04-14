@@ -59,6 +59,11 @@ const script = {
     font-weight: 400;
     font-display: block;
   }
+
+  @keyframes fadein {
+    to { opacity: 1; }
+  }
+
  
   body {
     background: #0a0810;
@@ -67,6 +72,8 @@ const script = {
     /* 移除 height: 100vh 和 overflow: hidden，讓頁面可以捲動 */
     min-height: 100vh;
     display: block; 
+    opacity: 0;
+    animation: fadein 0.4s ease forwards;
   }
 
   /* 封面區：強制佔滿一整個螢幕高度 */

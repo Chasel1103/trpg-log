@@ -13,12 +13,19 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  @keyframes fadein {
+    to { opacity: 1; }
+  }
+
+
   html, body {
     height: 100%;
     overflow: hidden;
     background: #1a1a24;
     font-family: sans-serif;
     color: white;
+    opacity: 0;
+    animation: fadein 0.4s ease forwards;
   }
 
   .outer {
@@ -340,9 +347,9 @@
 
     <!-- 希格爾德 -->
     <div class="row">
-      <img src={`${IMG_BASE}/Characters/Elias/sig.png`} alt="Sig" class="avatar" />
+      <img src={`${IMG_BASE}/Characters/Elias/sig.jpg`} alt="Sig" class="avatar" />
       <div class="bubble-wrap">
-        <div class="charname name-isago">希格爾德</div>
+        <div class="charname">希格爾德</div>
         <div class="rp-text">放慢了步伐，嗅了嗅地面。</div>
       </div>
     </div>
@@ -369,21 +376,22 @@
       </div>
     </div>
 
-    <!-- 砂金 -->
+    <!-- 泉 -->
     <div class="row">
-      <img src={`${IMG_BASE}/Characters/Isago/normal.png`} alt="砂金 理來" class="avatar" />
+      <img src={`${IMG_BASE}/Characters/Izumi/normal.png`} alt="泉 夕希" class="avatar" />
       <div class="bubble-wrap">
-        <div class="charname name-isago">砂金 理來</div>
-        <div class="rp-text">「……。」轉頭收拾起包。</div>
+        <div class="charname name-izumi">泉 夕希</div>
+        <div class="rp-text">又起霧了，果然山裡的天氣難以預料。聽見問話，泉暫且停下腳步，「西條小姐，應該是這條路沒錯吧？」同樣感到疑惑，她和同行人確認著，一邊朝四周看了看，有沒有其他岔路或是標誌。</div>
       </div>
     </div>
 
     <!-- KP -->
     <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
+      <img src={`${IMG_BASE}/KPs/goldfish.png`} alt="kp" class="avatar" />
       <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">一如你的預想，那人砰一聲推開你們辦公室的門，似乎毫不意外地無視了空蕩蕩的辦公室，直接轉向你。</div>
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">附近沒有岔路，然而仔細觀察後，隱約能看見前方的道路旁邊似乎插著一個牌子。
+        </div>
       </div>
     </div>
 

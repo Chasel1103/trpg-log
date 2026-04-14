@@ -13,12 +13,18 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  @keyframes fadein {
+    to { opacity: 1; }
+  }
+
   html, body {
     height: 100%;
     overflow: hidden;
     background: #1a1a24;
     font-family: sans-serif;
     color: white;
+    opacity: 0;
+    animation: fadein 0.4s ease forwards;
   }
 
   .outer {
