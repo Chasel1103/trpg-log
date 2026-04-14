@@ -1,6 +1,6 @@
-import daisyui from 'daisyui'
+import { defineConfig } from 'astro/config';
 
-export default {
-  content: ['./src/**/*.{astro,html,js,jsx,ts,tsx}'],
-  plugins: [daisyui],
-}
+export default defineConfig({
+  site: 'https://chasel1103.github.io',
+  base: '/trpg-log',
+});
