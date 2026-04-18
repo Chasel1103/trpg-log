@@ -15,6 +15,20 @@
     animation: fadein 0.4s ease forwards;
   }
 
+@font-face {
+  font-family: 'WanMin';
+  src: url('/fonts/GenWanMin2TW-M.otf') format('opentype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chen';
+  src: url('/fonts/ChenYuluoyan-2.0-Thin.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
   /* ==============================
      封面區塊
   ============================== */
