@@ -1,0 +1,29 @@
+
+/* 通常 / 擲骰 / KP */
+
+.name-kp    { color: rgba(255,255,255,1) !important; }
+.name-success  { color: #2EA9DF !important; }
+.name-fail     { color: #D0104C !important; }
+
+/* 紅薔薇之館 */
+
+.name-saijo  { color: #749F8D !important; }  /* 西條 遙香 */
+.name-izumi  { color: #BC2D29 !important; }  /* 泉 夕希 */
+
+
+/* K課 */
+.name-isago  { color: #ff5255 !important; }  /* 砂金 理來 */
+.name-isago  { color: #ff5255 !important; }  /* 久世 真宵 */
+.name-isago  { color: #ff5255 !important; }  /* 龍守 蓮司 */
+.name-isago  { color: #ff5255 !important; }  /* 灰野 悠仁 */
+
+/* 自瘋狂 */
+
+
+/* 過節組 */
+
+
+/* 桔梗館 */
+
+.name-elias  { color: #7DB9DE !important; }  /* 伊萊亞斯 */
+.name-chiyuki  { color: #FBFBF6 !important; }  /* 鳥取 千之 */

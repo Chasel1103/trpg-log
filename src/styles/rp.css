@@ -1,0 +1,314 @@
+/* ==============================
+   劇本頁面共用樣式 log-page.css
+   適用於所有劇本的章節頁面
+============================== */
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: #1a1a24;
+  font-family: "PingFang TC", "Heiti TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+  color: white;
+}
+
+.outer {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+}
+
+/* ==============================
+   左側：團錄內容
+============================== */
+.log-side {
+  width: 70%;
+  background: #0d0d0f;
+  box-shadow: 6px 0 32px rgba(0,0,0,0.8);
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  scrollbar-width: none;
+}
+.log-side::-webkit-scrollbar { display: none; }
+
+.log-top {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.2);
+  text-transform: uppercase;
+  padding: 1.2rem 2rem 1.2rem 2.5rem;
+  border-bottom: 0.5px solid rgba(255,255,255,0.06);
+  flex-shrink: 0; /* 不會被壓縮 */
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.log-content {
+  flex: 1;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  padding: 2rem 2rem 2.5rem 2.5rem;
+}
+.log-content::-webkit-scrollbar { display: none; }
+
+/* RP行：頭像+內容 */
+.row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 3.5rem;
+  align-items: flex-start;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+  background: rgba(255,255,255,0.06);
+  border: 0.5px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: rgba(255,255,255,0.3);
+  flex-shrink: 0;
+  object-fit: cover;
+  object-position: top center;
+}
+.avatar.ghost { opacity: 0; pointer-events: none; }
+
+.bubble-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 85%;
+}
+
+.charname {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+  padding: 0 2px;
+  color: rgba(255,255,255,0.6);
+}
+
+/* RP文字 */
+.rp-text {
+  font-size: 15px;
+  line-height: 1.85;
+  color: rgba(255,255,255,0.72);
+  padding: 2px 2px 8px;
+}
+
+/* 擲骰區塊 */
+.dice-block {
+  margin: 1rem auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  flex-shrink: 0;
+  background-color: rgba(var(--private-color), 0.1);
+}
+.dice-name {
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.06em;
+  margin-top: 15px;
+}
+.dice-result {
+  font-size: 15px;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: 0.08em;
+  margin-top: 2px;
+}
+.dice-outcome {
+  font-size: 15px;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.12em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+  margin-bottom: 5%;
+}
+.dice-outcome::before,
+.dice-outcome::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 0.5px;
+  background: rgba(255,255,255,0.2);
+}
+
+/* 分組行動標題 */
+.title-style {
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #ffffff;
+  text-align: left;
+}
+
+.block-gap { margin-bottom: 1.2rem; flex-shrink: 0; }
+
+/* 換行輔助 */
+.br-sm {
+  display: block;
+  margin-bottom: 0.6rem;
+}
+
+/* 私人訊息區塊 */
+.private-wrap {
+  width: 100%;
+  max-width: 800px;
+  margin: 2rem auto 3.5rem;
+  display: block;
+}
+
+.private-block {
+  width: auto;
+  box-sizing: border-box;
+  margin: 0;
+  background: rgba(var(--private-color), 0.3);
+  padding: 1.2rem 1.5rem;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.private-block .avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.private-label {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.private-wrap .dice-block {
+  margin: 0;
+  padding: 1rem 1rem 1.8rem 1rem;
+  border-left: 0.5px dashed rgba(var(--private-color), 0.4);
+  border-right: 0.5px dashed rgba(var(--private-color), 0.4);
+  border-bottom: 0.5px dashed rgba(var(--private-color), 0.4);
+  width: auto;
+  box-sizing: border-box;
+}
+
+.custom-divider {
+  width: 80%;
+
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+  
+  border: none;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.8);
+  
+  display: block;
+}
+
+/* ==============================
+   通往下一頁
+============================== */
+.next-chapter {
+  position: sticky;
+  bottom: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 2rem;
+  margin-top: 2rem;
+  flex-shrink: 0;
+}
+
+.next-chapter a {
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.7);
+  border: 0.5px solid rgba(255,255,255,0.3);
+  padding: 10px 20px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.next-chapter a:hover {
+  color: white;
+  border-color: rgba(255,255,255,0.7);
+}
+
+/* ==============================
+   右側：場景資訊（固定不滾動）
+============================== */
+.scene-side {
+  width: 30%;
+  height: 100vh; /* 強制等於螢幕高度 */
+  position: relative;
+  background: #2a2535; /* 底色 */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  flex-shrink: 0;
+  overflow: hidden; /* 確保背景不超出 */
+}
+
+/* 背景圖片層 */
+.scene-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #1e1a2e;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+  transition: background-image 0.8s ease-in-out;
+}
+
+.scene-deco { position: absolute; inset: 0; z-index: 1; }
+.scene-deco-line1 { position: absolute; top: 18%; left: 0; right: 0; height: 0.5px; background: rgba(255,255,255,0.07); }
+.scene-deco-line2 { position: absolute; top: 22%; left: 20%; right: 0; height: 0.5px; background: rgba(255,255,255,0.04); }
+.scene-deco-circle { position: absolute; top: 10%; right: 15%; width: 80px; height: 80px; border-radius: 50%; border: 0.5px solid rgba(255,255,255,0.06); }
+.scene-deco-rect { position: absolute; bottom: 30%; left: 10%; width: 40px; height: 40px; border: 0.5px solid rgba(255,255,255,0.05); transform: rotate(20deg); }
+
+.vertical-title {
+  position: absolute;
+  right: -1px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.7);
+  white-space: nowrap;
+  line-height: 1;
+  padding: 1rem 0;
+}
+
+.scene-info { position: relative; z-index: 2; }
+.scene-location { font-size: 15px; letter-spacing: 0.1em; color: rgba(255,255,255,0.35); text-transform: uppercase; margin-bottom: 0.6rem; }
+.scene-title { font-size: 20px; font-weight: 500; color: rgba(255,255,255,0.75); margin-bottom: 1rem; line-height: 1.4; }
+.scene-chars-label { font-size: 15px; letter-spacing: 0.1em; color: rgba(255,255,255,0.25); text-transform: uppercase; margin-bottom: 0.4rem; }
+.scene-chars { font-size: 15px; color: rgba(255,255,255,0.45); line-height: 1.8; }

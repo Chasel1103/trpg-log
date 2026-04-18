@@ -1,0 +1,1735 @@
+---
+import Layout from '../../layouts/Layout-rp.astro';
+import { ClientRouter } from 'astro:transitions';
+
+const IMG_BASE = "https://raw.githubusercontent.com/Chasel1103/TRPG-Images/main";
+const base = import.meta.env.BASE_URL;
+---
+
+<Layout>
+  <Fragment slot="head">
+    <title>Pinot Noir</title>
+    <ClientRouter />
+  </Fragment>
+
+<div class="outer">
+
+  <!-- 左側：團錄內容 -->
+  <div class="log-side">
+    <div class="log-top">
+      <a href={`${base}/fuukikan`} style="color: rgba(255,255,255,0.3); text-decoration: none; font-size: 13px; letter-spacing: 0.08em; transition: color 0.2s;">⭠ 返回</a>
+      <span style="font-size: 13px; color: white;">餐前酒 · Pinot Noir 黑皮諾</span>
+    </div>
+
+    <div class="log-content">
+
+      <div class="scene-marker"
+        data-bg={`${IMG_BASE}/scene/fuukikan/yoru.webp`}
+        data-location="Location"
+        data-title={`二號客房・傍晚`}
+        data-chars={`泉 夕希`}>
+      </div>
+
+    <div class="block-gap"></div>
+
+  <div class="private-wrap" style="--private-color: 188,45,41;">
+    
+    <div class="private-block">
+      <div class="bubble-wrap">
+        <div class="title-style">泉的場合</div>
+      </div>
+    </div>
+
+  </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">比起大廳的奢華感，客房整體所給人的感覺相對低調而舒適。
+          <span class="br-sm"></span>
+          這間客房的設備遠比一般的商務旅館要好，不僅空間更為寬敞，還附有獨立的浴室。整體的布置並不誇張，卻顯得井然有序，流露出一種舒適感。
+          <span class="br-sm"></span>
+          房間的一側設有窗戶，上面裝著設計雅緻的格子裝飾。
+          <span class="br-sm"></span>
+          牆面與地板乾淨整潔，家具規矩實用，既沒有過分奢華的裝飾，也不帶任何花俏的擺設。這是一個單純、普通，卻讓人能安穩歇息的空間。
+          <span class="br-sm"></span>
+          這裡有一張單人床、床邊小櫃子、衣櫃以及書桌。
+        </div>
+      </div>
+    </div>
+
+    <!-- 泉 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Izumi/normal.webp`} alt="泉" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-izumi">泉 夕希</div>
+        <div class="rp-text">泉將背在肩上的包包放到書桌的椅子上，先靠近窗戶、向外看了看。</div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">窗外的景色是那片種滿了桔梗花的花海，在月色的照耀下看起來十分美麗。</div>
+      </div>
+    </div>
+
+    <!-- 擲骰提示 -->
+    <div class="dice-block">
+      <div class="dice-result">【偵查】</div>
+    </div>
+
+    <!-- 擲骰 -->
+    <div class="dice-block">
+      <div class="dice-name name-izumi">泉 夕希．偵查</div>
+      <div class="dice-result">出目 88/65</div>
+      <div class="dice-outcome name-fail">失敗</div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">除此之外，你在更遠處的森林裡看見了隱約瀰漫的霧氣。</div>
+      </div>
+    </div>
+
+    <!-- 泉 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Izumi/947708_uszyDlhK.webp`} alt="泉" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-izumi">泉 夕希</div>
+        <div class="rp-text">果然從這個方向望過去也能看見呢。不論看多久都不會膩的美景，泉又多駐足了片刻，然後回到書桌前坐下，拿起手機傳送報平安的訊息。霧氣在太陽出來後就會散了吧，希望明天能好好下山。
+          <span class="br-sm"></span>
+          突如其來的擔憂沒有煩惱她太久，再次環顧房間，泉打開衣櫃門查看了下。</div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">當你想要傳出訊息的時候，卻發現失敗了，似乎是因為沒有訊號的關係。
+          <span class="br-sm"></span>
+          衣櫃裡什麼都沒有，不過上面的橫桿上掛著幾個衣架。
+        </div>
+      </div>
+    </div>
+
+    <!-- 泉 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Izumi/947708_uszyDlhK.webp`} alt="泉" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-izumi">泉 夕希</div>
+        <div class="rp-text">沒有訊號呢？還以為是照片檔案比較大，關上衣櫃回頭一看才發現訊息旁顯示著錯誤符號。不過在來到這裡前是能成功收訊的吧……？這下倒覺得有些困擾，測試了下其他聯絡方式，泉重新背起肩包，拿著手機離開了房間。</div>
+      </div>
+    </div>
+
+      <div class="scene-marker"
+        data-bg={`${IMG_BASE}/scene/fuukikan/yoru.webp`}
+        data-location="Location"
+        data-title={`三號客房・傍晚`}
+        data-chars={`伊萊亞斯．諾德海姆`}>
+      </div>
+
+  <div class="private-wrap" style="--private-color: 125, 185, 222;">
+    
+    <div class="private-block">
+      <div class="bubble-wrap">
+        <div class="title-style">伊萊亞斯的場合</div>
+      </div>
+    </div>
+
+  </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">比起大廳的奢華感，客房整體所給人的感覺相對低調而舒適。
+          <span class="br-sm"></span>
+          這間客房的設備遠比一般的商務旅館要好，不僅空間更為寬敞，還附有獨立的浴室。整體的布置並不誇張，卻顯得井然有序，流露出一種舒適感。
+          <span class="br-sm"></span>
+          房間的一側設有窗戶，上面裝著設計雅緻的格子裝飾。
+          <span class="br-sm"></span>
+          牆面與地板乾淨整潔，家具規矩實用，既沒有過分奢華的裝飾，也不帶任何花俏的擺設。這是一個單純、普通，卻讓人能安穩歇息的空間。
+          <span class="br-sm"></span>
+          這裡有一張單人床、床邊小櫃子、衣櫃以及書桌。
+        </div>
+      </div>
+    </div>
+
+    <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">伊萊亞斯把身上背的東西放到床邊小櫃子上。</div>
+      </div>
+    </div>
+
+    <!-- 希格爾德 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">希格爾德</div>
+        <div class="rp-text">希格爾德進到房間後低著頭繞了一圈，尾巴微微搖著。接著，牠走到書桌桌腳前，鼻尖貼著木材嗅了嗅，還伸出舌頭輕舔了一下。
+          <span class="br-sm"></span>
+          牠的耳朵抖動，像是在聽著房子裡的每一點聲響；偶爾會抬頭盯著床邊的窗簾，頭微微歪向一側。
+          <span class="br-sm"></span>
+          「汪！」最後，牠走回床邊，鼻尖推了推伊萊亞斯的手，尾巴輕快地晃動著。</div>
+      </div>
+    </div>
+
+    <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">「Flink gutt.（好孩子。）」他笑著拍了拍希格爾德的頭。伊萊亞斯從背包裡摸出一小包零食，拆開包裝的聲音讓希格爾德的尾巴晃得更歡快了。</div>
+      </div>
+    </div>
+
+    <!-- 希格爾德 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">希格爾德</div>
+        <div class="rp-text">眼神閃亮亮的看著主人拆零食包裝。</div>
+      </div>
+    </div>
+
+    <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">他捏了一小塊零食放在掌心，伸到希格爾德面前，「Vent.（等。）」</div>
+      </div>
+    </div>
+
+    <!-- 希格爾德 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">希格爾德</div>
+        <div class="rp-text">希格爾德乖乖坐在床邊，嘴巴微微張開，垂著舌哈氣著。牠的眼睛一眨不眨地盯著主人手裡的小零食，尾巴忍不住拍打著房間地板。</div>
+      </div>
+    </div>
+
+    <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">「Vær så god.（可以了。）」伊萊亞斯將零食放在地上。</div>
+      </div>
+    </div>
+
+    <!-- 希格爾德 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">希格爾德</div>
+        <div class="rp-text">希格爾德立刻叼起了小零食，「喀啦、喀啦」地幾聲咀嚼後，希格爾德舔了舔嘴，「汪！」又湊近用鼻子頂了頂伊萊亞斯的掌心，尾巴搖的更快了。</div>
+      </div>
+    </div>
+
+    <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">伊萊亞斯蹲了下來慢慢地撫摸著希格爾德的頭頂，「Det går bra, Sig.（沒事的，Sig。）」隨後才回應了鳥取，「……這裡路不對，不知道是哪裡。」</div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP ➤ <span class="name-elias">伊萊<span></div>
+        <div class="rp-text">伊萊亞斯拍了拍希格爾德的頭頂，伸手揉亂了牠的耳朵。
+          <span class="br-sm"></span>
+          人這才站起來看看房間有沒有什麼特別的。</div>
+      </div>
+    </div>
+
+    <!-- 擲骰提示 -->
+    <div class="dice-block">
+      <div class="dice-result">【偵查】</div>
+    </div>
+
+    <!-- 擲骰 -->
+    <div class="dice-block">
+      <div class="dice-name name-elias">伊萊亞斯．偵查</div>
+      <div class="dice-result">出目 93/58</div>
+      <div class="dice-outcome name-fail">失敗</div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">這裡看起來似乎沒什麼特別的，就是整理得很乾淨的客房。
+        </div>
+      </div>
+    </div>
+
+    <!-- 擲骰 -->
+    <div class="dice-block">
+      <div class="dice-name">希格爾德．嗅覺</div>
+      <div class="dice-result">出目 54/90</div>
+      <div class="dice-outcome name-success">成功</div>
+    </div>
+
+  <div class="private-wrap" style="--private-color: 255, 255, 255;">
+    
+    <div class="private-block">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP ➤ 希格爾德</div>
+        <div class="rp-text">希格似乎嗅到了什麼味道，不同於家具和木頭的材質，更像是來自於什麼人的，從衣櫃裡散發出來。
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+    <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">牽起希格爾德的牽繩，打算去洋館外面散散步。</div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">當你來到洋館外面的時候，道路兩側的桔梗花依舊隨風在輕輕搖曳著，微風徐拂而來，遠處的森林裡可以看見有霧氣瀰漫在其中。</div>
+      </div>
+    </div>
+
+    <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">牽著希格爾德在洋館附近閒晃著，霧氣比他想的還要更大更濃些，讓他的腳步始終沒有離建築太遠。</div>
+      </div>
+    </div>
+
+    <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">雖然正值夏季，但是山區入了夜後氣溫仍舊偏低，雖然不管是他還是希格爾德都不覺得這算得上寒冷。不過今天已經幾乎一整天都在戶外，希爾格爾德看上去也對那些本來興致滿滿的桔梗花叢失去了興趣。
+        <span class="br-sm"></span>
+        他拉了拉牽繩，帶著希格爾德回到的建築內，決定去接待室看看。</div>
+      </div>
+    </div>
+
+<hr class="custom-divider" />
+
+      <div class="scene-marker"
+        data-bg={`${IMG_BASE}/scene/fuukikan/hanabatake.webp`}
+        data-location="Location"
+        data-title={`接待室・傍晚`}
+        data-chars={`泉 夕希\n伊萊亞斯．諾德海姆`}>
+      </div>
+
+    <!-- 泉 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Izumi/normal.webp`} alt="泉" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-izumi">泉 夕希</div>
+        <div class="rp-text">簡訊發送不出去，電話也撥不通，泉舉著手機走下樓梯、經過大廳，走出了門外。哎呀，這下該怎麼辦？向外走了一段距離，她在小徑邊蹲下，盯著桔梗花思考，但眼下似乎沒有任何辦法。也不是我不願意聯繫……希望那孩子不要太擔心呢。忍不住去思考未能連通的手機另一邊的人會是什麼心情，好像不太妙的感覺油然而生。有西條小姐在應該沒問題吧……？這麼做了結論，收起手機後又看著桔梗花發呆了會兒，她才慢慢地站起身往室內回去。</div>
+      </div>
+    </div>
+  
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">當泉回到大廳後，正因為沒辦法向外聯絡而有些煩惱的你聽見了來自身後的吠聲。</div>
+      </div>
+    </div>
+
+    <!-- 希格爾德 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">希格爾德</div>
+        <div class="rp-text">希格爾德很熱情的朝泉靠近。</div>
+      </div>
+    </div>
+
+    <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">他點了點頭，「牠喜歡你。慢一點，別嚇到牠。」語調慢悠悠的。</div>
+      </div>
+    </div>
+
+    <!-- 希格爾德 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">希格爾德</div>
+        <div class="rp-text">希格爾德尾巴輕快地搖著，耳朵也豎了起來。</div>
+      </div>
+    </div>
+
+    <!-- 泉 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Izumi/normal.webp`} alt="泉" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-izumi">泉 夕希</div>
+        <div class="rp-text">「謝謝你。」露出了真心的笑容，泉動作輕緩地蹲下身、伸手靠近希格爾德的頭側，摸上毛茸茸的頭頂和脖頸。可愛。盯著狗狗看的表情藏不住喜歡，克制地在摸了幾下後便頓住動作，「請問牠叫什麼名字？」她抬頭問道。</div>
+      </div>
+    </div>
+
+    <!-- 希格爾德 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">希格爾德</div>
+        <div class="rp-text">希格爾德乖乖的站著，在感覺到泉的手靠近時耳朵微微的抖了一下。
+          <span class="br-sm"></span>
+          當泉的手落在牠的頭頂與脖頸間時，牠吐著舌頭，尾巴依舊輕快地搖動著。
+          <span class="br-sm"></span>
+          而當泉的動作停下時，希格爾德眨了眨眼睛，發出一聲低低的「汪嗚？」。</div>
+      </div>
+    </div>
+
+    <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">「希格爾德。」狗的名字在他的腔調下，聽上去是發音有些拗口的日式英語。
+          <span class="br-sm"></span>
+          「Hils på, Sig.（打個招呼，Sihg。）」</div> 
+      </div>
+    </div>
+  
+    <!-- 希格爾德 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">希格爾德</div>
+        <div class="rp-text">「汪！」</div>
+      </div>
+    </div>
+
+    <!-- 泉 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Izumi/normal.webp`} alt="泉" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-izumi">泉 夕希</div>
+        <div class="rp-text">「希格爾德，」日式的發音喊起來不算太困難，「是聰明的孩子呢。」又在狗狗身上輕輕搓揉了下，泉這才站起身來。視線往大廳一邊飄了眼，然後回到眼前的人身上，「請問你是外國人嗎？從哪裡來的呢？」</div>
+      </div>
+    </div>
+
+    <!-- 希格爾德 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">希格爾德</div>
+        <div class="rp-text">「汪！」回應了泉，尾巴一直晃呀晃的，看上去被摸得很開心。</div>
+      </div>
+    </div>
+
+    <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">「Ja.（嗯。）」他的眼神柔和地往下看了一眼希格爾德，嘴角輕輕上揚，隨後又變回了一開始沒什麼表情的樣子點了點頭。
+          <span class="br-sm"></span>
+          「挪威，我在這裡工作。」看上去像是已經被好多人問過這種問題了，還順便解釋了自己身為外國人卻在日本的原因。</div> 
+      </div>
+    </div>
+
+    <!-- 泉 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Izumi/normal.webp`} alt="泉" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-izumi">泉 夕希</div>
+        <div class="rp-text">「原來如此。」是不是問太多了。雖然也是真的感到好奇，泉反省了下自己，稍微也收斂起表情，「我叫泉夕希，從事人文相關的研究工作。」自作主張地做起對方沒問的自我介紹，「很高興能遇到你和希格爾德。」微微彎腰鞠躬又低頭朝狗狗笑著揮揮手。
+        <span class="br-sm"></span>
+        站在這聊太久也不對，對方看來也沒這個意思，泉擅自結束了對話便要轉頭往圖書館去。</div>
+      </div>
+    </div>
+
+    <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">伊萊亞斯沒多做挽留，點頭表示聽到了。</div> 
+      </div>
+    </div>
+
+    <!-- 希格爾德 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">希格爾德</div>
+        <div class="rp-text">希格爾德也朝泉「汪！」了一聲。</div>
+      </div>
+    </div>
+
+    <!-- 鳴戶 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">鳴戶 透真</div>
+        <div class="rp-text">在你們結束對話的當下，你們看到透真從遊戲室裡走了出來，在看到你們的時候似乎愣了愣，但很快便低下頭，默默站在原地。</div>
+      </div>
+    </div>
+
+     <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">牽著希格爾德接在泉後面經過人，但是目的地是接待室。在經過透真也不管對方是不是低下頭，總之點了點頭作為打招呼。</div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">雖然沒辦法確定透真有沒有看到你點頭，不過從你的視角可以看到他低下的頭頂正微微偏動，角度隨著你……又或許是你腳邊的希格爾德移動。</div>
+      </div>
+    </div>
+
+    <!-- 希格爾德 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">希格爾德</div>
+        <div class="rp-text">「汪嗚？」敏銳的狗勾察覺到了目光。</div>
+      </div>
+    </div>
+
+     <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">「Sig？」停下腳步。</div>
+      </div>
+    </div>
+  
+    <!-- 泉 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Izumi/normal.webp`} alt="泉" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-izumi">泉 夕希</div>
+        <div class="rp-text">聽見希格爾德的叫聲，泉也轉頭看了下，才繼續接話回答。「是的。還是說現在不能進去嗎？」</div>
+      </div>
+    </div>
+
+    <!-- 希格爾德 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">希格爾德</div>
+        <div class="rp-text">「汪！」了一聲後靠近透真，嗅嗅。</div>
+      </div>
+    </div>
+
+    <!-- 鳴戶 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">鳴戶 透真</div>
+        <div class="rp-text">「不、那個，我是說，可以的。」透真的聲音越來越小，當他意識到希格的靠近時，又忍不住縮了縮肩膀。
+          <span class="br-sm"></span>
+          「抱歉。」他看向伊萊，有些慌張的微微欠身，「我似乎影響到您和您的寵物了，很不好意思……」</div>
+      </div>
+    </div>
+
+    <!-- 私人訊息 -->
+    <div class="private-wrap" style="--private-color: 125, 185, 222;">
+      
+      <div class="private-block">
+        <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+        <div class="bubble-wrap">
+          <div class="charname name-elias">伊萊亞斯</div>
+          <div class="rp-text">//雖然我只有１０％ㄉ心理學但是我想看看他是怕狗還是怎樣</div>
+        </div>
+      </div>
+
+      <div class="dice-block" style="--private-color:143, 186, 245;">
+        <div class="dice-name name-elias">伊萊亞斯．心理學</div>
+        <div class="dice-result">出目 66/10</div>
+        <div class="dice-outcome name-fail" style="margin-bottom: 8px;">失敗</div>
+      </div>
+
+      <div class="private-block">
+        <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+        <div class="bubble-wrap">
+          <div class="charname name-kp">KP ➤ 伊萊亞斯</div>
+          <div class="rp-text">在你眼中他看起來似乎就只是單純的緊張而已。</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 希格爾德 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">希格爾德</div>
+        <div class="rp-text">「汪！」牠舌頭在外喘著氣，看著透真歪了歪頭。</div>
+      </div>
+    </div>
+
+     <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">「Sig.」伊萊亞斯再次拉了拉牽繩，把對方縮肩膀的舉動當成了怕狗。
+          <span class="br-sm"></span>
+          「Kom, Sig.（回來，Sig。）」」</div>
+      </div>
+    </div>
+
+    <!-- 希格爾德 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">希格爾德</div>
+        <div class="rp-text">希格爾德立刻抖了抖耳朵，又回到伊萊亞斯的身邊。</div>
+      </div>
+    </div>
+
+     <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">他這才開口回應，「這孩子很少看見這麼多陌生人。」
+          <span class="br-sm"></span>
+        「你們繼續。」他牽著狗繼續往原本目的地的隔壁房間離開。</div>
+      </div>
+    </div>
+
+  <div class="private-wrap" style="--private-color: 116, 159, 141;">
+    
+    <div class="private-block">
+      <div class="bubble-wrap">
+        <div class="title-style">西條的場合</div>
+      </div>
+    </div>
+
+  </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">比起大廳的奢華感，客房整體所給人的感覺相對低調而舒適。
+            <span class="br-sm"></span>
+            這間客房的設備遠比一般的商務旅館要好，不僅空間更為寬敞，還附有獨立的浴室。整體的布置並不誇張，卻顯得井然有序，流露出一種舒適感。
+            <span class="br-sm"></span>
+            房間的一側設有窗戶，上面裝著設計雅緻的格子裝飾。
+            <span class="br-sm"></span>
+            牆面與地板乾淨整潔，家具規矩實用，既沒有過分奢華的裝飾，也不帶任何花俏的擺設。這是一個單純、普通，卻讓人能安穩歇息的空間。
+            <span class="br-sm"></span>
+            這裡有一張單人床、床邊小櫃子、衣櫃以及書桌。
+        </div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">儘管環境十分舒適，不過也不知是否心理作用，有一股微妙的感覺一直揮之不去。關好門、將背包倚在角落，彷彿入住飯店般檢查起各個櫃子和書桌。</div>
+      </div>
+    </div>
+
+    <!-- 擲骰提示 -->
+    <div class="dice-block">
+      <div class="dice-result">【偵查】</div>
+    </div>
+
+    <!-- 擲骰 -->
+    <div class="dice-block">
+      <div class="dice-name name-saijo">西条 遙香．偵查</div>
+      <div class="dice-result">出目 28/80</div>
+      <div class="dice-outcome name-success">困難成功</div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">你翻遍房間的櫃子和書桌，但這些看起來就只是普通的家具而已。
+          <span class="br-sm"></span>
+          不過就在你檢查完這些東西、轉過身的時候，似乎隱約從床底下的陰影裡看到了什麼。
+          <span class="br-sm"></span>
+          撿起來一看，這是一張寫著「たけし❤︎ゆみこ」的拍立得貼紙照片，照片上的男女染著金髮，看起來相當恩愛。</div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">「……？」無視了照片中的恩愛元素，感到古怪地將金髮男女的臉與進入宅邸後見過的人比對。</div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">目前你沒有見過這對情侶，看起來長相也並不相似。</div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">也說不出原因，總之將照片收了起來，接下來則是檢查床舖和看看窗外。</div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">床鋪的被褥看起來蓬鬆而柔軟，除此之外似乎沒什麼特別的。
+          <span class="br-sm"></span>
+          而窗外的景色仍是那片在月色下搖曳的花海，遠處的森林裡隱約瀰漫著霧氣。</div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">霧還沒散呢。盯著外頭的霧看了一會，隨後拿出手機嘗試搜尋關於「桔梗館」的資訊。</div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">當你進行搜索後，卻發現顯示出來的結果都是關於桔梗花的說明與介紹，似乎沒有關於桔梗館本身的訊息。</div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">雖然找不到相關資訊似乎也不算過於奇怪，不過加上「古場」再次搜索一次。</div>
+      </div>
+    </div>
+
+    <!-- 擲骰提示 -->
+    <div class="dice-block">
+      <div class="dice-result">【圖書館使用】</div>
+    </div>
+
+    <!-- 擲骰 -->
+    <div class="dice-block">
+      <div class="dice-name name-saijo">西条 遙香．圖書館</div>
+      <div class="dice-result">出目 24/70</div>
+      <div class="dice-outcome name-success">困難成功</div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">當你加上新的關鍵字後，搜尋出來的結果就不一樣了。
+          <span class="br-sm"></span>
+          那是在社群軟體上由某個人所寫的閒聊，內容是關於他在出來玩的時候跟當地的居民聊天，得知在六年前的時候，似乎有個名叫古場的人搬到山上，還曾經有人在路上看過桔梗館的牌子。
+          <span class="br-sm"></span>
+          這讓他感到很好奇，不過好像沒有人知道更詳細的事情了，所以一直很好奇這是不是真的。</div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">搬到山上？瞇了瞇眼，將這條資訊記下，接著踏入浴室查看有沒有什麼特別之處。</div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">這間浴室打理的十分乾淨，但除此之外看起來並沒有特別的地方。</div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">覺得看得差不多了，離開房間、關上門走向旁邊的儲物間看看。</div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">這間儲物室空間蠻大的，東西擺放的十分整齊。沿著牆面安置著幾排簡單的置物架，上面堆放著標示清楚的箱子、工具箱與日常用品。
+            <span class="br-sm"></span>
+            天花板上的小燈發出柔和光線，讓房內的每個角落都清晰可見。地板以木材鋪成，被打掃得乾乾淨淨，可以感覺空氣略帶紙箱與木料的氣味。</div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">既然說可以隨意活動，也就不客氣地踏了進去，在置物架之間穿梭查看有沒有奇怪之處。</div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">你注意到其中一個架子上擺放著許多的園藝工具，並且在角落裡堆疊著許多肥料。</div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">大概是用以照料外面的花海吧？雖然這些東西出現在這裡不算奇怪，不過還是多看了兩眼。</div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">除此之外似乎就沒有特別的地方了。</div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">看了一圈沒看到令人懷疑的東西，臉上沒什麼變化，同樣關好門後下樓前往圖書館。畢竟確實有些好奇以這個宅邸的豪華程度，圖書館裡會有怎樣的藏書。</div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">這間圖書館散發出一種沉穩而內斂的氣息，寬敞的空間裡排列著高聳的書架，地板鋪設著暗色實木，踩上去帶有溫潤的觸感，幾塊柔軟的地毯隨意鋪置，讓整個空間兼具舒適與靜謐。
+            <span class="br-sm"></span>
+            這裡看起來收藏著各類書籍，包括小說、詩集、植物圖鑑、醫學書籍、人體與生物相關，以及各種機械的書籍（關於人工智慧的內容特別多）、哲學書等等，外文書也非常豐富。</div>
+      </div>
+    </div>
+
+    <!-- 擲骰提示 -->
+    <div class="dice-block">
+      <div class="dice-result">【偵查】、【圖書館使用】</div>
+    </div>
+
+    <!-- 擲骰 -->
+    <div class="dice-block">
+      <div class="dice-name name-saijo">西条 遙香．偵查</div>
+      <div class="dice-result">出目 80/80</div>
+      <div class="dice-outcome name-success" style="margin-bottom: 2px;">成功</div>
+    </div>
+    <div class="dice-block">
+      <div class="dice-name name-saijo">西条 遙香．偵查</div>
+      <div class="dice-result">出目 35/70</div>
+      <div class="dice-outcome name-success">困難成功</div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">當你四處看過之後，發現使用痕跡最明顯的是關於花語的書籍。
+            <span class="br-sm"></span>
+            除此之外，你在書本間的縫隙裡發現一張寫著「奪走月光的恩惠」的羊皮紙。
+            <span class="br-sm"></span>
+            看起來像是某種咒文，效果似乎是產生霧氣。</div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">經常翻閱花語相關書籍並不奇怪，然而注意到那張羊皮紙後，這種於常人而言只是玩笑、在她眼中卻不然的內容瞬間勾起過往的記憶。
+          <span class="br-sm"></span>
+          沉著臉檢查上面有沒有寫霧氣大概會持續多久、特殊效果之類的。
+        </div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">紙上註解著這個咒語只可以在晚上釋放，當太陽升起後便會隨之消散。</div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">快速的拿出手機對羊皮紙拍照存證，將羊皮紙放回原位，然後查看關於花語的書籍中有沒有被留下特別的痕跡。
+        </div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">這本書裡面記載著許多的花語。
+          <span class="br-sm"></span>
+          ▋野牡丹：自然、質樸、真摯的愛、謙遜的光芒、與你共舞
+          <span class="br-sm"></span>
+          ▋紫苑：追憶、永遠不會忘記你、思念遠方之人
+          <span class="br-sm"></span>
+          ▋月下美人：轉瞬即逝的美麗，稍縱即逝的戀情，艷麗的美人 
+          <span class="br-sm"></span>
+          然而你發現桔梗花所在的頁數，看起來似乎有更明顯被翻閱過的痕跡。
+          <span class="br-sm"></span>
+          ▋桔梗：永恆的愛、真誠、純潔、順從
+        </div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">對植物也算是有些認識，簡單確認沒有筆記之類的訊息後，瞥一眼桔梗花的頁面便闔上了書。
+          <span class="br-sm"></span>
+          愛不好嗎？愛本身沒有不好，只是有許多人因為愛而做出不應該做的事。
+          <span class="br-sm"></span>
+          將花語的書也放回原位，沉默數秒緩和神情，變回沒有表情的樣子，走向擺放那些人工智慧相關書籍的書架，查看當中似乎較常翻閱的書冊。
+        </div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">與方才的情況相同，在這些書裡也有許多額外加上的便條紙，內容大部分都與該如何讓機械來輔助人類有關。</div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">看起來很正經——如果沒發現那張羊皮紙就會這樣想吧。儘管沒再發現其他可疑之處，不過還是把注意到的東西記下，沒有繼續查看其他種類的書籍，離開圖書館前往畫廊。
+        </div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">你來到了畫廊，在這裡展示了各式各樣的畫作，但似乎以男性肖像畫居多，並且畫中全部都是同一位年輕美麗的男性。
+          <span class="br-sm"></span>
+          另外也有許多以花卉為題材的畫作，例如桔梗、月下美人、野牡丹、紫苑等。
+        </div>
+      </div>
+    </div>
+
+    <!-- 擲骰提示 -->
+    <div class="dice-block">
+      <div class="dice-result">【偵查】、【靈感】</div>
+    </div>
+
+    <!-- 擲骰 -->
+    <div class="dice-block">
+      <div class="dice-name name-saijo">西条 遙香．偵查</div>
+      <div class="dice-result">出目 71/80</div>
+      <div class="dice-outcome name-success" style="margin-bottom: 2px;">成功</div>
+    </div>
+    <div class="dice-block">
+      <div class="dice-name name-saijo">西条 遙香．靈感</div>
+      <div class="dice-result">出目 17/65</div>
+      <div class="dice-outcome name-success">困難成功</div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">你察覺這些肖像畫中的男性，長相看起來與古場隱約有些相似。
+          <span class="br-sm"></span>
+          除此之外，你注意到一個名為「怪奇珍藏錄」的詭異區塊。
+          <span class="br-sm"></span>
+          那裡擺放著由Richard Upton Pickman等各種畫家所繪製的詭異畫作，令人感到噁心想吐——不管心理或生理層面上都是。
+          <span class="br-sm"></span>
+          這些畫作的內容實在太過令人反感。
+        </div>
+      </div>
+    </div>
+
+    <!-- 擲骰提示 -->
+    <div class="dice-block">
+      <div class="dice-result">【San Check 0/1】</div>
+    </div>
+
+    <!-- 擲骰 -->
+    <div class="dice-block">
+      <div class="dice-name name-saijo">西条 遙香．SC</div>
+      <div class="dice-result">出目 12/89</div>
+      <div class="dice-outcome name-success">困難成功</div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">皺了皺眉，自動忽視那些令人不快的收藏，無表情地逐一查看肖像畫，注意最早與最新的繪製日期，以及可能會有的畫家資訊。
+        </div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">這些肖像畫從幾年前到最近的都有，最早的時間大約是六年前，最新的日期則是上個月。
+          <span class="br-sm"></span>
+          作者並非全都是同一人，看起來沒什麼規律。
+        </div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">是讓人不得不聯想的巧合。確認過後便沒有留戀地轉身離開，這回倒不是再前往宅邸裡的其他房間，而是出門靠近那片桔梗花田觀察。</div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">你走出宅邸，可以看到遠出的森林裡隱約瀰漫著霧氣，月色映照著整片搖曳的花海，這些桔梗花看起來被照料得相當好，看起來十分美麗。
+        </div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">方才還能有覺得優美的感想，但現在已經所剩無幾，蹲下身查看桔梗花本身有沒有奇異之處、周圍的土壤有沒有不尋常的挖掘痕跡等等。</div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">這些看起來似乎就只是普通的桔梗花而已，地上的土壤散發出新鮮的泥土氣息，並沒有被翻動過的痕跡。
+        </div>
+      </div>
+    </div>
+
+  <div class="private-wrap" style="--private-color: 251, 251, 246;">
+    
+    <div class="private-block">
+      <div class="bubble-wrap">
+        <div class="title-style">鳥取的場合</div>
+      </div>
+    </div>
+
+  </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">比起大廳的奢華感，客房整體所給人的感覺相對低調而舒適。
+            <span class="br-sm"></span>
+            這間客房的設備遠比一般的商務旅館要好，不僅空間更為寬敞，還附有獨立的浴室。整體的布置並不誇張，卻顯得井然有序，流露出一種舒適感。
+            <span class="br-sm"></span>
+            房間的一側設有窗戶，上面裝著設計雅緻的格子裝飾。
+            <span class="br-sm"></span>
+            牆面與地板乾淨整潔，家具規矩實用，既沒有過分奢華的裝飾，也不帶任何花俏的擺設。這是一個單純、普通，卻讓人能安穩歇息的空間。
+            <span class="br-sm"></span>
+            這裡有一張單人床、床邊小櫃子、衣櫃以及書桌。</div>
+      </div>
+    </div>
+
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">進門，反鎖，他隨即把手伸進跨包、拿出另一台手機打開——開始往房間各個角落舉高。
+          <span class="br-sm"></span>
+          沒有訊號，也沒有未接來電，風平浪靜地可怕。
+          <span class="br-sm"></span>
+          該說是好運嗎？他今天可以不必當保母了，但也難保明天回去後迎接自己的不會是什麼更麻煩的混亂。
+          <span class="br-sm"></span>
+          在整個房間繞過一周後，他才搖搖晃晃地在床頭櫃邊蹲下，手機握在手裡，像是看到什麼東西就想碰碰看似的扒拉幾下抽屜、打開來看了幾眼。
+          <span class="br-sm"></span>
+          「⋯⋯嗯。」他驀地衝眼前的櫃子點點頭。
+          <span class="br-sm"></span>
+          等等四處晃晃吧，我還在旅遊途中。
+        </div>
+      </div>
+    </div>
+
+    <!-- 擲骰提示 -->
+    <div class="dice-block">
+      <div class="dice-result">【偵查】</div>
+    </div>
+
+    <!-- 擲骰 -->
+    <div class="dice-block">
+      <div class="dice-name name-chiyuki">鳥取 千之．偵查</div>
+      <div class="dice-result">出目 65/70</div>
+      <div class="dice-outcome name-success">成功</div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">房間的家具裡空無一物，似乎清理得非常乾淨。
+            <span class="br-sm"></span>
+            然而你在門的角落處發現了毀損的痕跡，像是被什麼東西抓撓過。</div>
+      </div>
+    </div>
+
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">敞開衛浴的門、拉上窗簾，簡單幾個動作過後看上去倒是和自己家已經沒什麼區別，就是洗澡什麼的，大概短時間內不必想了。
+            <span class="br-sm"></span>
+            直到他開始物色隨處亂逛的目的地時，才在門板上捕捉到那個不起眼的角落。
+            <span class="br-sm"></span>
+            他挑挑眉，蹲下身去也輕輕扣弄了下那個痕跡——隨後把剛剛萌生的念頭又拋到腦後。
+            <span class="br-sm"></span>
+            到時再說吧。
+            <span class="br-sm"></span>
+            他擺了擺腦袋活動筋骨，把跨包重新拉上、蓋住，離開房間準備去一樓散散步。
+        </div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">當你來到一樓後，便順勢來到了樓梯之間的畫廊。
+          <span class="br-sm"></span>
+          這裡展示了各式各樣的畫作，但似乎以男性肖像畫居多，並且畫中全部都是同一位年輕美麗的男性。
+          <span class="br-sm"></span>
+          另外也有許多以花卉為題材的畫作，例如桔梗、月下美人、野牡丹、紫苑等。</div>
+      </div>
+    </div>
+
+    <!-- 擲骰提示 -->
+    <div class="dice-block">
+      <div class="dice-result">【偵查】、【靈感】</div>
+    </div>
+
+    <!-- 擲骰 -->
+    <div class="dice-block">
+      <div class="dice-name name-chiyuki">鳥取 千之．偵查</div>
+      <div class="dice-result">出目 21/70</div>
+      <div class="dice-outcome name-success" style="margin-bottom: 2px;">困難成功</div>
+    </div>
+    <div class="dice-block">
+      <div class="dice-name name-chiyuki">鳥取 千之．靈感</div>
+      <div class="dice-result">出目 10/80</div>
+      <div class="dice-outcome name-success">極限成功</div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">你察覺這些肖像畫中的男性，長相看起來與古場隱約有些相似。
+          <span class="br-sm"></span>
+          除此之外，你注意到一個名為「怪奇珍藏錄」的詭異區塊。
+          <span class="br-sm"></span>
+          那裡擺放著由Richard Upton Pickman等各種畫家所繪製的詭異畫作，令人感到噁心想吐——不管心理或生理層面上都是。
+          <span class="br-sm"></span>
+          這些畫作的內容實在太過令人反感。</div>
+      </div>
+    </div>
+
+    <!-- 擲骰提示 -->
+    <div class="dice-block">
+      <div class="dice-result">【San Check 0/1】</div>
+    </div>
+
+    <!-- 擲骰 -->
+    <div class="dice-block">
+      <div class="dice-name name-chiyuki">鳥取 千之．SC</div>
+      <div class="dice-result">出目 85/70</div>
+      <div class="dice-outcome name-fail">失敗</div>
+    </div>
+
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">血親？
+          <span class="br-sm"></span>
+          大概死了蠻久吧，年紀不大、作品卻多到能擺成畫廊。
+          <span class="br-sm"></span>
+          彷彿包了美術館的場，他沿著長廊一張一張看過去，有時是盯著人、有時是盯著花，見了感覺有些區別的畫風又會多留心會兒作者的名字，一路下來，把畫上僅有的圖文都看了個大概。
+        </div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">這些肖像畫從幾年前到最近的都有，區間有幾個月到幾天的，作者並非全都是同一人。</div>
+      </div>
+    </div>
+
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">彩色的肖像失去了色彩，編織肌膚的筆觸變得粗糙而大膽，細密的線條中不再有青年的身影，也許將他的皮肉盡數剝離都無法組成眼前的圖景。
+          <span class="br-sm"></span>
+          突兀。
+          <span class="br-sm"></span>
+          他碰了碰自己的唇瓣，左右張望了片刻，直到確定身周無人後——才有些詫異地挑了挑眉。
+          <span class="br-sm"></span>
+          身體隱隱叫囂著，用細如蠅蚊的聲音訴說著反感，卻連最為清晰的作嘔感都轉瞬即逝，讓試圖捕捉的念頭都顯得徒勞。
+          <span class="br-sm"></span>
+          他扶著牆面，又往黑白的畫上湊近了些。
+          <span class="br-sm"></span>
+          看那乾癟的卻又不似人的面龐，看那粗腫中隱約能看出幾分枯槁的臂膀，看那似豬似木、似鯊又似人的在洞開的屍身上揮毫留墨。
+          <span class="br-sm"></span>
+          他想畫什麼？又在畫誰呢？
+          <span class="br-sm"></span>
+          投入靜謐的疑問如既往沒有回音。
+        </div>
+      </div>
+    </div>
+
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">靜謐的廊道沒有理會他的問題，犬科低微的回聲倒是有些醒神。
+          <span class="br-sm"></span>
+          餘光裡的人圍著那隻小狗，細碎的人聲模糊地不知說了些什麼，他看回到眼前的圖畫上。
+          <span class="br-sm"></span>
+          ⋯⋯他似乎不該看太久。
+          <br>
+          </br>
+          見大廳有人，鳥取遠遠地就掛上笑容，也不管有沒有人見著自己，先朝包圍著小狗的兩人揮了揮手、無聲地打了個招呼路過便前往餐廳。
+        </div>
+      </div>
+    </div>
+
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">雖然大概是剛開始準備不久⋯⋯從備料應該就能看出有沒有細分前菜主餐了吧。
+          <span class="br-sm"></span>
+          太豐盛的話，感覺那位先生會很不耐煩，但餐桌上臨時多了四個人，大抵也不會是多隆重的晚餐。
+          <span class="br-sm"></span>
+          怕是落針的聲響都能觸怒了人，他在大廳就開始放輕腳步，往廚房的門口湊近，路過時順道往食堂裡投去幾眼，看看有沒有人在裡頭。
+        </div>
+      </div>
+    </div>
+
+    <!-- 擲骰 -->
+    <div class="dice-block">
+      <div class="dice-name name-chiyuki">鳥取 千之．匿蹤</div>
+      <div class="dice-result">出目 51/80</div>
+      <div class="dice-outcome name-success">成功</div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">從敞開的門裡，你看到管家內原正在逐一擺放餐具。
+          <span class="br-sm"></span>
+          這間餐廳看上去十分寬敞，柔和的燈光從吊燈與壁燈中灑下，溫暖的映照在拋光大理石地板上，牆面以低飽和的米白與淡灰交錯，點綴著金屬線條，展現出現代高雅的格調。
+          <span class="br-sm"></span>
+          餐廳裡擺放著一張厚實的長形木質餐桌，左右兩側整齊擺放著幾張椅子，質感沉穩而內斂，椅墊以柔和的淺米色布料包覆，看起來柔軟而舒適。
+        </div>
+      </div>
+    </div>
+
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">擋在眼前的是密閉式的廚房門。
+          <span class="br-sm"></span>
+          雖然看不見，但通常開始擺放餐具，代表時間也不早了吧。
+          <br></br>
+          鳥取轉身回到食堂，從門框邊探出頭來，邊朝呼喚著、邊往裡走了一兩步：「內原先生、請問您需要幫忙嗎？」
+        </div>
+      </div>
+    </div>
+
+    <!-- 內原 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/fuukikan-npc/yanaihara-normal.webp`} alt="內原" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">內原 遠蝶</div>
+        <div class="rp-text">「鳥取先生，您好。」內原彎腰放下盤子，在看到你的時候他微微一笑，輕輕搖了搖頭，「怎麼能夠讓客人動手呢？您的好意我心領了。」<span class="br-sm"></span>
+        「這個問題或許有些冒犯，但您對宅邸裡所提供的活動空間沒有興趣嗎？」
+        </div>
+      </div>
+    </div>
+
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">「我大概有點不習慣坐著等吃飯吧，何況古場先生也沒和我們討要什麼報酬，怎麼想都有點過意不去。」見提議被回絕，他有些不好意思地苦笑兩聲，倚著食堂的牆留了下來。
+          <span class="br-sm"></span>
+          鳥取抬手推了推眼鏡，含著笑意語氣輕鬆，偶爾還會擺擺手、帶些肢體語言，目光卻始終沒從內原臉上離開過太久。  
+          <span class="br-sm"></span>
+          「怎麼會冒犯呢？是我打擾內原先生工作在先，還讓您關心我的體驗，真是失禮了。」
+          <span class="br-sm"></span>
+          「我第一次見到這麼華麗的別墅，到處都很漂亮喔，但在別人家還是很難放開手腳亂晃嘛，我就想能不能來找些事情做，把晚飯前的時間渡過去算了。」
+        </div>
+      </div>
+    </div>
+
+    <!-- 內原 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/fuukikan-npc/yanaihara-normal.webp`} alt="內原" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">內原 遠蝶</div>
+        <div class="rp-text">「我瞭解了。」內原露出了然的表情，「您真是客氣，可惜這是我份內的工作，不能讓客人來接手。」<span class="br-sm"></span>
+        「但若是主人聽見您對於宅邸的盛讚，想必會很開心的，如果介意報酬的部分，或許能夠將這讚美贈予他。」
+        </div>
+      </div>
+    </div>
+
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">「我會的。」他像是有些驚喜地挑了挑眉，隨後笑著附和。
+          <span class="br-sm"></span>
+          「對了、我剛剛去逛了一趟畫廊，能請教一下肖像上的人是不是古場先生的孩子嗎？會不會不方便提起？」話到末了，他放慢了說話的速度，有些憂心似的、聲音也跟著小了些。
+        </div>
+      </div>
+    </div>
+
+    <!-- 內原 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/fuukikan-npc/yanaihara-normal.webp`} alt="內原" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">內原 遠蝶</div>
+        <div class="rp-text">「不會，這並非不能提起的事——然而以我作為管家的立場，確實不好議論太多。」內原微微一笑，「不過請容我糾正您的誤解。肖像畫上的男性雖然長相年輕，但那位其實是主人的哥哥。」
+        </div>
+      </div>
+    </div>
+
+    <!-- 私人訊息 -->
+    <div class="private-wrap" style="--private-color: 251, 251, 246;">
+      
+      <div class="private-block">
+        <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+        <div class="bubble-wrap">
+          <div class="charname name-chiyuki">鳥取 千之</div>
+          <div class="rp-text">//那我想針對薰的身分那句話心理學一下，辨別真偽</div>
+        </div>
+      </div>
+
+      <div class="dice-block">
+        <div class="dice-name name-chiyuki">鳥取．心理學</div>
+        <div class="dice-result">出目 80/70</div>
+        <div class="dice-outcome name-fail" style="margin-bottom: 8px">失敗</div>
+      </div>
+
+      <div class="private-block">
+        <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+        <div class="bubble-wrap">
+          <div class="charname name-kp">KP ➤ 鳥取</div>
+          <div class="rp-text">你感覺他似乎並沒有說謊。</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">「喔呀？」短暫地瞪大眼睛後，他又忍不住有些尷尬地笑出聲。
+          <span class="br-sm"></span>
+          「還好有先問呢，這要是在當事人面前提起、我這邊還真難接話。」
+          <br></br>
+          「古場先生很喜歡哥哥呢，找了這麼多畫家來繪製肖像畫。」鳥取兀自感慨了一句，又偏頭去聽聽看廚房還有沒有忙碌的聲音、或是收尾那樣瓷器碰撞的響聲。
+        </div>
+      </div>
+    </div>
+
+    <!-- 內原 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/fuukikan-npc/yanaihara-normal.webp`} alt="內原" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">內原 遠蝶</div>
+        <div class="rp-text">「還好您有先來詢問。」他笑著附合你的話，「是的，主人和他哥哥的關係非常要好，如果您想瞭解更詳細的事情，或許待會用餐時可以親自問他？主人非常健談，不會介意的。」
+        </div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">廚房裡的人似乎已經在收尾了，裡面叮叮噹噹地傳出些許瓷器碰撞的聲音。
+        </div>
+      </div>
+    </div>
+
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">「那就等等再說吧。」他聳聳肩，終於遠離牆邊站直了身。 
+          <span class="br-sm"></span>
+          「感覺河久先生似乎在收尾了，不如我去找一下其他幾位？剛剛有在大廳看到泉小姐他們呢。」他轉身指了指門口的方向：「第一個落座著等太尷尬了。」
+        </div>
+      </div>
+    </div>
+
+    <!-- 內原 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/fuukikan-npc/yanaihara-normal.webp`} alt="內原" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">內原 遠蝶</div>
+        <div class="rp-text">「這……好吧。」內原看了眼廚房，最後似乎有些無奈地笑了，「那就麻煩您了，非常感謝。」
+        </div>
+      </div>
+    </div>
+
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">內原話音方落，鳥取便揮著手快步離開了餐廳：「晚點見，我會盡快回來的。」
+        </div>
+      </div>
+    </div>
+
+    <!-- 內原 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/fuukikan-npc/yanaihara-normal.webp`} alt="內原" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">內原 遠蝶</div>
+        <div class="rp-text">內原也笑著揮手回應。
+        </div>
+      </div>
+    </div>
+
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">再出來時，大廳的人群已經解散，剛剛也沒聽見幾人的目的地，鳥取在看了一眼畫廊，確認盡頭無人後，轉身推開了離自己最近的大門，向外張望幾眼。
+        </div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">因為晚餐時間鄰近而出來找人的鳥取，首先在門外看到了蹲在桔梗花旁邊的西條。
+        </div>
+      </div>
+    </div>
+
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">「呀、是泉小姐的朋友嗎？」他看上去有些意外，停留在門上的手頓了頓才把門敞開，往花海的方向走去幾步。
+          <span class="br-sm"></span>
+          「晚餐快準備好了，但內原先生還在佈置餐廳，所以我出來幫忙找人，不知道您有沒有見過泉小姐他們去哪裡了？」
+        </div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">「……我是西條。」正好也看完了，聞聲站了起身，回頭向同為借宿之人的鳥取報上名字。
+          <span class="br-sm"></span>
+          「我之前經過時有在遊戲室和接待室聽到聲音，也許可以先去那兩個房間看看。」說著，往宅邸的方向折返。
+        </div>
+      </div>
+    </div>
+
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">「那還蠻順路的啊、謝謝。」他嘟嚷著應和，唯獨道謝的聲音不顯含糊，見對方轉身準備回宅邸，他沒有立馬跟上，但也沒再往前靠。
+          <span class="br-sm"></span>
+          「對了、西條小姐，」直到對方已經經過自己，他才轉過頭去補充道。
+          <span class="br-sm"></span>
+          「感覺您也許會介意，建議您睡前檢查一下門窗，我那邊的門板、像是有人想撬開一樣被撓過呢，有蟲子什麼的跑進去可就不好了。」
+        </div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">腳步稍為放緩後注意到對方沒要動身的樣子，便也就不多作停留，直至話聲再次響起。
+          <span class="br-sm"></span>
+          「謝謝。」同樣轉過了身，沒特別回應對方對自己的印象，「也建議您在留宿期間多加小心，這裡的霧氣似乎並不尋常。」禮尚往來說了一句，然後便進屋走向遊戲室。
+        </div>
+      </div>
+    </div>
+
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">「我會的。」對西條的背影淺淺揮了揮手，在斜睨一眼漫山遍谷的桔梗花叢後也進了屋。
+          <span class="br-sm"></span>
+          注意到西條右拐進了遊戲室，鳥取又多走了幾步，去檢查似乎已經沒了動靜的接待室和圖書館，往盡頭的書房靠近。
+        </div>
+      </div>
+    </div>
+
+    </div>
+
+    <div class="next-chapter">
+      <a href={`${base}/fuukikan/ch2-1`}>開胃菜－魚介酸橘汁醃 →</a>
+    </div>
+
+  </div>
+
+  <!-- 右側：預設場景資訊 -->
+  <div class="scene-side">
+    <div class="scene-bg"></div>
+    <div class="scene-deco">
+      <div class="scene-deco-line1"></div>
+      <div class="scene-deco-line2"></div>
+      <div class="scene-deco-circle"></div>
+      <div class="scene-deco-rect"></div>
+    </div>
+    <div class="vertical-title">K課辦公室</div>
+    <div class="scene-info">
+      <div class="scene-location">Location</div>
+      <div class="scene-title">K縣警K課<br>辦公室・傍晚</div>
+      <div class="scene-chars-label">登場人物</div>
+      <div class="scene-chars">砂金 理來<br>刑事（一課）</div>
+    </div>
+  </div>  
+
+</div>
+</Layout>
+
+<script>
+  // 使用 astro:page-load 確保在 ClientRouter 切換頁面後仍能執行
+  document.addEventListener('astro:page-load', () => {
+    // 1. 取得右側顯示面板的元素，並斷言為 HTMLElement 以解決 style 報錯
+    const sceneBg = document.querySelector('.scene-bg') as HTMLElement | null;
+    const sceneTitle = document.querySelector('.scene-title') as HTMLElement | null;
+    const sceneLocation = document.querySelector('.scene-location') as HTMLElement | null;
+    const sceneChars = document.querySelector('.scene-chars') as HTMLElement | null;
+    const verticalTitle = document.querySelector('.vertical-title') as HTMLElement | null;
+
+    // 2. 取得滾動容器與所有埋點
+    const logContent = document.querySelector('.log-content') as HTMLElement | null;
+    const markers = document.querySelectorAll('.scene-marker');
+
+    if (!logContent || markers.length === 0) return;
+
+    // 3. 預載圖片邏輯
+    markers.forEach(marker => {
+      const m = marker as HTMLElement;
+      if (m.dataset.bg) {
+        const img = new Image();
+        img.src = m.dataset.bg;
+      }
+    });
+
+    // 4. 定義更新內容的函數
+    const updateScene = (marker: HTMLElement) => {
+      console.log("偵測到場景切換:", marker.dataset.bg); // 打開 F12 看看有沒有跑這行
+      const { bg, title, location, chars } = marker.dataset;
+
+      if (bg && sceneBg) {
+        sceneBg.style.backgroundImage = `url('${bg}')`;
+      }
+      if (title && sceneTitle) {
+        sceneTitle.innerHTML = title.replace(/\n/g, '<br>');
+        // 同步更新側邊直排文字 (取標題第一行)
+        if (verticalTitle) verticalTitle.innerText = title.split('\n')[0];
+      }
+      if (location && sceneLocation) {
+        sceneLocation.textContent = location;
+      }
+      if (chars && sceneChars) {
+        sceneChars.innerHTML = chars.replace(/\n/g, '<br>');
+      }
+    };
+
+    // 5. 設定觀察器
+    const observerOptions = {
+      root: logContent,
+      // rootMargin 決定觸發位置：這裡設定在畫面中偏上的位置 (-20% 頂部, -70% 底部)
+      rootMargin: '-20% 0px -70% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          updateScene(entry.target as HTMLElement);
+        }
+      });
+    }, {
+      root: logContent,
+      rootMargin: '-20% 0px -70% 0px',
+      threshold: 0
+    });
+
+    logContent.addEventListener('scroll', () => {
+      const containerMid = logContent.scrollTop + logContent.clientHeight * 0.3;
+      
+      let currentMarker: HTMLElement | null = null;
+      markers.forEach(marker => {
+        const m = marker as HTMLElement;
+        if (m.offsetTop <= containerMid) {
+          currentMarker = m;
+        }
+      });
+      
+      if (currentMarker) updateScene(currentMarker);
+    });
+
+    // 6. 開始觀察每個埋點
+    markers.forEach(marker => observer.observe(marker));
+
+    // 7. 初始化：預設顯示第一個埋點的內容
+    updateScene(markers[0] as HTMLElement);
+  });
+</script>

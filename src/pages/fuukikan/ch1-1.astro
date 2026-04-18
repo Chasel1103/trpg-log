@@ -1,311 +1,17 @@
 ---
-  const IMG_BASE = "https://raw.githubusercontent.com/Chasel1103/TRPG-Images/main";
+import Layout from '../../layouts/Layout-rp.astro';
+import { ClientRouter } from 'astro:transitions';
 
-  const base = import.meta.env.BASE_URL;
+const IMG_BASE = "https://raw.githubusercontent.com/Chasel1103/TRPG-Images/main";
+const base = import.meta.env.BASE_URL;
 ---
-<html lang="zh-Hant">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width" />
-  <title>Beaujolais</title>
-</head>
 
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<Layout>
+  <Fragment slot="head">
+    <title>Beaujolais</title>
+    <ClientRouter />
+  </Fragment>
 
-  @keyframes fadein {
-    to { opacity: 1; }
-  }
-
-
-  html, body {
-    height: 100%;
-    overflow: hidden;
-    background: #1a1a24;
-    font-family: sans-serif;
-    color: white;
-    opacity: 0;
-    animation: fadein 0.4s ease forwards;
-  }
-
-  .outer {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    overflow: hidden;
-  }
-
-  /* ==============================
-     左側：團錄內容
-  ============================== */
-  .log-side {
-    width: 70%;
-    background: #0d0d0f;
-    box-shadow: 6px 0 32px rgba(0,0,0,0.8);
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden; /* 改掉原本的overflow-y: scroll */
-    scrollbar-width: none;
-  }
-  .log-side::-webkit-scrollbar { display: none; }
-
-  .log-top {
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    color: rgba(255,255,255,0.2);
-    text-transform: uppercase;
-    padding: 1.2rem 2rem 1.2rem 2.5rem;
-    border-bottom: 0.5px solid rgba(255,255,255,0.06);
-    flex-shrink: 0; /* 不會被壓縮 */
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .log-content {
-  flex: 1;
-  overflow-y: scroll;
-  scrollbar-width: none;
-  padding: 2rem 2rem 2.5rem 2.5rem;
-  }
-  .log-content::-webkit-scrollbar { display: none; }
-
-  /* RP行：橫向排列頭像+內容 */
-  .row {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 3.5rem;
-    align-items: flex-start;
-  }
-
-  .avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 5px;
-    background: rgba(255,255,255,0.06);
-    border: 0.5px solid rgba(255,255,255,0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 10px;
-    color: rgba(255,255,255,0.3);
-    flex-shrink: 0;
-    object-fit: cover;
-    object-position: top center;
-  }
-  .avatar.ghost { opacity: 0; pointer-events: none; }
-
-  .bubble-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    max-width: 85%;
-  }
-
-  .charname {
-    font-size: 15px;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    margin-bottom: 4px;
-    padding: 0 2px;
-    color: rgba(255,255,255,0.6);
-  }
-
-  /* RP文字：無對話框，動作台詞不分段 */
-  .rp-text {
-    font-size: 15px;
-    line-height: 1.85;
-    color: rgba(255,255,255,0.72);
-    padding: 2px 2px 8px;
-  }
-
-  /* 擲骰區塊 */
-  .dice-block {
-    margin: 1.8rem auto;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    width: 100%;
-    flex-shrink: 0;
-  }
-  .dice-name {
-    font-size: 12.5px;
-    color: rgba(255,255,255,0.5);
-    letter-spacing: 0.06em;
-  }
-  .dice-result {
-    font-size: 15px;
-    color: rgba(255,255,255,0.75);
-    letter-spacing: 0.08em;
-    margin-top: 2px;
-  }
-  .dice-outcome {
-    font-size: 15px;
-    color: rgba(255,255,255,0.55);
-    letter-spacing: 0.12em;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 2px;
-  }
-  .dice-outcome::before,
-  .dice-outcome::after {
-    content: '';
-    display: block;
-    width: 40px;
-    height: 0.5px;
-    background: rgba(255,255,255,0.2);
-  }
-
-  .block-gap { margin-bottom: 1.2rem; flex-shrink: 0; }
-
-  /* 角色名顏色 */
-  .name-white { color: #ffffff; }
-  .name-sage  { color: #8db8a0; }
-  .name-navy  { color: #6b8cba; }
-  .name-kp    { color: rgba(255,255,255,0.38); }
-  .name-saijo  { color: #749F8D; }  /* 西條 */
-  .name-izumi  { color: #BC2D29; }  /* 泉 */
-  .name-elias  { color: #7DB9DE; }  /* 伊萊 */
-  .name-chiyuki  { color: #FBFBF6; }  /* 鳥取 */
-  .name-success  { color: #2EA9DF; }
-  .name-fail     { color: #D0104C; }
-
-  .private-block {
-    width: 65%;
-    margin: 1.8rem auto;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 1.2rem 1.5rem;
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-  }
-
-  .private-block .avatar {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .private-label {
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    color: rgba(255,255,255,0.3);
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-
-  .private-block {
-    background: rgba(var(--private-color), 0.3);
-    border-color: rgba(var(--private-color), 0.4);
-  }
-  .private-block::before,
-  .private-block::after {
-    background: rgba(var(--private-color), 0.4);
-  }
-
-  .br-sm {
-    display: block;
-    margin-bottom: 0.4rem;
-  }
-
-  /* ==============================
-     右側：場景資訊（固定不滾動）
-  ============================== */
-  .scene-side {
-    width: 30%;
-    height: 100vh;
-    position: relative;
-    background: #2a2535;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 1.5rem;
-    flex-shrink: 0;
-    overflow: hidden;
-  }
-
-  /* 背景圖片層 */
-  .scene-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #1e1a2e;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    z-index: 1;
-    transition: background-image 0.8s ease-in-out;
-  }
-
-  .scene-deco { position: absolute; inset: 0; z-index: 1;}
-  .scene-deco-line1 { position: absolute; top: 18%; left: 0; right: 0; height: 0.5px; background: rgba(255,255,255,0.07); }
-  .scene-deco-line2 { position: absolute; top: 22%; left: 20%; right: 0; height: 0.5px; background: rgba(255,255,255,0.04); }
-  .scene-deco-circle { position: absolute; top: 10%; right: 15%; width: 80px; height: 80px; border-radius: 50%; border: 0.5px solid rgba(255,255,255,0.06); }
-  .scene-deco-rect { position: absolute; bottom: 30%; left: 10%; width: 40px; height: 40px; border: 0.5px solid rgba(255,255,255,0.05); transform: rotate(20deg); }
-
-  .vertical-title {
-    position: absolute;
-    right: -1px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-    font-family: serif;
-    font-size: 22px;
-    font-weight: 400;
-    letter-spacing: 0.15em;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(255,255,255,0.7);
-    white-space: nowrap;
-    line-height: 1;
-    padding: 1rem 0;
-  }
-
-  /* ==============================
-    通往下一頁
-  ============================== */
-  .next-chapter {
-    position: sticky;
-    bottom: 2rem;
-    display: flex;
-    justify-content: flex-end;
-    padding-right: 2rem;
-    margin-top: 2rem;
-    flex-shrink: 0;
-  }
-
-  .next-chapter a {
-    text-decoration: none;
-    font-size: 13px;
-    letter-spacing: 0.12em;
-    color: rgba(255,255,255,0.7);
-    border: 0.5px solid rgba(255,255,255,0.3);
-    padding: 10px 20px;
-    transition: color 0.2s, border-color 0.2s;
-  }
-
-  .next-chapter a:hover {
-    color: white;
-    border-color: rgba(255,255,255,0.7);
-  }
-
-  .scene-info { position: relative; z-index: 2; }
-  .scene-location { font-size: 15px; letter-spacing: 0.1em; color: rgba(255,255,255,0.35); text-transform: uppercase; margin-bottom: 0.6rem; }
-  .scene-title { font-size: 20px; font-weight: 500; color: rgba(255,255,255,0.75); margin-bottom: 1rem; line-height: 1.4; }
-  .scene-chars-label { font-size: 15px; letter-spacing: 0.1em; color: rgba(255,255,255,0.25); text-transform: uppercase; margin-bottom: 0.4rem; }
-  .scene-chars { font-size: 15px; color: rgba(255,255,255,0.45); line-height: 1.8; }
-</style>
-
-<body>
 <div class="outer">
 
   <!-- 左側：團錄內容 -->
@@ -318,53 +24,55 @@
     <div class="log-content">
 
       <div class="scene-marker"
-        data-bg={`${IMG_BASE}/scene/Keiji/office.jpg`}
+        data-bg={`${IMG_BASE}/scene/fuukikan/yoru.webp`}
         data-location="Location"
-        data-title={`某座山(?)・傍晚`}
-        data-chars={`西條 遙香\n泉 夕希\n伊萊亞斯．諾德海姆\n■■ ■■`}>
+        data-title={`林間・傍晚`}
+        data-chars={`西条 遙香\n泉 夕希\n伊萊亞斯．諾德海姆\n■■ ■■`}>
       </div>
+      
     <!-- KP：右側 -->
     <div class="dice-block">
       <div class="dice-result">クトゥルフ神話TRPG【桔梗館的某夜】<br></div>
       <br><br>
-      <div class="dice-result">第一話</div>
+      <div class="dice-result">第一章</div>
     </div>
 
     <div class="block-gap"></div>
 
     <!-- KP -->
     <div class="row">
-      <img src={`${IMG_BASE}/KPs/goldfish.png`} alt="kp" class="avatar" />
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
       <div class="bubble-wrap">
         <div class="charname name-kp">KP</div>
         <div class="rp-text">此時正值傍晚時分，在夕霞山待了一整天的你們正往山下的方向離開。<br><span class="br-sm"></span>
           然而周遭不知何時開始便飄起霧氣，明明前方的山道應該只有一條而已，但不管怎麼走都遲遲未見盡頭。<br><span class="br-sm"></span>
           這是在山林裡迷路了嗎？<br><span class="br-sm"></span>
-          霧氣始終未曾散去，在這條山路上你們也只能看到彼此，附近似乎沒有其他遊客了。<br><br>
+          霧氣始終未曾散去，在這條山路上你們也只能看到彼此，附近似乎沒有其他遊客了。
         </div>
       </div>
     </div>
 
     <!-- 希格爾德 -->
     <div class="row">
-      <img src={`${IMG_BASE}/Characters/Elias/sig.jpg`} alt="Sig" class="avatar" />
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
       <div class="bubble-wrap">
         <div class="charname">希格爾德</div>
         <div class="rp-text">放慢了步伐，嗅了嗅地面。</div>
       </div>
     </div>
 
-    <div class="private-block" style="--private-color: 150,150,150;">
-      <img src={`${IMG_BASE}/KPs/goldfish.png`} alt="kp" class="avatar" />
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
       <div class="bubble-wrap">
-        <div class="charname name-kp">KP → 希格爾德</div>
+        <div class="charname name-kp">KP ➤ 希格爾德</div>
         <div class="rp-text">儘管你已經來過夕霞山許多次了，然而這附近的氣息對你來說有些陌生。</div>
       </div>
     </div>
 
     <!-- 鳥取 -->
     <div class="row">
-      <img src={`${IMG_BASE}/Characters/chiyuki/normal.png`} alt="chiyuki" class="avatar" />
+      <img src={`${IMG_BASE}/Characters/chiyuki/mXoYxnNLndyD8QnVdnvrR.webp`} alt="鳥取" class="avatar" />
       <div class="bubble-wrap">
         <div class="charname name-chiyuki">鳥取 千之</div>
         <div class="rp-text">少年舉起手機，在山路中央又照了張相、拍下了不知第幾條街景後，開始和前面的幾張相片對比。<br>
@@ -378,7 +86,7 @@
 
     <!-- 泉 -->
     <div class="row">
-      <img src={`${IMG_BASE}/Characters/Izumi/normal.png`} alt="泉 夕希" class="avatar" />
+      <img src={`${IMG_BASE}/Characters/Izumi/947708_uszyDlhK.webp`} alt="泉" class="avatar" />
       <div class="bubble-wrap">
         <div class="charname name-izumi">泉 夕希</div>
         <div class="rp-text">又起霧了，果然山裡的天氣難以預料。聽見問話，泉暫且停下腳步，「西條小姐，應該是這條路沒錯吧？」同樣感到疑惑，她和同行人確認著，一邊朝四周看了看，有沒有其他岔路或是標誌。</div>
@@ -387,7 +95,7 @@
 
     <!-- KP -->
     <div class="row">
-      <img src={`${IMG_BASE}/KPs/goldfish.png`} alt="kp" class="avatar" />
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
       <div class="bubble-wrap">
         <div class="charname name-kp">KP</div>
         <div class="rp-text">附近沒有岔路，然而仔細觀察後，隱約能看見前方的道路旁邊似乎插著一個牌子。
@@ -395,815 +103,937 @@
       </div>
     </div>
 
-    <!-- 刑事：右側NPC -->
+    <!-- 伊萊 -->
     <div class="row">
-      <div class="avatar">刑</div>
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
       <div class="bubble-wrap">
-        <div class="charname name-kp">刑事</div>
-        <div class="rp-text">「你就是砂金吧？我聽說你們課今天就只有你回來了。」<br>「我們這有個待審訊的犯人，你過來支援一下。」</div>
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">狗的牽繩後方是一個高挑的外國男性。<span class="br-sm"></span>
+伊萊亞斯聽見了鳥取的話，沉默地搖了搖頭。他來過這裡好幾次了，很確定只有一條路。</div>
       </div>
     </div>
 
-    <!-- 砂金 -->
+    <!-- 西条 -->
     <div class="row">
-      <img src={`${IMG_BASE}/Characters/Isago/normal.png`} alt="砂金 理來" class="avatar" />
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
       <div class="bubble-wrap">
-        <div class="charname name-isago">砂金 理來</div>
-        <div class="rp-text">「哎呀、這還真是不湊巧。」<br>「我還得給我的同事們收拾下呢，今天常態性的工作因為課上的意外一點都沒動彈，而且島田警部不是大名鼎鼎的刑事一課嗎？那邊的工作我可幫不上什麼忙吶。」</div>
-      </div>
-    </div>
-
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">在聽見你熟練喊出他的姓氏和職銜時，那人眉頭一挑，但最終還是沒有理會你的推託，反而皺起眉頭準備轉身。</div>
-      </div>
-    </div>
-
-    <!-- 刑事 -->
-    <div class="row">
-      <div class="avatar">刑</div>
-      <div class="bubble-wrap">
-        <div class="charname name-kp">刑事</div>
-        <div class="rp-text">「那從現在開始，這個就是K課的日常工作項目之一，我領你上去。」</div>
-      </div>
-    </div>
-
-    <!-- 砂金 -->
-    <div class="row">
-      <img src={`${IMG_BASE}/Characters/Isago/normal.png`} alt="砂金 理來" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-isago">砂金 理來</div>
-        <div class="rp-text">「一課真是我行我素呢？」他微微一笑，轉過椅子起身跟上對方。</div>
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">隨意邀約的散心之行似乎比上一回順利，心情沒有特別喜悅、不過用相對的標準來看已算是不錯。儘管飄起的霧氣不免讓人想起上一回的不快，疑似迷路的突發狀況多少有些打擾這份平和，不過暫時還沒有太多反應。<span class="br-sm"></span>
+「本來應該是沒錯的。」拿出手機查看地圖，打算確認完再回應陌生人的提問。</div>
       </div>
     </div>
 
     <!-- KP -->
     <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
       <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">路上，島田向你解說起確切的工作內容：這次要審訊的是今天凌晨因涉嫌搶劫被捕的嫌疑人。<br>雖說逮捕時似乎就審訊過一次，但慎重起見，上層決定再審訊一次。因為人手不足，聽聞K課還剩個人有回課上，便臨時將你叫了過來。<br>儘管島田臉上的不信任溢於言表，但還是公事公辦地向你介紹起犯人與案件的情報。</div>
+        <div class="charname name-kp">KP ➤ <span class="name-saijo">西条<span></div>
+        <div class="rp-text">當你看到地圖後，可以發現你們的所在標示的都是整塊綠色，這條路似乎並不存在於地圖裡。</div>
       </div>
     </div>
 
+    <!-- 泉 -->
     <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
+      <img src={`${IMG_BASE}/Characters/Izumi/normal.webp`} alt="泉" class="avatar" />
       <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">嫌疑人名為清水 祟（Shimizu Tatari）。<br>對其犯罪事實供認不諱。過去曾因搶劫罪被判處實刑。<br>今天凌晨2點，嫌疑人潛入了某位收藏家的住宅實施盜竊，在被數名保安發現後抓獲。<br>期間，嫌疑人用小刀刺傷一名保安並企圖逃跑，但未能成功。警方隨後接到報案，前來現場接管了嫌疑人。檢查室內財物損失情況時，發現收藏家丟失了一本藏書。<br>根據收藏家的證詞，可以確認那是一本價值極高的《死靈之書》抄本。<br>嫌疑人並未攜帶贓物，警方目前正在追查藏書下落。另外，嫌疑人被捕時，隨身物品只有小刀、應急安全槌和手機。</div>
+        <div class="charname name-izumi">泉 夕希</div>
+        <div class="rp-text">注意到路邊似乎有什麼，在西條低頭操作手機時，泉往前靠近查看。</div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP ➤ <span class="name-izumi">泉<span></div>
+        <div class="rp-text">可以看到路邊上插著一塊箭頭形狀的木製路牌，上面標示著「桔梗館」的字樣，指示的方向正是前方。</div>
+      </div>
+    </div>
+
+    <!-- 希格爾德 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">希格爾德</div>
+        <div class="rp-text">希格爾德停下了腳步，灰色的耳朵豎得筆直，目光來回在三個陌生人之間游移，「嗚——？」牠用鼻尖頂了頂主人的小腿。</div>
+      </div>
+    </div>
+
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">「這是我沒有迷路？還是沒手機的意思嗎？總之謝謝喔，也許是走太久了，總感覺有點時間感混亂。」
+不管是哪個，再接著問都有點麻煩人了。<span class="br-sm"></span>
+他偏過腦袋，像是對伊萊亞斯的回應方式感到習慣一樣微笑著應答，隨後把手機收了起來，打算往前繼續走一段看看。</div>
+      </div>
+    </div>
+
+    <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">伊萊亞斯蹲了下來慢慢地撫摸著希格爾德的頭頂，「Det går bra, Sig.（沒事的，Sig。）」隨後才回應了鳥取，「……這裡路不對，不知道是哪裡。」</div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP ➤ <span class="name-elias">伊萊<span></div>
+        <div class="rp-text">不管往哪個方向看去，似乎都被霧氣所籠罩。</div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">「那就走吧。」簡單地回應泉，同樣朝路牌指示的方向走去。</div>
+      </div>
+    </div>
+
+    <!-- 希格爾德 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">希格爾德</div>
+        <div class="rp-text">「汪嗚？」</div>
       </div>
     </div>
 
       <div class="scene-marker"
-        data-bg={`${IMG_BASE}/scene/Keiji/mansion.jpg`}
+        data-bg={`${IMG_BASE}/scene/fuukikan/hanabatake.webp`}
         data-location="Location"
-        data-title={`審訊室・傍晚`}
-        data-chars={`砂金 理來`}>
+        data-title={`桔梗花海・夜`}
+        data-chars={`西条 遙香\n泉 夕希\n伊萊亞斯．諾德海姆\n■■ ■■`}>
       </div>
 
+    <!-- KP -->
     <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
       <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">說著，你們也來到了審訊室門口。 推開門後，映入眼簾的是一間擺放著樸素桌椅的白色房間。桌椅對側，一名身材高大的男子打量著進門的你。島田向你介紹，這位就是剛剛討論的清水祟。此外，他一旁還坐著一名負責記錄審訊過程的刑警。</div>
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">你們根據招牌的指示沿著道路走去，隨著天色漸漸昏暗，越來越難看清楚周圍的環境，只有腳下直直的路徑在告訴你們大概沒有走錯。<span class="br-sm"></span>
+當夜幕降臨時，霧氣終於緩緩消散，朦朧的視野逐漸清晰。<span class="br-sm"></span>
+道路延伸至樹林之外，眼前是一片豁然開朗的景色，在星空下，你們看到一座被月色照亮、周圍環繞著美麗桔梗的西式宅邸，花朵隨著吹拂的風輕輕搖曳。</div>
+      </div>
+    </div>
+  
+    <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">這種情況下獨自貿然回頭顯然不明智，他牽著狗鍊默默地跟著其他人的腳步。</div>
       </div>
     </div>
 
-    <!-- 砂金 -->
+    <!-- 西条 -->
     <div class="row">
-      <img src={`${IMG_BASE}/Characters/Isago/normal.png`} alt="砂金 理來" class="avatar" />
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
       <div class="bubble-wrap">
-        <div class="charname name-isago">砂金 理來</div>
-        <div class="rp-text">「你好呀。」見島田快步離開，他朝嫌疑人揚起手，像是見到舊識般笑著拉開了剩餘的椅子坐下。<br><br>「說起來，其實我沒有做過審訊工作呢，初次見面，還請您多海涵吶。」</div>
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">雖然沒打算過夜，不過還真的派上了用場。在越漸難以看清道路時拿出手電筒照亮眾人腳下。<span class="br-sm"></span>
+眼下並無欣賞的心情，不過也不否認景色確實優美，多看了兩眼，然後便打量起那座宅邸，看看裡面有沒有燈光。</div>
       </div>
     </div>
 
     <!-- KP -->
     <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
       <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">你看到記錄員露出了無奈的表情。<br>清水則是面不改色地看著你，開口道：「無所謂，無論誰來審訊，我的答案都是一樣的。」</div>
+        <div class="charname name-kp">KP ➤ <span class="name-saijo">西条<span></div>
+        <div class="rp-text">可以看到宅邸的窗戶裡亮著燈光。</div>
       </div>
     </div>
 
-    <!-- 砂金 -->
+    <!-- 希格爾德 -->
     <div class="row">
-      <img src={`${IMG_BASE}/Characters/Isago/normal.png`} alt="砂金 理來" class="avatar" />
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
       <div class="bubble-wrap">
-        <div class="charname name-isago">砂金 理來</div>
-        <div class="rp-text">「這樣啊、那就好辦了。」他一隻手撐在桌上、輕輕托住臉頰，另一隻手隨意擺在桌面、掌心朝上，一副放鬆的姿態朝清水瞇起眼睛笑道。<br><br>「我們速戰速決吧？清水先生只需要把想說的話都說出來就好了喔。」</div>
+        <div class="charname">希格爾德</div>
+        <div class="rp-text">希格爾德湊到了其中一片桔梗花叢旁，尾巴輕微搖動，看起來小心翼翼地用鼻子推了推花莖。<span class="br-sm"></span>
+「汪！」牠抬頭看了伊萊亞斯一眼，像是在等待允許。</div>
       </div>
     </div>
 
-    <!-- 擲骰提示 -->
-    <div class="dice-block">
-      <div class="dice-result">《魅惑》</div>
+    <!-- 泉 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Izumi/normal.webp`} alt="泉" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-izumi">泉 夕希</div>
+        <div class="rp-text">「哇……」望著一片花海，泉不禁發出讚嘆。沒想到迷路還能看到這番景色。一時沒去煩惱天色已暗的問題，泉拿起手機拍了幾張照，然後才仔細看了看座落其中的宅邸。<span class="br-sm"></span>
+「看起來不像是民宿呢？」轉向西條說道。</div>
+      </div>
+    </div>
+
+    <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">伊萊亞斯也在花叢前停下，他蹲了下來，伸手拍了拍希格爾德的背，眼神柔和地看著希格爾德低聲說了句：「Ikke bit.（不可以咬。）」</div>
+      </div>
+    </div>
+
+    <!-- 希格爾德 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">希格爾德</div>
+        <div class="rp-text">希格爾德「汪嗚！」地回了一句，呼吸把花瓣吹得輕輕搖晃，牠安靜地趴在花叢旁一下一下地晃著尾巴。</div>
+      </div>
+    </div>
+  
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">「啊⋯⋯手機壞掉了真可惜。」雖然一路走來風景都不錯，但花海和星空、就算是拿最老舊的機型大抵都會好拍很多。
+<span class="br-sm"></span>
+感慨片刻，鳥取才穿過花田上前，走到宅邸門口試著敲了敲門。</div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">半晌後，你看見一名年長的男性前來為你開門。</div>
+      </div>
+    </div>
+
+    <!-- 內原 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/fuukikan-npc
+/yanaihara-normal.webp`} alt="內原" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">內原 遠蝶</div>
+        <div class="rp-text">「您好。」他微微一笑，「請問有什麼事嗎？」</div>
+      </div>
+    </div>
+
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">「打擾了，我是從綠谷町過來的，但因為剛剛起了霧，現在有點找不到下山的路，請問您知道該怎麼走回山下嗎？」他說著，途中有些緊張地回頭看了幾眼來時的路。</div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">「確實不像。」所以為什麼會特別有路牌指引方向呢。也許是因為對山上的建築有不太好的回憶，看起來沒有因為找到了人煙而放鬆下來，只是在等待泉拍好照後同樣邁步走近門口。
+<span class="br-sm"></span>
+「總之，先過去看看吧。」</div>
+      </div>
+    </div>
+
+    <!-- 泉 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Izumi/normal.webp`} alt="泉" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-izumi">泉 夕希</div>
+        <div class="rp-text">泉點點頭後跟上西條的腳步，也來到了宅邸門口旁。
+          <span class="br-sm"></span>
+拉近了與建築的距離，她趁著別人在進行溝通，左右張望觀察了下這棟房子看起來有沒有什麼特別的地方。</div>
+      </div>
+    </div>
+
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">「看來我事前功課做得還是不夠。」鳥取苦笑了下，順著對方的建議換了個話題：「是晚上山裡會有什麼危險嗎？</div>
+      </div>
+    </div>
+
+    <!-- 內原 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/fuukikan-npc
+/yanaihara-normal.webp`} alt="內原" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">內原 遠蝶</div>
+        <div class="rp-text">「雖然看起來已經沒有霧氣了，但其實森林裡還很難說。」他笑著為你說明，「而且這附近的山道很複雜——你們不知道自己是怎麼來的吧？因為這一片都是私人土地，為了避免遊客打擾，所以連地圖都沒有標示道路。」
+        <span class="br-sm"></span>
+        「這樣很容易遭遇危險，過去也有不少強行下山卻失足掉下懸崖的人，所以我才不建議各位在這時候下山。」
+        </div>
+      </div>
+    </div>
+
+     <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">淡淡了抬眼看了一下內原，隨後又繼續低頭摸狗。</div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">先不說不想被打擾為何不把路封起來，既然如此，那個路牌的存在就很矛盾了吧。暫時關上了手電筒，沒有加入對話。</div>
+      </div>
+    </div>
+
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">「我確實是按照地圖走的。」被說中問題、他撓了撓臉頰。
+        <span class="br-sm"></span>
+        「但這樣的話，不知道先生有沒有什麼其他建議？」見對方似乎想斷了下山的念頭，他也沒有叫救援的打算，鳥取的語氣隱隱有些期待，雙手輕輕扣著放在了身前。
+        </div>
+      </div>
+    </div>
+
+    <!-- 希格爾德 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">希格爾德</div>
+        <div class="rp-text">希格爾德趴在地上，嘴巴半開，吐著舌頭呼吸著。</div>
+      </div>
+    </div>
+  
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">「那就先麻煩您幫忙詢問主人了，謝謝。」似乎是稍微放鬆了點，鳥取懸著的手放了下來，隨後側過身面向身後的人：「那麼，請問幾位有打算現在下山的嗎？」
+        </div>
+      </div>
+    </div>
+
+    <!-- 泉 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Izumi/normal.webp`} alt="泉" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-izumi">泉 夕希</div>
+        <div class="rp-text">這樣的話至少要有「私人土地，禁止進入」的標示吧。將注意力放到談話內容，泉對於這樣的說明感到無奈，只是摔下懸崖聽起來實在有些嚇人，就算能問得回到山道的路線，她也難說自己有把握在這種情況下安全走回去。
+          <span class="br-sm"></span>
+先是朝轉過頭來的人笑了笑，「西條小姐覺得呢？」泉將決定權交給西條。</div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">在被看時頓了頓，表態前便注意到泉的注視。「……可以的話，就借宿吧。」</div>
+      </div>
+    </div>
+
+     <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">聽見詢問後，伊萊亞斯拿出手機確認一下現在時間。</div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP ➤ <span class="name-elias">伊萊<span></div>
+        <div class="rp-text">此時是晚上七點十分。</div>
+      </div>
+    </div>
+
+     <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">說晚也不算太晚，但看了看天色與濃霧……。<span class="br-sm"></span>
+        他收起手機，站了起身，慢悠悠的開口：「打擾了。」他拉了拉手上的鍊子，希格爾德迅速的站了起來。</div>
+      </div>
+    </div>
+
+    <!-- 希格爾德 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">希格爾德</div>
+        <div class="rp-text">「汪！」</div>
+      </div>
+    </div>
+
+    <!-- 內原 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/fuukikan-npc/yanaihara-normal.webp`} alt="內原" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">內原 遠蝶</div>
+        <div class="rp-text">「好的，那麼請各位稍等片刻，我這就去詢問主人。」他在說完後便關上了門。
+        </div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">隨後經過半晌，大門再次敞開，他邀請你們進入屋內，不過在看向伊萊亞斯的時候，他特地開口囑咐。</div>
+      </div>
+    </div>
+
+    <!-- 內原 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/fuukikan-npc/yanaihara-normal.webp`} alt="內原" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">內原 遠蝶</div>
+        <div class="rp-text">「這位先生，雖然主人並不介意讓您的狗進來，但請務必牽好繩子，不要讓牠毀損屋內的物品。」
+        </div>
+      </div>
+    </div>
+
+     <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">瞭然的點了點頭，「知道。」</div>
+      </div>
+    </div>
+
+    <!-- 希格爾德 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">希格爾德</div>
+        <div class="rp-text">希格爾德抬頭望著伊萊亞斯，「汪嗚？」腦袋微微傾斜。</div>
+      </div>
+    </div>
+
+     <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">他低頭看向希格爾德，語氣明顯比回應人時更加溫柔，「Du er en flink gutt, ikke sant?（你是好孩子，對不對？）」</div>
+      </div>
+    </div>
+
+    <!-- 泉 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Izumi/normal.webp`} alt="泉" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-izumi">泉 夕希</div>
+        <div class="rp-text">泉回頭望了牽著狗的人一眼，然後才踏進屋內「感謝你們的好意，不好意思打擾了。」她對門口旁的男人說。</div>
+      </div>
+    </div>
+
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">「那就失禮了。」順著內原的動作，鳥取抓著挎包的背帶走入屋內。<span class="br-sm"></span>
+        「不知道一會兒方不方便拜訪一下屋主？都讓我們借宿了，至少打聲招呼才好。」
+        </div>
+      </div>
+    </div>
+
+    <!-- 希格爾德 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">希格爾德</div>
+        <div class="rp-text">希格爾德吐著舌，嘴微微張開，眼神亮晶晶地望著伊萊亞斯。牠往主人那湊，鼻尖頂著伊萊亞斯的手心，「汪！」</div>
+      </div>
+    </div>
+
+    <!-- 內原 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/fuukikan-npc/yanaihara-normal.webp`} alt="內原" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">內原 遠蝶</div>
+        <div class="rp-text">聽到伊萊亞斯的反應，他點頭微微一笑，然後在迎接你們進入屋內的時候看了一眼提出詢問的鳥取。<span class="br-sm"></span>
+        「當然可以，實際上我的主人已經在裡面等待各位了。」
+        </div>
+      </div>
+    </div>
+
+    <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">「En flink gutt. Følg.（乖孩子，跟上來。）」牽著希格爾德跟著進屋。</div>
+      </div>
+    </div>
+
+    <div class="scene-marker"
+      data-bg={`${IMG_BASE}/scene/fuukikan/horu.webp`}
+      data-location="Location"
+      data-title={`桔梗館・夜`}
+      data-chars={`西条 遙香<br>泉 夕希<br>伊萊亞斯．諾德海姆<br>鳥取 千之`}>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">在踏入大門後，眼前映入你們眼中的空間既寬敞又奢華，彷彿是從童話書中出現的城堡，華麗的不切實際。
+            <span class="br-sm"></span>
+            通往上層的樓梯位於大廳，左右兩側各有延伸出去的走廊，正前方則是畫廊。
+            <span class="br-sm"></span>
+            四周擺放著精緻而高雅的家具與擺設，處處透露出不凡的品味。</div>
+      </div>
+    </div>
+
+    <!-- 古場 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/fuukikan-npc/koba-normal.webp`} alt="古場" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">古場 庄太</div>
+        <div class="rp-text">你們看到距離門外幾步的地方站著一名男性，見你們進門，他便朝你們靠近過來。<span class="br-sm"></span>
+        「我已經聽說情況了，你們今晚就先安心住下來吧，等明天一早，我會讓內原開車送你們離開。」
+        </div>
+      </div>
+    </div>
+
+    <!-- 內原 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/fuukikan-npc/yanaihara-normal.webp`} alt="內原" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">內原 遠蝶</div>
+        <div class="rp-text">內原站在古場身側，恭敬地行了一個鞠躬，並且禮貌地介紹道：「我是本館的管家內原 遠蝶，若有任何需要，請隨時告訴我。」他的態度毫無瑕疵，展現出一位完美管家的風範。
+        </div>
+      </div>
+    </div>
+
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">「那還真是勞煩了⋯⋯敝姓鳥取，今晚要請幾位多關照了。」他也帶上微笑，彎腰朝內原和古場分別鞠了躬。
+        </div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">「感謝。」在內原領人進屋時對他頷首道謝，進入宅邸後自然而然簡單打量了下，之後也同樣向古場低頭致謝。「不好意思打擾了，謝謝。如果有任何需要注意的事項，也請告知。」</div>
+      </div>
+    </div>
+
+    <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">伊萊亞斯望了望看起來就很貴的整個室內空間，「我住附近，不用了。」<span class="br-sm"></span>
+        過了一下他才語速偏慢補了一句，「謝謝。」</div>
+      </div>
+    </div>
+
+    <!-- 希格爾德 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">希格爾德</div>
+        <div class="rp-text">希格爾德一踏進來就停下腳步，爪子踩在地毯上明顯有些不太適應。牠抬頭望著那些閃亮亮的燈光，耳朵抖動著，看上去有些困惑。狗勾好奇地聞了聞地毯。</div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP ➤ 希格爾德</div>
+        <div class="rp-text">這裡大概清掃得非常乾淨，沒有什麼奇怪的味道。</div>
+      </div>
+    </div>
+
+    <!-- 泉 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Izumi/normal.webp`} alt="泉" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-izumi">泉 夕希</div>
+        <div class="rp-text">「要麻煩你們了，」泉朝人鞠了躬，看了旁邊的鳥取一眼，「敝姓泉，今晚叨擾了。」又輕輕地點了下頭。</div>
+      </div>
+    </div>
+
+    <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">注意力只看了一會房子後又看向希格爾德，他後知後覺地報上自己的名字。<span class="br-sm"></span>
+        「伊萊亞斯．諾德海姆。」念了好長一串。</div>
+      </div>
+    </div>
+
+    <!-- 古場 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/fuukikan-npc/koba-normal.webp`} alt="古場" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">古場 庄太</div>
+        <div class="rp-text">你們看見古場笑著朝你們擺擺手，「敝姓古場。請各位不用客氣，就在這裡放心休息吧。」<span class="br-sm"></span>
+        「內原，你待會就先帶客人們到處看看。」
+        </div>
+      </div>
+    </div>
+
+    <!-- 內原 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/fuukikan-npc/yanaihara-normal.webp`} alt="內原" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">內原 遠蝶</div>
+        <div class="rp-text">「好的，主人。」
+        </div>
+      </div>
+    </div>
+
+    <!-- 希格爾德 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">希格爾德</div>
+        <div class="rp-text">「汪！」聞完地毯後繼續乖乖地站在伊萊亞斯旁邊。</div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">就在這時，一名男子恰好從走廊經過。他的目光如刀鋒般銳利，直勾勾地盯著你們。</div>
+      </div>
+    </div>
+
+  <!-- 私人訊息 -->
+  <div class="private-wrap" style="--private-color: 125, 185, 222;">
+    
+    <div class="private-block">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP ➤ 伊萊亞斯</div>
+        <div class="rp-text">這只是一名普通男性——原本，應該要是這樣的。
+            <span class="br-sm"></span>
+            然而在你眼中所呈現出來的世界，完全不是這麼一回事。
+            <span class="br-sm"></span>
+            你聽見悽慘哀嚎的聲音。
+            <span class="br-sm"></span>
+            分不清的、數不清的，很難說出有多少靈魂纏繞在眼前的男子身上，在陰暗的魂體籠罩下，你有時甚至難以看清對方的面容。
+            <span class="br-sm"></span>
+            這或許是你生平第一次看見這副恐怖的景色。
+        </div>
+      </div>
     </div>
 
     <!-- 擲骰 -->
     <div class="dice-block">
-      <div class="dice-name name-isago">砂金 理來．魅惑</div>
-      <div class="dice-result">出目 5/15</div>
-      <div class="dice-outcome name-success">困難成功</div>
+      <div class="dice-name name-elias">伊萊亞斯．SC</div>
+      <div class="dice-result">出目 46/40</div>
+      <div class="dice-outcome name-fail" style="margin-bottom: 8px;">失敗</div>
     </div>
 
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">那對方短暫愣了一下，但很快便主動開始了陳述。<br><br>他潛入屋內本就是打算行竊，刺傷保全的也是他。<br>盜竊的目標從一開始就是《死靈之書》抄本，因為那是極其珍貴的魔法典籍抄本，附加價值非常高，而他也需要錢。<br><br>當時他把一扇窗戶從窗軌上卸下後潛入屋內，然而到了現場後，他才發現目標物品已經不見了，同時在展櫃附近跟保全撞了個正著，準備逃跑時，因為保全攔住去路，他就用小刀刺傷了對方的腹部。</div>
-      </div>
-    </div>
-
-    <!-- 擲骰提示 -->
+    <!-- 狀態變化 -->
     <div class="dice-block">
-      <div class="dice-result">《心理學》</div>
-    </div>
-
-    <!-- 擲骰 -->
-    <div class="dice-block">
-      <div class="dice-name name-isago">砂金 理來．心理學</div>
-      <div class="dice-result">出目 2/80</div>
-      <div class="dice-outcome name-success">極限成功</div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">不知道是不是被你盯得有些緊張，清水說話的速度很快，偶爾會回頭補充前面的資訊，但大多都描述得相當仔細，唯獨行竊的理由被含糊帶過。<br><br>他在說謊，看著他的神情，你愈發確信了唯獨行竊的理由是謊言。</div>
-      </div>
-    </div>
-
-    <!-- 砂金 -->
-    <div class="row">
-      <img src={`${IMG_BASE}/Characters/Isago/normal(close-eyes)(unhigh-light).png`} alt="isago" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-isago">砂金 理來</div>
-        <div class="rp-text">「真是令人惋惜的故事。」<br>「不過，要是有原因的話，其實是很有機會從輕發落的呢？那麼，您又是為什麼需要錢呢？」</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">「就是缺錢……繳不出房租了而已、嘖，想要錢不需要理由吧？啊？」你能感覺到他緊繃著肩膀。</div>
-      </div>
-    </div>
-
-    <!-- 砂金 -->
-    <div class="row">
-      <img src={`${IMG_BASE}/Characters/Isago/normal(close-eyes)(unhigh-light).png`} alt="isago" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-isago">砂金 理來</div>
-        <div class="rp-text">「確實是如此呢，但畢竟您不像是缺錢的樣子，所以我想，也許是有什麼難以啟齒的理由。」<br>「警察之所以被稱作人民公僕，工作就是協助人民解決各式各樣的煩惱吶，那麼，如果我把記錄員暫時請離，您願意和我聊聊嗎？」他放柔語氣，收回手，雙手交疊著輕輕托起下頷，朝對面的人眨了眨眼。</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">眼見清水真的轉過頭來，你也朝他揮了揮手示意，記錄員帶著一言難盡的表情暫時離開了審訊室。</div>
-      </div>
-    </div>
-
-    <!-- 擲骰提示 -->
-    <div class="dice-block">
-      <div class="dice-result">《説得+10》</div>
-    </div>
-
-    <!-- 擲骰 -->
-    <div class="dice-block">
-      <div class="dice-name name-isago">砂金 理來．說得</div>
-      <div class="dice-result">出目 24/20</div>
-      <div class="dice-outcome name-fail">失敗</div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">記錄員離開後你又和他簡單聊了幾句，儘管男人看上去相當動搖，但幾番掙扎後還是沒有再開口。<br><br>之後，審訊順利結束，因為清水相當配合，你實際上沒花多少時間，看上去還可以準時下班。<br>監督清水在訊問筆錄上簽了字後，資料隨即被提交給了島田，他依舊是你熟悉的輕蔑表情。</div>
-      </div>
-    </div>
-
-    <!-- 刑事 -->
-    <div class="row">
-      <div class="avatar">刑</div>
-      <div class="bubble-wrap">
-        <div class="charname name-kp">刑事</div>
-        <div class="rp-text">「證詞看起來沒什麼變化啊。」<br>「總之，接下來我們還需要找到那個失竊的抄本，你也參與搜索吧。」他一臉理所當然的表情。<br><br>「因為嫌疑人已經被捕，所以這個案子沒辦法分配太多人手，行動會以單人為主。」<br>「如果嫌疑人的證詞屬實，那麼真正的犯人可能還藏在某個地方。收藏家的住宅、附近的監視錄影跟嫌疑人的住宅，這幾個地方都還有警員駐守，你可以隨意進出，好了、去吧，我還要寫審訊報告。」把地圖和嫌疑人家的鑰匙扔向你後，他驅趕似的揮了揮手。</div>
-      </div>
-    </div>
-
-    <!-- 砂金 -->
-    <div class="row">
-      <img src={`${IMG_BASE}/Characters/Isago/normal(close-eyes)(unhigh-light).png`} alt="isago" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-isago">砂金 理來</div>
-        <div class="rp-text">「……」</div>
-      </div>
-    </div>
-
-    <!-- 砂金 -->
-    <div class="row">
-      <img src={`${IMG_BASE}/Characters/Isago/normal(close-eyes)(unhigh-light).png`} alt="isago" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-isago">砂金 理來</div>
-        <div class="rp-text">「………………………………」</div>
-      </div>
-    </div>
-
-    <!-- 砂金 -->
-    <div class="row">
-      <img src={`${IMG_BASE}/Characters/Isago/normal(close-eyes)(unhigh-light).png`} alt="isago" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-isago">砂金 理來</div>
-        <div class="rp-text">姑且穩穩接下了被扔過來的東西，他轉頭看向附近像是早有預料般，已經一個警員都不剩的辦公室，最後還是把鑰匙握在了手裡。</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">你回到了自己的辦公室，開始收拾東西準備離開，臨走前，你對著桌上的鑰匙拋出了你的幸運幣——正面。<br><br>也許去了也不壞嗎？</div>
-      </div>
-    </div>
-
-    <!-- 砂金（空，預留） -->
-    <div class="row">
-      <img src={`${IMG_BASE}/Characters/Isago/normal(close-eyes)(unhigh-light).png`} alt="isago" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-isago">砂金 理來</div>
-        <div class="rp-text"></div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">どこに行こうか</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">你驅車來到了距離最近的收藏家住宅。<br><br>案發現場是當地有名的收藏家住宅。這裡巡邏的保全比平時更多，他們見到你後便放行你進屋。<br>屋內充滿舊書的氣味，各類古書文獻整齊地陳列在書架上。另外，有一面窗玻璃被卸了下來，不難想像犯人就是從這裡潛入的。<br>除此之外，為了查明犯人的手法，還有一名搜查三課的刑警正在調查原本用來展示《死靈之書》抄本的展櫃。</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">どこを調べようか</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">牆上開了很多扇窗戶，被卸下玻璃的那一扇特別顯眼。<br>這裡沒有檢測出指紋，推測窗戶是嫌疑人進入時卸下的。</div>
-      </div>
-    </div>
-
-    <!-- 擲骰提示 -->
-    <div class="dice-block">
-      <div class="dice-result">《偵查》</div>
-    </div>
-
-    <!-- 擲骰 -->
-    <div class="dice-block">
-      <div class="dice-name name-isago">砂金 理來．偵查</div>
-      <div class="dice-result">出目 81/25</div>
-      <div class="dice-outcome name-fail">失敗</div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">特に気がつくことはない。</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">どこを調べようか</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">展櫃的玻璃已經碎成殘渣，推測是被某人用鐵鎚之類的工具破壞了。另外，從粉碎程度來看，展櫃使用的是強化玻璃。</div>
-      </div>
-    </div>
-
-    <!-- 擲骰提示 -->
-    <div class="dice-block">
-      <div class="dice-result">《偵查》/《追蹤》</div>
-    </div>
-
-    <!-- 擲骰 -->
-    <div class="dice-block">
-      <div class="dice-name name-isago">砂金 理來．偵查</div>
-      <div class="dice-result">出目 17/25</div>
-      <div class="dice-outcome name-success">成功</div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">仔細一看，玻璃碎片延伸向了窗戶的方向，但密集的窗戶讓你無法分辨是哪一扇窗。<br>看上去是逃跑時，竊賊的鞋底沾上了玻璃殘渣。<br>另外，根據原地殘留的碎片可以推測竊賊的鞋碼，大約是 27 公分。</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">どこを調べようか</div>
-      </div>
-    </div>
-
-    <!-- KP（刑警） -->
-    <div class="row">
-      <div class="avatar">刑</div>
-      <div class="bubble-wrap">
-        <div class="charname name-kp">刑警</div>
-        <div class="rp-text">「犯人應該是用市售的應急安全鎚打碎玻璃的，現場沒有留下指紋、毛髮之類能確定身份的線索。」<br>「至於手法，我認為是先卸下窗戶潛入，然後打碎展櫃玻璃，偷走了裡面的物品。保全應該是聽到了玻璃破碎的巨大聲響，才趕來查看。」<br>「除了被卸下的窗戶，我還發現另一扇窗有被卸下過的痕跡，但不清楚為什麼會這樣。也許在嫌疑人之前，就已經有竊賊潛入了屋子。」</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">どこを調べようか</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">どこに行こうか</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">你快轉查看監視錄影，發現了三段令人在意的畫面：<br><br>第一段：1點45分左右<br>一名手持托特包、與嫌疑人身高相近的男子通過了監視區域。他前進的方向正是收藏家的住宅。<br><br>第二段：1點50分左右<br>嫌疑人通過監視區域，同樣往收藏家住宅的方向走去。<br><br>第三段：2點10分左右<br>也就是嫌疑人被捕之後，一個與1點45分出現的男子裝扮相同的男人從現場方向跑來，隨後往西邊跑去。你知道西邊正是嫌疑人家所在的方向。<br><br>《偵查》</div>
-      </div>
-    </div>
-
-    <!-- 擲骰提示 -->
-    <div class="dice-block">
-      <div class="dice-result">《偵查》</div>
-    </div>
-
-    <!-- 擲骰 -->
-    <div class="dice-block name-isago">
-      <div class="dice-name name-isago">砂金 理來．偵查</div>
-      <div class="dice-result">出目 14/25</div>
-      <div class="dice-outcome name-success">成功</div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">2點10分的托特包看起來似乎比1點45分的時候裝了更多東西。</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">どこに行こうか</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">嫌疑人的家位於現場西面。由於屋主已經被逮捕，你沒有在周圍見到警員。這次的嫌疑人是現行犯，所以不需要搜查令就可以搜查住宅。<br><br>屋內沒有什麼特別值得注意的東西，但到處都散落著厚重的書籍。這些書的內容大多光怪陸離，並且大部分都與「時間」有關。<br><br>《目星》/仔細檢查地板</div>
-      </div>
-    </div>
-
-    <!-- 擲骰提示 -->
-    <div class="dice-block">
-      <div class="dice-result">《偵查》</div>
-    </div>
-
-    <!-- 擲骰 -->
-    <div class="dice-block">
-      <div class="dice-name name-isago">砂金 理來．偵查</div>
-      <div class="dice-result">出目 61/25</div>
-      <div class="dice-outcome name-fail">失敗</div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">你在散亂的書堆下發現了一個通往地下室的活板門。但是門鎖著，打不開。把耳朵貼上去也聽不到什麼聲音。<br><br>你翻遍屋子也找不到鑰匙。想強行撬開蓋板，手頭也沒有撬棍。想開門只能回一趟警署去取撬棍了。</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">どこに行こうか</div>
-      </div>
-    </div>
-
-    <!-- KP（空，預留） -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text"></div>
-      </div>
-    </div>
-
-    <!-- 擲骰提示 -->
-    <div class="dice-block">
-      <div class="dice-result">《信用》</div>
-    </div>
-
-    <!-- 擲骰 -->
-    <div class="dice-block">
-      <div class="dice-name name-isago">砂金 理來．信用</div>
-      <div class="dice-result">出目 50/50</div>
-      <div class="dice-outcome name-success">成功</div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">你暫且離開了那個地方，回到自己的車子旁邊打了個電話。<br><br>此時已經過了下班時間，那頭的人語氣似乎帶了些不耐煩，但最終還是嘆了口氣應下了你的要求。</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">何を聞こうか</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">清水「身長は180cm、足のサイズは27cmだ。」</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">何を聞こうか</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">清水「その日は、窃盗に入ろうとした時以外には現場に近づいていない。現場に近づいたのは、1時50分頃だったはずだ。」</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">何を聞こうか</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">清水「時間に関する本が散らばっているのは、時間遡行だとか、黒魔術だとか、そういう魔術的なことに興味があったからだ。」</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">何を聞こうか</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">清水「元々家にあった地下室に繋がるハッチだ。地下室には最近入っていないから鍵はかかっていないはずなのだが...。<br>地下室へ繋がるハッチの鍵は内側からも外側からもかけられるようになっている。<br>ハッチの鍵は外のポストの中に入れているはずだ。」</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">何を聞こうか</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">取り調べ終了後、バールを持って再び被疑者の家へと向かう。<br>もちろん、先程と何も変わりの無い家だ。<br>被疑者の供述通りに、ポストの中を調べてみても鍵は見つからない。<br>家に入り、地下室のハッチのわずかな隙間にバールを差し込み、力を込めてそれをこじ開けた。<br><br>【判定】<br>《STR×5》</div>
-      </div>
-    </div>
-
-    <!-- 擲骰提示 -->
-    <div class="dice-block">
-      <div class="dice-result">《STR》</div>
-    </div>
-
-    <!-- 擲骰 -->
-    <div class="dice-block">
-      <div class="dice-name name-isago">砂金 理來．STR</div>
-      <div class="dice-result">出目 43/35</div>
-      <div class="dice-outcome name-fail">失敗</div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">失敗で少し手を痛めながらも開くことができる。HP-1。</div>
-      </div>
-    </div>
-
-    <!-- 擲骰（system） -->
-    <div class="dice-block">
-      <div class="dice-name">system</div>
-      <div class="dice-result">HP 11 → 10　／　SAN 75 → 74</div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">打開活板門，一股濕氣夾雜著鐵鏽味與肉類燒焦的味道撲面而來。濃重的臭味讓你情不自禁地皺起眉頭。<br><br>門下是一段梯子，可以看出下方還有空間。你打開手機的手電筒，慢慢沿著梯子爬下。哐、哐。踩踏梯子的聲音持續片刻後，你的雙腳終於踏上地面。<br><br>你舉起手機照明，發現地上躺著一個人。走過去用手電筒照亮，你頓時吃了一驚——那是一具屍體。並且，這具屍體有兩點怪異之處：<br><br>其一，是屍體後背分佈著一圈圈同心圓狀的燒焦痕跡；其二，是屍體與正在接受拘留的嫌疑人清水祟長得一模一樣。<br>此外，屍體身上的衣物並沒有燒焦。<br><br>詭異的燒傷，本不該出現在這裡的屍體。面對這異樣的情況，探索者 SANc (1/1d4+1)。<br><br>這種情況下，首先要做的就是聯繫上司，申請支援。<br>地下室訊號不好，你應該會暫且回到一樓，向上司撥打電話。<br><br>還好，電話馬上就撥通了。上司表示會儘快安排支援，在支援到達之前，希望你能調查一下地下室和那具屍體。</div>
-      </div>
-    </div>
-
-    <!-- 擲骰提示 -->
-    <div class="dice-block">
-      <div class="dice-result">《San Check 0/1》</div>
-    </div>
-
-    <!-- 擲骰 -->
-    <div class="dice-block">
-      <div class="dice-name name-isago">砂金 理來．SC</div>
-      <div class="dice-result">出目 51/75</div>
-      <div class="dice-outcome name-success">成功</div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">ハッチを開けば、湿気と共に肉が焦げ付いた臭いと鉄の臭いがあなたを襲う。もわっとした嫌な臭気に思わず眉をしかめてしまうことだろう。<br>ハッチの下には梯子が続いており、その下に空間があることが分かる。スマートフォンのライトを付け、あなたはゆっくりとその梯子を下りていった。コン、コンと梯子に足をかける音だけがしばらく響き、やがてその足が床に付く。</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">スマホのライトを空間へと向ければ、そこには人間が横たわっていた。近づき、ライトを照らしてあなたはハッとする。それは、死体だ。さらに、奇妙な点が二つある。<br>一つは、背中の部分に同心円状の輪のように肉の焦げた傷跡が広がっていること。もう一つは、死体は拘留されているはずの清水 祟被疑者と同じ顔をしていたのだ。<br>さらに、死体の着ている衣服には焦げ跡が見当たらない。<br>不気味な火傷痕、ここにいるはずのない人物の死体、異様な状況にSANc(1/1d4+1)。</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">この状況であなたがまず行うことは、一度上司に連絡をして応援を要請することである。<br>あなたは電波の通じる地上へと一度戻り、上司に電話をかけることだろう。<br><br>幸い、上司とはすぐに連絡が付き、早急に応援を手配してくれるとのことだ。応援が到着するまでに、その空間や死体について調べて欲しいと頼まれる。</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">何を調べようか</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">距離屍體較遠的地方放著一本書，書名是《死靈之書》。看來這就是從收藏家那裡偷來的抄本。<br><br>另外，你環顧四周，發現地上似乎塗著紅色的油漆。但是油漆已經被蹭花，分辨不出原本畫了什麼。<br><br>《克蘇魯神話》</div>
-      </div>
-    </div>
-
-    <!-- 擲骰提示 -->
-    <div class="dice-block">
-      <div class="dice-result">《克蘇魯神話》</div>
-    </div>
-
-    <!-- 擲骰 -->
-    <div class="dice-block">
-      <div class="dice-name name-isago">砂金 理來．克蘇魯神話</div>
-      <div class="dice-result">出目 15/12</div>
-      <div class="dice-outcome name-fail">失敗</div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">這具屍體越看越像正在接受拘留的嫌疑人清水祟。他神情痛苦、大張著嘴，手按著胸口，面朝下倒在地上。另外，他的手裡握著一把鑰匙，應該是用來開啟活板門的。<br><br>現在支援還沒到，你不能觸碰或移動屍體。</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">特に感じることはない</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">何を調べようか</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">這具屍體越看越像正在接受拘留的嫌疑人清水祟。他神情痛苦、大張著嘴，手按著胸口，面朝下倒在地上。另外，他的手裡握著一把鑰匙，應該是用來開啟活板門的。<br><br>現在支援還沒到，你不能觸碰或移動屍體。<br><br>《醫學》</div>
-      </div>
-    </div>
-
-    <!-- 擲骰提示 -->
-    <div class="dice-block">
-      <div class="dice-result">《醫學》</div>
-    </div>
-
-    <!-- 擲骰 -->
-    <div class="dice-block">
-      <div class="dice-name name-isago">砂金 理來．醫學</div>
-      <div class="dice-result">出目 64/1</div>
-      <div class="dice-outcome name-fail">失敗</div>
-    </div>
-
-    <!-- 砂金 -->
-    <div class="row">
-      <img src={`${IMG_BASE}/Characters/Isago/normal(close-eyes)(unhigh-light).png`} alt="isago" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-isago">砂金 理來</div>
-        <div class="rp-text">「哎呀。」他雙手背在身後，朝屍體彎下腰去。<br>「可惜久世不在吶，我也沒有給你屍檢的打算，不過看上去不像是雙生子呢。」</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">特に分かることはない</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">何を調べようか</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">這時，支援人員抵達了嫌疑人的家，幾名刑警下到了你所在的地下室，島田則是帶著複雜的神情走在他們身後。<br><br>「贓物果然在這啊……」他喃喃道。<br>「對了，現在你也算是調查人員，所以跟你說一聲。」<br><br>「我們在拘留所發現了嫌疑人清水祟的遺體，而且目前來看，死因和你發現的這具屍體相去不遠。」<br>「雖然原因跟犯人目前都還沒有頭緒，監視錄影也沒拍到線索，但既然屍體是你發現的，你就先回局裡跟拘留所的同僚寫份報告吧。」<br><br>他這麼說著，揮手指示你返回警署。你應該會聽從指示，暫且返回警署吧。<br><br>嗎？</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="row">
-      <img src={`${IMG_BASE}/KPs/obake1.PNG`} alt="kp" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-kp">KP(?)</div>
-        <div class="rp-text">その後、署に戻ってきたあなたは、今回の事件の報告書作りに追われることとなる。<br>今回の事件の報告をどのように書いたか、またあなた自身がどのように感じたかをまとめたところで、本日の業務は終了となる。<br><br>(報告書に書いたことと、探索者が思ったことをRPした時点でこの章を終了する。<br>RPが終わり次第、ENDをクリックすること)</div>
-      </div>
-    </div>
-
-    <!-- 砂金 -->
-    <div class="row">
-      <img src={`${IMG_BASE}/Characters/Isago/normal(close-eyes)(unhigh-light).png`} alt="isago" class="avatar" />
-      <div class="bubble-wrap">
-        <div class="charname name-isago">砂金 理來</div>
-        <div class="rp-text">砂金只是沉默地笑著，把嫌疑人家的鑰匙舉起來晃了晃，叮鈴鈴、清脆的聲響迴盪在緊張的鑑識人員和島田之間。<br>他把鑰匙放到旁邊一張空置的桌上。<br><br>「我已經打過卡了，就不奉陪各位了吶。」<br>「祝順利喔——」</div>
-      </div>
-    </div>
-
-    <!-- KP -->
-    <div class="dice-block">
-      <div class="dice-result">第一章「Q」<br><br>ー報告完了。</div>
-    </div>
-
-    </div>
-
-    <div class="next-chapter">
-      <a href={`${base}/fuukikan/ch2-1`}>第二章へ →</a>
+      <div class="dice-name name-elias">伊萊亞斯</div>
+      <div class="dice-result">SAN 40 → 39</div>
     </div>
 
   </div>
 
-  <!-- 右側：場景資訊 -->
+    <!-- 古場 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/fuukikan-npc/koba-normal.webp`} alt="古場" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">古場 庄太</div>
+        <div class="rp-text">「啊，這位是我們的廚師河久。負責這裡的廚房工作。」古場說道，隨後看向河久，「河久，這幾位是客人，請好好款待他們。」
+        </div>
+      </div>
+    </div>
+
+    <!-- 河久 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/fuukikan-npc/kawa-normal.webp`} alt="河久" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">河久 霧刻</div>
+        <div class="rp-text">你們看見那雙深藍色的眼睛對著你們掃過一圈，隨後語氣冷漠地說道：「哼……原來你們就是這……今晚的客人啊。」他帶著些許不高興的語氣接著說下去：「不用擔心，我會讓你們吃到最棒的料理。」
+        </div>
+      </div>
+    </div>
+
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">鳥取臉上的笑容不變，甚至聲音還有些期待地朝停下腳步的男性欠身：「我會好好期待的，河久先生、今晚還請多指教。」
+        </div>
+      </div>
+    </div>
+
+    <!-- 泉 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Izumi/normal.webp`} alt="泉" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-izumi">泉 夕希</div>
+        <div class="rp-text">泉眨眨眼，還是朝人點頭致意「……要勞你費心了。」接在鳥取之後的聲音倒是明顯的客套話。</div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">對河久突然中斷的話語和奇怪的態度略為在意，不過沒表露在臉上，僅也點點頭。「那就麻煩了。」</div>
+      </div>
+    </div>
+
+    <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">視線對上河久的時候，他立刻轉移了目光，臉色有些蒼白，看不太出來是本來就如此還是其他原因導致。</div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">他沒有回應，只是露出一個看起來有些不屑的冷笑，然後朝著走廊左邊走去。</div>
+      </div>
+    </div>
+
+    <!-- 希格爾德 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">希格爾德</div>
+        <div class="rp-text">希格爾德輕舔著伊萊亞斯的手背。</div>
+      </div>
+    </div>
+
+    <!-- KP -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-kp">KP</div>
+        <div class="rp-text">隨後，你們跟著內原被引導至二樓。</div>
+      </div>
+    </div>
+
+      <div class="scene-marker"
+        data-bg={`${IMG_BASE}/scene/fuukikan/hanabatake.webp`}
+        data-location="Location"
+        data-title={`桔梗館・二樓・夜`}
+        data-chars={`西条 遙香\n泉 夕希\n伊萊亞斯．諾德海姆\n■■ ■■`}>
+      </div>
+
+    <!-- 鳴戶 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/KPs/goldfish.webp`} alt="kp" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">？？</div>
+        <div class="rp-text">在走廊上，你們看見了一名年輕男性。<span class="br-sm"></span>
+        他看到你們後顯得有些驚訝，但很快便反應過來，低聲說道：「歡迎……」並撇頭避開視線交流，直接往樓下離開了。</div>
+      </div>
+    </div>
+
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">「啊呀⋯⋯」看對方急匆匆要下樓，鳥取連忙讓了道，來不及開口便只是稍微頷首回應。
+        </div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">觀察了下那名年輕男性，隨後望向內原，看看對方會不會幫忙介紹。</div>
+      </div>
+    </div>
+
+    <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">帶著希格爾德往一旁的牆壁靠了過去避免擋道，看了一會後轉回目光。</div>
+      </div>
+    </div>
+
+    <!-- 內原 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/fuukikan-npc/yanaihara-normal.webp`} alt="內原" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">內原 遠蝶</div>
+        <div class="rp-text">內原看了眼對方離開的背影，隨後朝你們說道：「那孩子原本就是比較怕生的性格，請各位不要在意。」<span class="br-sm"></span>
+        「他叫鳴戶 透真，是這裡的執事，各位如果有需要的話也能找他幫忙。」
+        </div>
+      </div>
+    </div>
+
+    <!-- 泉 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Izumi/normal.webp`} alt="泉" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-izumi">泉 夕希</div>
+        <div class="rp-text">「原來是執事先生啊。」沒對上眼地目送對方離開後，泉聽著內原的介紹，點點頭表示理解。</div>
+      </div>
+    </div>
+
+    <!-- 內原 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/fuukikan-npc/yanaihara-normal.webp`} alt="內原" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">內原 遠蝶</div>
+        <div class="rp-text">「是的。」他笑了笑，隨後為你們介紹了一樓與二樓的房間配置，「二樓的客房有很多間，各位隨意挑選就好。」
+        </div>
+      </div>
+    </div>
+
+    <h2>再想想地圖怎麼放</h2>
+
+    <!-- 內原 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/fuukikan-npc/yanaihara-normal.webp`} alt="內原" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">內原 遠蝶</div>
+        <div class="rp-text">「對了，主人現在應該在書房，請各位不要去打擾；還有廚房也是，因為河久先生不太喜歡有人隨便進去。」他在說完後提醒道：「三樓則是私人房間所在，請不要擅自進入。」<span class="br-sm"></span>
+        「晚餐準備好後會通知各位，在此之前請隨意活動。」
+        </div>
+      </div>
+    </div>
+
+    <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">「知道了。」點了點頭。</div>
+      </div>
+    </div>
+
+    <!-- 希格爾德 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/sig.webp`} alt="Sig" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">希格爾德</div>
+        <div class="rp-text">「汪！」</div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">「了解。能請問遊戲室裡放了什麼嗎？」聽到有些意外的房間用途，多問了一句。</div>
+      </div>
+    </div>
+
+    <!-- 鳥取 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/chiyuki/normal.webp`} alt="鳥取" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-chiyuki">鳥取 千之</div>
+        <div class="rp-text">「我知道了，那晚餐時間再見吧。」雖然做了結語，但談話還沒告一段落，鳥取也沒直接離開，只是背過手往後站了站。
+        </div>
+      </div>
+    </div>
+
+    <!-- 泉 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Izumi/normal.webp`} alt="泉" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-izumi">泉 夕希</div>
+        <div class="rp-text">「好的。」將對方說的三個不能進去的地方牢牢記住，泉微笑著再次道謝，並在原地等待西條。</div>
+      </div>
+    </div>
+
+    <!-- 伊萊 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Elias/normal.webp`} alt="伊萊" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-elias">伊萊亞斯．諾德海姆</div>
+        <div class="rp-text">牽著狗見沒人離開或進房間，開始想不是解散了嗎。</div>
+      </div>
+    </div>
+
+    <!-- 內原 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/fuukikan-npc/yanaihara-normal.webp`} alt="內原" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">內原 遠蝶</div>
+        <div class="rp-text">「那裡面有許多設備，你們想要的話可以去那裡打牌或是射飛鏢來度過時間，如果喜歡玩電動的話也有。」他詳細的介紹著，不過似乎想起什麼，他又提醒道：「那裡也有小型酒吧，後面櫃子都有放酒，除了鎖起來的以外都可以飲用。」<span class="br-sm"></span>
+        「不過容我提醒一句，儘管主人非常慷慨，但還是請注意適度飲酒。」
+        <span class="br-sm"></span>
+        「如果沒有其他問題，那麼我就先離開了。」
+        </div>
+      </div>
+    </div>
+
+    <!-- 西条 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/Saijo/normal.webp`} alt="西条" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname name-saijo">西条 遙香</div>
+        <div class="rp-text">對內原的說明點頭表示了解，隨後搖搖頭。</div>
+      </div>
+    </div>
+
+    <!-- 內原 -->
+    <div class="row">
+      <img src={`${IMG_BASE}/Characters/fuukikan-npc/yanaihara-normal.webp`} alt="內原" class="avatar" />
+      <div class="bubble-wrap">
+        <div class="charname">內原 遠蝶</div>
+        <div class="rp-text">見你們似乎沒有問題，他笑了笑，說了句「稍後見」便走下樓。
+        </div>
+      </div>
+    </div>
+
+
+    </div>
+
+    <div class="next-chapter">
+      <a href={`${base}/fuukikan/ch1-2`}>餐前酒－黑皮諾 →</a>
+    </div>
+
+  </div>
+
+  <!-- 右側：預設場景資訊 -->
   <div class="scene-side">
     <div class="scene-bg"></div>
     <div class="scene-deco">
@@ -1222,11 +1052,11 @@
   </div>  
 
 </div>
-</body>
+</Layout>
 
 <script>
   // 使用 astro:page-load 確保在 ClientRouter 切換頁面後仍能執行
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('astro:page-load', () => {
     // 1. 取得右側顯示面板的元素，並斷言為 HTMLElement 以解決 style 報錯
     const sceneBg = document.querySelector('.scene-bg') as HTMLElement | null;
     const sceneTitle = document.querySelector('.scene-title') as HTMLElement | null;
@@ -1311,5 +1141,3 @@
     updateScene(markers[0] as HTMLElement);
   });
 </script>
-
-</html>

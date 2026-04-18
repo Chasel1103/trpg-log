@@ -1,1 +1,271 @@
 @import "tailwindcss";
+
+  @keyframes fadein {
+    to { opacity: 1; }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: #0a0810;
+    color: white;
+    font-family: sans-serif;
+    overflow-x: hidden;
+    opacity: 0;
+    animation: fadein 0.4s ease forwards;
+  }
+
+  /* ==============================
+     封面區塊
+  ============================== */
+  #cover {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .cover__bg {
+    position: absolute;
+    inset: 0;
+    background-color: #0f0c1a;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+  }
+  .cover__bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(8, 6, 20, 0.55);
+  }
+
+  .cover__bg-deco { position: absolute; inset: 0; z-index: 1; }
+  .cover__bg-deco::before {
+    content: '';
+    position: absolute;
+    top: 20%; left: 10%;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(80,50,120,0.15) 0%, transparent 70%);
+  }
+  .cover__bg-deco::after {
+    content: '';
+    position: absolute;
+    bottom: 15%; right: 8%;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(40,60,100,0.12) 0%, transparent 70%);
+  }
+
+  .cover__title-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .cover__title-line {
+    font-family: 'WanMin', serif;
+    font-size: clamp(120px, 18vw, 220px);
+    font-weight: 400;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(255,255,255,0.85);
+    letter-spacing: 0.05em;
+    line-height: 1;
+    white-space: nowrap;
+    position: absolute;
+  }
+  .cover__title-line--top { top: -0.1em; left: -0.2em; }
+  .cover__title-line--bottom { bottom: -0.1em; right: -0.2em; }
+
+  .cover__card {
+    position: relative;
+    z-index: 3;
+    width: 580px;
+    height: 260px;
+    background: #12080b;
+    border: 0.5px solid rgba(255,255,255,0.12);
+  }
+  .cover__info { position: absolute; top: 1.4rem; left: 1.4rem; z-index: 1; }
+  .cover__info-row { font-size: 13px; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; line-height: 1.7; }
+  .cover__info-tags { margin-top: 4px; font-size: 10.5px; color: rgba(255,255,255,0.28); letter-spacing: 0.04em; line-height: 1.8; }
+  .cover__cast { position: absolute; bottom: 1.4rem; right: 1.4rem; text-align: right; z-index: 1; }
+  .cover__cast-label { font-size: 9px; letter-spacing: 0.14em; color: rgba(255,255,255,0.22); text-transform: uppercase; margin-bottom: 4px; }
+  .cover__cast-names { font-size: 12px; color: rgba(255,255,255,0.55); letter-spacing: 0.08em; line-height: 1.7; }
+
+  /* 輪播 */
+  .carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .carousel__slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    pointer-events: none;
+  }
+  .carousel__slide.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* 控制列：左箭頭 + 指示點 + 右箭頭 */
+  .carousel__controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between; /* 關鍵：讓內容靠兩邊對齊 */
+    padding: 0 2rem; /* 距離邊緣的間距 */
+    z-index: 10;
+    pointer-events: none; /* 防止透明容器擋住中間的點擊 */
+  }
+  .carousel__prev,
+  .carousel__next {
+    background: rgba(0, 0, 0, 0.2); /* 稍微加一點點半透明背景增加可見度 */
+    border: none;
+    color: rgba(255,255,255,0.35);
+    font-size: 24px; /* 調大一點點方便點擊 */
+    cursor: pointer;
+    padding: 20px 10px;
+    transition: all 0.2s;
+    line-height: 1;
+    pointer-events: auto; /* 恢復按鈕可點擊 */
+  }
+
+  .carousel__prev:hover,
+  .carousel__next:hover {
+    color: rgba(255,255,255,1);
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  /* 移除原本指示點的 CSS (可直接刪除或隱藏) */
+  .carousel__dots {
+    display: none;
+  }
+  .carousel__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .carousel__dot.active {
+    background: rgba(255,255,255,0.8);
+  }
+
+  .cover__scroll-btn {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    opacity: 0.4; cursor: pointer; text-decoration: none; transition: opacity 0.2s; z-index: 10;
+  }
+  .cover__scroll-btn:hover { opacity: 0.75; }
+  .cover__scroll-label { font-size: 9px; letter-spacing: 0.14em; color: white; text-transform: uppercase; }
+  .cover__scroll-arrow { display: block; width: 14px; height: 14px; border-right: 1px solid white; border-bottom: 1px solid white; transform: rotate(45deg); }
+
+  /* ==============================
+     目錄區塊
+  ============================== */
+  #catalog {
+    position: relative;
+    width: 100%;
+    padding: 5rem 0 8rem;
+  }
+
+  .entry { margin-bottom: 5rem; }
+
+  .tl-wrap {
+    position: relative;
+    height: 90px;
+    margin-bottom: 0.8rem;
+  }
+  .tl-svg { position: absolute; }
+  .tl-time {
+    font-family: 'WanMin', serif;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: rgba(255,255,255,0.32);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
+  .entry__card-wrap { position: relative; overflow: visible; }
+
+  .entry__card {
+    display: block;
+    text-decoration: none;
+    width: 600px;
+    height: 180px;
+    background: #100e1a;
+    border: 0.5px solid rgba(255,255,255,0.1);
+    position: relative;
+    cursor: pointer;
+    overflow: visible;
+    transition: border-color 0.2s;
+    view-transition-name: var(--vt-name);
+  }
+  .entry__card:hover { border-color: rgba(255,255,255,0.28); }
+
+  .entry__card-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.35;
+    transition: opacity 0.2s;
+    clip-path: inset(0);
+    z-index: 0;
+  }
+  .entry__card:hover .entry__card-bg { opacity: 0.5; }
+
+  .entry__info {
+    position: absolute;
+    top: 10px;
+    left: -180px;
+    width: 160px;
+    text-align: right;
+    z-index: 5;
+  }
+  .entry__info-row { font-size: 10px; color: rgba(255,255,255,0.35); letter-spacing: 0.05em; line-height: 1.8; }
+  .entry__info-tags { margin-top: 4px; font-size: 9.5px; color: rgba(255,255,255,0.2); letter-spacing: 0.03em; line-height: 1.8; }
+
+  .entry__cast {
+    position: absolute;
+    bottom: 10px;
+    right: -180px;
+    width: 160px;
+    text-align: left;
+    z-index: 5;
+  }
+  .entry__cast-names { font-size: 10px; color: rgba(255,255,255,0.38); letter-spacing: 0.06em; line-height: 1.8; }
+
+  .entry__title-wrap {
+    position: absolute;
+    bottom: -12px;
+    left: -10px;
+    white-space: nowrap;
+    z-index: 10;
+  }
+  .entry__title-line {
+    font-family: 'WanMin', serif;
+    font-size: 30px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.82);
+    letter-spacing: 0.08em;
+    line-height: 1.35;
+    transition: color 0.2s;
+  }
+  .entry__card:hover .entry__title-line { color: rgba(255,255,255,1); }

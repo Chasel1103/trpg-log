@@ -1,0 +1,41 @@
+---
+import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+const base = import.meta.env.BASE_URL;
+const fontUrl = `${base}fonts/GenWanMin2TW-M.otf`;
+const chenfontUrl = `${base}fonts/ChenYuluoyan-2.0-Thin.ttf`;
+---
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <link rel="icon" type="image/x-icon" href={`${base}favicon.ico`} />
+  <Fragment set:html={`
+    <style>
+    @font-face {
+        font-family: 'WanMin';
+        src: url('${fontUrl}') format('opentype');
+        font-weight: 400;
+        font-display: block;
+      }
+
+      @font-face {
+        font-family: 'Chen';
+        /* 修正這裡：使用變數 chenFontUrl */
+        src: url('${chenfontUrl}') format('truetype');
+        font-weight: 400;
+        font-display: block;
+      }
+
+      @keyframes fadein {
+        to { opacity: 1; }
+      }
+
+    </style>
+  `} />
+  <slot name="head" />
+</head>
+<body>
+  <slot />
+</body>
+</html>
